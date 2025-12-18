@@ -185,14 +185,17 @@ table tr:hover {
     cursor: default;
 }
 pre {
-    background: #f1f1f1;                 /* NTTF theme */
+    background: #f1f1f1;                 
     padding: 10px;
     border-left: 4px solid var(--nttf-blue);
-    font-family: 'Courier New', monospace; /* Monospace for CLI look */
-    font-size: 18px;                       /* Slightly bigger for readability */
-    border-radius: 5px;                     /* Rounded corners */
-    border: 1px solid #ddd;                /* subtle border */
+    font-family: 'Courier New', monospace;
+    font-size: 18px;                       
+    border-radius: 5px;                    
+    border: 1px solid #ddd;               
     
-    overflow-x: auto;   /* Horizontal scroll on small screens */
-    white-space: pre;   /* Preserve spacing and tabs */
+    overflow-x: auto;       /* Adds horizontal scroll if content too wide */
+    white-space: pre;       /* Preserve tabs & spacing */
+    max-width: 100%;        /* Prevent overflowing parent container */
+    box-sizing: border-box; /* Include padding in width */
 }
+
