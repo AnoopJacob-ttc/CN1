@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NTTF Networking Lab</title>
+    <link rel="stylesheet" href="Support/style.css">
+    <style>
+        /* Container centers buttons only */
+        .container {
+            text-align: center; /* centers buttons */
+        }
+
+        /* Button styling */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff6b6b, #f8e71c, #1abc9c, #3498db, #9b59b6);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effect for buttons */
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Smooth gradient animation */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Table styling */
+        .info-table {
+            margin: 0 auto; /* center table horizontally */
+            border-collapse: collapse;
+            width: 80%; /* optional: table width */
+        }
+
+        .info-table th {
+            text-align: center; /* first column centered */
+            width: 25%; /* optional: set width */
+        }
+
+        .info-table td {
+            text-align: left; /* second column left-aligned */
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <img src="Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Nettur Technical Training Foundation</h1>
+        <p>Diploma in Computer Technology & IT Infrastructure – CP08</p>
+    </div>
+</header>
+<br><br>
+
+<div class="container">
+    <table class="info-table">
+        <tr><th>Subject</th><td>Setting & Configuring Computer Networks I</td></tr>
+        <tr><th>Subject Code</th><td>CP08080201L (Lab) | CP08201T (Theory)</td></tr>
+        <tr><th>Semester</th><td>2</td></tr>
+        <tr><th>Hours per Semester</th><td>80 Hours Lab | 40 Hours Theory</td></tr>
+        <tr><th>Revision Number</th><td>1</td></tr>
+        <tr><th>Revision Date</th><td>01/01/2026</td></tr>
+    </table>
+
+    <!-- Centered, magic-color buttons --><br><br>
+    <a href="Experiments/experiments.html" class="btn">View Lab Syllabus</a>
+    <a href="Theory/Theory_Syllabus.html" class="btn">View Theory Syllabus</a>
+</div>
+
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

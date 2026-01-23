@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 8</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 8</h1>
+<h1>BASIC SUBNETTING AND HOST ASSIGNMENT</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Subnet 192.168.10.0/24 into 4 equal subnets<br>
+   &emsp;&emsp;- Identify for each subnet: Network, Broadcast, First & Last Usable, Valid Host Range, Prefix, and Subnet Mask<br>
+   &emsp;&emsp;- Assign IPs to 8 PCs (two per subnet)<br>
+   &emsp;&emsp;- Connect all PCs to a switch and verify with ping — only PCs in the same subnet should communicate
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp8_Topology.png" alt="Experiment 8 Topology">
+</div>
+
+<h3>SUBNETTING 192.168.10.0/24 INTO 4 SUBNETS</h3>
+<pre>
+<b>Original Network:</b>  192.168.10.0/24
+<b>Number of Subnets:</b>  4 → Need 2 additional bits for subnetting (2<sup>2</sup> = 4)
+<b>New Subnet Mask:</b>  /26 → 255.255.255.192
+</pre>
+
+<h3>SUBNET TABLE</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Network Address</th>
+            <th>First Usable IP Address</th>
+            <th>Broadcast Address</th>
+            <th>Last Usable IP Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>192.168.10.0</td>
+        <td>192.168.10.1</td>
+        <td>192.168.10.63</td>
+        <td>192.168.10.62</td>
+    </tr>
+	<tr>
+        <td>192.168.10.64</td>
+        <td>192.168.10.65</td>
+        <td>192.168.10.127</td>
+        <td>192.168.10.126</td>
+    </tr>
+	<tr>
+        <td>192.168.10.128</td>
+        <td>192.168.10.129</td>
+        <td>192.168.10.191</td>
+        <td>192.168.10.190</td>
+    </tr>
+<tr>
+        <td>192.168.10.192</td>
+        <td>192.168.10.193</td>
+        <td>192.168.10.255</td>
+        <td>192.168.10.254</td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<h3>ADDRESSING TABLE</h3>
+<table class="addressing-table">
+    <thead>
+    <tr>
+	<th>DEVICE</th>
+        <th>IP ADDRESS</th>
+        <th>SUBNET MASK</th>
+    </tr>
+
+    </thead>
+    <tbody>
+<tr>
+        <td>PC-1A</td>
+        <td>192.168.10.1</td>
+        <td>255.255.255.192</td>
+    </tr>
+    <tr>
+        <td>PC-1B</td>
+        <td>192.168.10.2</td>
+        <td>255.255.255.192</td>
+    </tr>
+    <tr>
+        <td>PC-2A</td>
+        <td>192.168.10.65</td>
+        <td>255.255.255.192</td>
+    </tr>
+    <tr>
+        <td>PC-2B</td>
+        <td>192.168.10.66</td>
+        <td>255.255.255.192</td>
+    </tr>
+    <tr>
+        <td>PC-3A</td>
+        <td>192.168.10.129</td>
+        <td>255.255.255.192</td>
+    </tr>
+    <tr>
+        <td>PC-3B</td>
+        <td>192.168.10.130</td>
+        <td>255.255.255.192</td>
+    </tr>
+    <tr>
+        <td>PC-4A</td>
+        <td>192.168.10.193</td>
+        <td>255.255.255.192</td>
+    </tr>
+    <tr>
+        <td>PC-4B</td>
+        <td>192.168.10.194</td>
+        <td>255.255.255.192</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>INSTRUCTIONS</h3>
+<pre>
+Connect all PCs to the switch.
+Assign IP addresses to each PC as per the addressing table.
+</pre>
+
+<h3>EXPECTED RESULT</h3>
+<pre>
+PCs within the same subnet can ping each other successfully. (ping 192.168.10.2)
+PCs in different subnets cannot communicate (ping fails) because there is no router.
+</pre>
+
+<table class="addressing-table">
+    <thead>
+<tr>
+        <th>Ping From</th>
+        <th>Ping To</th>
+        <th>IP Address</th>
+        <th>Ping Result Fail/Success</th>
+    </tr>
+
+    </thead>
+    <tbody>
+<tr>
+        <td>PC-1A</td>
+        <td>PC-1B</td>
+        <td>192.168.10.2</td>
+        <td>Success</td>
+    </tr>
+    <tr>
+        <td>PC-2A</td>
+        <td>PC-2B</td>
+        <td>192.168.10.66</td>
+        <td>Success</td>
+    </tr>
+    <tr>
+        <td>PC-3A</td>
+        <td>PC-3B</td>
+        <td>192.168.10.130</td>
+        <td>Success</td>
+    </tr>
+    <tr>
+        <td>PC-4A</td>
+        <td>PC-4B</td>
+        <td>192.168.10.194</td>
+        <td>Success</td>
+    </tr>
+    <tr>
+        <td>PC-1A</td>
+        <td>PC-2A</td>
+        <td>192.168.10.65</td>
+        <td>Fail</td>
+    </tr>
+    <tr>
+        <td>PC-1A</td>
+        <td>PC-2B</td>
+        <td>192.168.10.66</td>
+        <td>Fail</td>
+    </tr>
+    <tr>
+        <td>PC-1A</td>
+        <td>PC-3A</td>
+        <td>192.168.10.129</td>
+        <td>Fail</td>
+    </tr>
+    <tr>
+        <td>PC-1A</td>
+        <td>PC-4A</td>
+        <td>192.168.10.193</td>
+        <td>Fail</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>RESULT:</h3>
+<p>Configured and verified Configure IPv6 Addressing</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment7.html" class="btn">Previous Exercise</a>
+    <a href="experiment9.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 20</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 20</h1>
+<h1>CONFIGURE DTP</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure Basic Settings<br>
+   &emsp;&emsp;- Configure Static Trunking<br>
+   &emsp;&emsp;- Configure and Verify DTP
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp19_Topology.png" alt="Experiment 20 Topology">
+</div>
+
+<h3>VLAN TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>VLAN ID</th>
+            <th>VLAN Name</th>
+            <th>Network Address</th>
+            <th>Subnet Mask</th>
+            <th>Ports to be assigned</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- VLAN 10 IT -->
+        <tr>
+            <td rowspan="2">10</td>
+            <td rowspan="2">IT</td>
+            <td rowspan="2">192.168.10.0</td>
+            <td rowspan="2">255.255.255.0</td>
+            <td>S1: Fa0/1</td>
+        </tr>
+        <tr>
+            <td>S2: Fa0/1</td>
+        </tr>
+
+        <!-- VLAN 20 HR -->
+        <tr>
+            <td rowspan="2">20</td>
+            <td rowspan="2">HR</td>
+            <td rowspan="2">192.168.20.0</td>
+            <td rowspan="2">255.255.255.0</td>
+            <td>S1: Fa0/2</td>
+        </tr>
+        <tr>
+            <td>S2: Fa0/2</td>
+        </tr>
+
+        <!-- VLAN 99 Native -->
+        <tr>
+            <td rowspan="2">99</td>
+            <td rowspan="2">Native</td>
+            <td colspan="3">S1: G0/1</td>
+        </tr>
+        <tr>
+            <td colspan="3">S2: G0/1</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>IT-PC1</td>
+            <td>NIC</td>
+            <td>192.168.10.10</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S1 Fa0/1</td>
+        </tr>
+        <tr>
+            <td>IT-PC2</td>
+            <td>NIC</td>
+            <td>192.168.10.11</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S2 Fa0/1</td>
+        </tr>
+        <tr>
+            <td>HR-PC1</td>
+            <td>NIC</td>
+            <td>192.168.20.10</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S1 Fa0/2</td>
+        </tr>
+        <tr>
+            <td>HR-PC2</td>
+            <td>NIC</td>
+            <td>192.168.20.11</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S2 Fa0/2</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S1
+
+S1(config)#vlan 10
+S1(config-vlan)#name IT
+
+S1(config-vlan)#vlan 20
+S1(config-vlan)#name HR
+
+S1(config-vlan)#vlan 99
+S1(config-vlan)#name Native
+
+S1(config-vlan)#interface fa0/1
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 10
+
+S1(config-if-range)#interface fa0/2
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 20
+
+S1(config-if-range)#interface GigabitEthernet0/1
+S1(config-if)#switchport mode dynamic desirable
+S1(config-if)#switchport trunk native vlan 99
+
+S1(config-if)#end
+S1#copy run start
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S2
+
+S2(config)#vlan 10
+S2(config-vlan)#name IT
+
+S2(config-vlan)#vlan 20
+S2(config-vlan)#name HR
+
+S2(config-vlan)#vlan 99
+S2(config-vlan)#name Native
+
+S2(config-vlan)#interface fa0/1
+S2(config-if-range)#switchport mode access
+S2(config-if-range)#switchport access vlan 10
+
+S2(config-if-range)#interface fa0/2
+S2(config-if-range)#switchport mode access
+S2(config-if-range)#switchport access vlan 20
+
+S2(config-if-range)#interface GigabitEthernet0/1
+S2(config-if)#switchport trunk native vlan 99
+
+S2(config-if)#end
+S2#copy run start
+</pre>
+
+
+<h3>IT-PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.10.10
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>IT-PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.10.11
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>HR-PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.20.10
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>HR-PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.20.11
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>SHOW COMMANDS USED</h3>
+<pre>
+Show vlan brief
+Show interfaces trunk
+Show running-config
+</pre>
+
+<h3>PING RESULT</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Ping from</th>
+            <th>To</th>
+            <th>Destination IP</th>
+            <th>Succeeded Yes/No</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- IT-PC1 -->
+        <tr>
+            <td rowspan="3">IT-PC1</td>
+            <td>IT-PC2</td>
+            <td>192.168.10.11</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>HR-PC1</td>
+            <td>192.168.20.10</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>HR-PC2</td>
+            <td>192.168.20.11</td>
+            <td>No</td>
+        </tr>
+
+        <!-- HR-PC1 -->
+        <tr>
+            <td rowspan="3">HR-PC1</td>
+            <td>IT-PC1</td>
+            <td>192.168.10.10</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>IT-PC2</td>
+            <td>192.168.10.11</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>HR-PC2</td>
+            <td>192.168.20.11</td>
+            <td>Yes</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>RESULT</h3>
+Created and Verified DTP successfully.
+</div>
+<div class="button-container">
+    <a href="experiment19.html" class="btn">Previous Exercise</a>
+    <a href="experiment21.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

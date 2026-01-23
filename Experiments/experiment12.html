@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 12</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 12</h1>
+<h1>CONNECT A ROUTER TO A LAN USING IPV6 ADDRESSING</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Display Router Information<br>
+   &emsp;&emsp;- Configure Basic Settings<br>
+   &emsp;&emsp;- Configure Router Interfaces<br>
+   &emsp;&emsp;- Verify the Configuration
+</p>
+
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp12_Topology.png" alt="Experiment 12 Topology">
+</div>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IPv6 Address / Prefix</th>
+            <th>Default Gateway</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- R1 -->
+        <tr>
+            <td rowspan="2">R1</td>
+            <td>G0/0/0</td>
+            <td>2001:DB8:ACAD:A::1/64</td>
+            <td>NOT APPLICABLE</td>
+        </tr>
+        <tr>
+            <td>G0/0/1</td>
+            <td>2001:DB8:ACAD:B::1/64</td>
+            <td>NOT APPLICABLE</td>
+        </tr>
+
+        <!-- S1 -->
+        <tr>
+            <td>S1</td>
+            <td>VLAN 1</td>
+            <td colspan="2">2001:DB8:ACAD:A::2/64</td>
+        </tr>
+
+        <!-- S2 -->
+        <tr>
+            <td>S2</td>
+            <td>VLAN 1</td>
+            <td colspan="2">2001:DB8:ACAD:B::2/64</td>
+        </tr>
+
+        <!-- PC1 -->
+        <tr>
+            <td>PC1</td>
+            <td>NIC</td>
+            <td>2001:DB8:ACAD:A::F/64</td>
+            <td>FE80::1</td>
+        </tr>
+
+        <!-- PC2 -->
+        <tr>
+            <td>PC2</td>
+            <td>NIC</td>
+            <td colspan="2">Automatic</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>DISPLAY ROUTER INFORMATION</h3>
+
+<h4>PERFORM BASIC CONFIGURATIONS ON S1</h4>
+<pre>
+Router>enable
+Router#show running-config
+</pre>
+
+<h3>CONFIGURE BASIC SETTINGS</h3>
+<pre>
+Router>enable
+Router#clock set 10:30:15 01 January 2026
+Router#configure terminal
+Router(config)#no ip domain-lookup
+Router(config)#hostname R1
+R1(config)#banner motd "Unauthorized access is strictly prohibited"
+R1(config)# ip domain-name nttftrg.com
+R1(config)#enable password cisco
+R1(config)#enable secret itsasecret
+R1(config)#service password-encryption
+
+R1(config)#line console 0
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)# logging synchronous
+R1(config-line)#exec-timeout 5
+
+R1(config-line)#line vty 0 15
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)# logging synchronous
+R1(config-line)#exec-timeout 5
+R1(config-line)#exit
+</pre>
+
+<h3>CONFIGURE ROUTER INTERFACES</h3>
+<pre>
+R1(config)#ipv6 unicast-routing
+R1(config)#interface g0/0/0
+R1(config-if)#ipv6 address 2001:DB8:ACAD:A::1/64
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#no shutdown
+
+R1(config-if)#interface g0/0/1
+R1(config-if)#ipv6 address 2001:DB8:ACAD:B::1/64
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#no shutdown
+R1(config-if)#end
+
+R1#copy run start
+</pre>
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#configure terminal
+Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
+Switch(config)#exit
+Switch#reload
+
+System configuration has been modified. Save? [yes/no]:yes
+Proceed with reload? [confirm][Press Enter Here]
+
+[After reload]
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S1
+
+S1(config)#interface vlan 1
+S1(config-if)#ipv6 address 2001:DB8:ACAD:A::2/64
+S1(config-if)#ipv6 address FE80::1 link-local
+S1(config-if)#no shutdown
+S1(config-if)#end
+
+S1#copy run start
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
+
+Switch(config)#exit
+Switch#reload
+
+System configuration has been modified. Save? [yes/no]:yes
+Proceed with reload? [confirm][press Enter Here]
+
+[After reload]
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S2
+
+S2(config)#interface vlan 1
+S2(config-if)#ipv6 address 2001:DB8:ACAD:B::2/64
+S2(config-if)#ipv6 address FE80::1 link-local
+S2(config-if)#no shutdown
+S2(config-if)#end
+S2#copy run start
+</pre>
+
+<h3>PC1 IPV6 CONFIGURATION</h3>
+<pre>
+<b>IPv6 Address:</b> 2001:DB8:ACAD:A::F/64
+<b>Default Gateway:</b> FE80::1
+</pre>
+
+
+<h3>PC2 IPV6 CONFIGURATION</h3>
+<pre>
+<b>IPv6 Configuration:</b> Automatic
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
+<pre>
+R1#show running-config
+R1#show ip interface brief
+S1#show ip interface brief
+S2#show ip interface brief
+C:/>ipconfig /all
+All devices will be able to ping each other using IPv6 Address.
+</pre>
+
+<h3>RESULT</h3>
+<p>Configured and verified Configure IPv6 Addressing</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment11.html" class="btn">Previous Exercise</a>
+    <a href="experiment13.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 14</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 14</h1>
+<h1>CONFIGURE SECURE PASSWORDS, SSH, AND TELNET ON A CISCO ROUTER</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure secure Password<br>
+   &emsp;&emsp;- Configure SSH & Telnet<br>
+   &emsp;&emsp;- Verify SSH & Telnet
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp14_Topology.png" alt="Experiment 14 Topology">
+</div>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+            <th>Default Gateway</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- R1 -->
+        <tr>
+            <td>R1</td>
+            <td>G0/0/0</td>
+            <td>192.168.1.1</td>
+            <td>255.255.255.0</td>
+            <td>NOT APPLICABLE</td>
+            <td>Connected to S1 G0/1</td>
+        </tr>
+
+        <!-- S1 -->
+        <tr>
+            <td>S1</td>
+            <td>VLAN 1</td>
+            <td>192.168.1.2</td>
+            <td>255.255.255.0</td>
+            <td>192.168.1.1</td>
+            <td>SVI for Management</td>
+        </tr>
+
+        <!-- PCA -->
+        <tr>
+            <td>PCA</td>
+            <td>NIC</td>
+            <td>192.168.1.10</td>
+            <td>255.255.255.0</td>
+            <td>192.168.1.1</td>
+            <td>Connected to S1 Fa0/1</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<h3>R1 CONFIGURATION (SSH)</h3>
+
+<pre>
+Router>
+Router>enable
+Router#conf t
+Router(config)#hostname R1
+R1(config)#enable secret class
+R1(config)#service password-encryption
+R1(config)#banner motd "Warning! Authorized access only"
+R1(config)#no ip domain-lookup
+R1(config)#ip domain-name cisco.com
+R1(config)#username admin secret admin
+R1(config)#crypto key generate rsa 
+1024
+R1(config)#ip ssh version 2
+
+R1(config)#line console 0
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)#line vty 0 15
+R1(config-line)#login local
+R1(config-line)#transport input ssh
+
+R1(config-line)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+R1(config-if)#end
+
+R1#copy run start
+</pre>
+
+<h3>S1 CONFIGURATION (TELNET)</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S1
+S1(config)#enable secret class
+S1(config)#service password-encryption
+S1(config)#banner motd "Warning! Authorized access only"
+S1(config)#no ip domain-lookup
+S1(config)#ip default-gateway 192.168.1.1
+
+S1(config)#line console 0
+S1(config-line)#password cisco
+S1(config-line)#login
+S1(config-line)#line vty 0 15
+S1(config-line)#password cisco
+S1(config-line)#login
+
+S1(config-line)#interface vlan 1
+S1(config-if)#ip address 192.168.1.2 255.255.255.0
+S1(config-if)#no shutdown
+S1(config-if)#end
+
+S1#copy run start
+</pre>
+
+
+
+<h3>PCA IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address:</b> 192.168.1.10
+<b>Subnet Mask:</b> 255.255.255.0
+<b>Default-Gateway:</b> 192.168.1.1
+</pre>
+
+
+<h3>ACCESS THE ROUTER USING SSH THROUGH THE PC-A COMMAND PROMPT</h3>
+<pre>
+C:\>ssh -l admin 192.168.1.1
+</pre>
+
+<h3>ACCESS THE SWITCH USING TELNET THROUGH THE PC-A COMMAND PROMPT</h3>
+<pre>
+C:\>telnet 192.168.1.1
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
+<pre>
+R1#show running-config
+R1#show ip interface brief
+S1#show ip interface brief
+</pre>
+
+<h3>RESULT</h3>
+<p>Accessed Router using SSH and Switch using Telnet from PCA</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment13.html" class="btn">Previous Exercise</a>
+    <a href="experiment15.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

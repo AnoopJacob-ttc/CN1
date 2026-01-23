@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 1</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 1</h1>
+<h1>FAMILIARIZATION OF PACKET TRACER & NAVIGATE THE IOS</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+
+<h3>AIM</h3>
+<p>&emsp;&emsp;- Explore EXEC Modes<br>
+   &emsp;&emsp;- Set the Clock</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp1_Topology.png" alt="Experiment 1 Topology">
+</div>
+<p>Packet Tracer is a network simulation tool used to practice configuring routers, switches, and networks without using real hardware.</p>
+
+<h3>WHY DO WE USE PACKET TRACER?</h3>
+<p>To learn networking practically<br>
+To design and test networks<br>
+To practice Cisco commands safely<br>
+To prepare for CCNA labs
+</p>
+
+<h3>BASIC COMPONENTS IN PACKET TRACER</h3>
+<p>End Devices: PC, Laptop, Server, Printer<br>
+Network Devices: Router, Switch, Firewall, Wireless Router<br>
+Connections: Copper Cable, Fiber, Console Cable<br>
+Workspace: Area where you build the network<br>
+CLI Tab: To enter IOS commands</p>
+
+<h3>EXPLORE EXEC MODES</h3>
+<pre>
+Switch>				//User Exec Mode
+Switch>enable
+Switch#				// Privileged Exec Mode
+Switch# configure terminal
+Switch(config)#			//Global Configuration Mode
+Switch(config)#interface fa0/1
+Switch(config-if)#		//Interface Mode (Specific Configuration Mode)
+</pre>
+
+<h3>SET THE CLOCK</h3>
+<pre>
+Switch>enable
+Switch#clock set 10:30:15 01 January 2026
+Switch#show clock
+</pre>
+
+<h3>RESULT:</h3>
+<p>Configured and verified Clock and explored IOS Exec Modes</p>
+
+
+
+</div>
+<!-- Bottom buttons optional -->
+<div class="button-container">
+    <a href="experiment2.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

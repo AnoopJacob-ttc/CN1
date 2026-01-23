@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 13</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 13</h1>
+<h1>EXAMINE THE ARP TABLE (USING PKA)</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="button-container">
+    <a href="../Attachments/Exercise-No13-Packet-Tracer-Examine-the-ARP-Table.pka" download class="btn">Download PKA File</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Examine an ARP Request<br>
+   &emsp;&emsp;- Examine a Switch MAC Address Table<br>
+   &emsp;&emsp;- Examine the ARP Process in Remote Communication
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp13_Topology.png" alt="Experiment 13 Topology">
+</div>
+
+<h3>ADDRESSING TABLE</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>MAC Address</th>
+            <th>Switch Interface</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Router0 -->
+        <tr>
+            <td rowspan="2">Router0</td>
+            <td>G0/0</td>
+            <td>0001.6458.2501</td>
+            <td>G0/1</td>
+        </tr>
+        <tr>
+            <td>S0/0/0</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr>
+
+        <!-- Router1 -->
+        <tr>
+            <td rowspan="2">Router1</td>
+            <td>G0/0</td>
+            <td>00E0.F7B1.8901</td>
+            <td>G0/1</td>
+        </tr>
+        <tr>
+            <td>S0/0/0</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr>
+
+        <!-- Other devices -->
+        <tr>
+            <td>10.10.10.2</td>
+            <td>Wireless</td>
+            <td>0060.2F84.4AB6</td>
+            <td>F0/2</td>
+        </tr>
+        <tr>
+            <td>10.10.10.3</td>
+            <td>Wireless</td>
+            <td>0060.4706.572B</td>
+            <td>F0/2</td>
+        </tr>
+        <tr>
+            <td>172.16.31.2</td>
+            <td>F0</td>
+            <td>000C.85CC.1DA7</td>
+            <td>F0/1</td>
+        </tr>
+        <tr>
+            <td>172.16.31.3</td>
+            <td>F0</td>
+            <td>0060.7036.2849</td>
+            <td>F0/2</td>
+        </tr>
+        <tr>
+            <td>172.16.31.4</td>
+            <td>G0</td>
+            <td>0002.1640.8D75</td>
+            <td>F0/3</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>PAPRT1: EXAMINE AN ARP REQUEST</h3>
+<h3>STEP 1: SGENERATE ARP REQUESTS BY PINGING 172.16.31.3 FROM 172.16.31.2</h3>
+<ol type="a">
+    <li>Click 172.16.31.2 and open the Command Prompt.</li>
+    <li>Enter the arp -d command to clear the ARP table.</li>
+    <li>Enter Simulation mode and enter the command ping 172.16.31.3. Two PDUs will be generated. The ping command cannot complete the ICMP packet without knowing the MAC address of the destination. So the computer sends an ARP broadcast frame to find the MAC address of the destination.</li>
+    <li>Click Capture/Forward once. The ARP PDU moves Switch1 while the ICMP PDU disappears, waiting for the ARP reply. Open the PDU and record the destination MAC address.<br>
+	Is this address listed in the table above? <b style="color: red;">No</b><br>
+What is the IP address of the device that accepted the PDU? <b style="color: red;">172.16.31.3</b></li>
+<li>Click Capture/Forward to move the PDU to the next device.<br>
+	How many copies of the PDU did Switch1 make? <b style="color: red;">3</b><br>
+What is the IP address of the device that accepted the PDU? <b style="color: red;">172.16.31.3</b>
+</li>
+    <li>Open the PDU and examine Layer 2.<br>
+What happened to the source and destination MAC addresses?<br>
+<b style="color: red;">Source became destination, FFFF.FFFF.FFFF turned into MAC address of 172.16.31.3</b>
+</li>
+    <li>Click Capture/Forward until the PDU returns to 172.16.31.2.<br>
+	How many copies of the PDU did the switch make during the ARP reply? <b style="color: red;">1</b>
+</li>
+</ol>
+
+<h3>STEP 2: EXAMINE THE ARP TABLE.</h3>
+<ol type="a">
+<li>Note that the ICMP packet reappears. Open the PDU and examine the MAC addresses.<br>
+Do the MAC addresses of the source and destination align with their IP addresses? <b style="color: red;">Yes</b>
+</li>
+<li>Switch back to Realtime and the ping completes.</li>
+<li>Click 172.16.31.2 and enter the arp –a command.<br>
+To what IP address does the MAC address entry correspond? <b style="color: red;">172.16.31.3</b><br>
+In general, when does an end device issue an ARP request?<br>
+<b style="color: red;">When it does not know the receiver’s MAC address.</b>
+</li></ol>
+
+<h3>PAPRT2: EXAMINE A SWITCH MAC ADDRESS TABLE</h3>
+<h3>STEP 1: GENERATE ADDITIONAL TRAFFIC TO POPULATE THE SWITCH MAC ADDRESS TABLE.</h3>
+<ol type="a">
+<li>From 172.16.31.2, enter the ping 172.16.31.4 command.</li>
+<li>Click 10.10.10.2 and open the Command Prompt.</li>
+<li>Enter the ping 10.10.10.3 command.<br>
+How many replies were sent and received? <b style="color: red;">4 sent, 4 received.</b>
+</li></ol>
+
+<h3>STEP 2: EXAMINE THE MAC ADDRESS TABLE ON THE SWITCHES.</h3>
+<ol type="a">
+<li>Click Switch1and then the CLI tab. Enter the show mac-address-table command.<br>
+Do the entries correspond to those in the table above? <b style="color: red;">Yes</b></li>
+<li>Click Switch0, then the CLI tab. Enter the show mac-address-table command.<br>
+Do the entries correspond to those in the table above? <b style="color: red;">Yes</b><br>
+Why are two MAC addresses associated with one port?<br>
+<b style="color: red;">Because both devices connect to one port through the Access Point.</b>
+</li></ol>
+
+<h3>PART 3: EXAMINE THE ARP PROCESS IN REMOTE COMMUNICATIONS</h3>
+<h3>STEP 1: GENERATE TRAFFIC TO PRODUCE ARP TRAFFIC.</h3>
+<ol type="a">
+<li>Click 172.16.31.2 and open the Command Prompt.</li>
+<li>Enter the ping 10.10.10.1 command.</li>
+<li>Type arp –a.<br>
+    What is the IP address of the new ARP table entry? <b style="color: red;">172.16.31.1</b></li>
+<li>Enter arp -d to clear the ARP table and switch to Simulation mode.</li>
+<li>Repeat the ping to 10.10.10.1.<br>
+    How many PDUs appear? <b style="color: red;">2</b>
+</li>
+<li>Click Capture/Forward. Click the PDU that is now at Switch1.<br>
+    What is the target destination IP destination address of the ARP request? <b style="color: red;">172.16.31.1</b>
+</li>
+<li>The destination IP address is not 10.10.10.1.<br>
+    Why?<br>
+    <b style="color: red;">The gateway address of the router interface is stored in the IPv4 configuration of the hosts. If the receiving host is not on the same network, the source uses the ARP process to determine a MAC address for the router interface serving as the gateway.</b>
+</li>
+</ol>
+
+
+<h3>STEP 2: EXAMINE THE ARP TABLE ON ROUTER1.</h3>
+<ol type="a">
+<li>Switch to Realtime mode. Click Router1 and then the CLI tab.</li>
+<li>Enter privileged EXEC mode and then the show mac-address-table command.<br>
+How many MAC addresses are in the table? Why?<br>
+<b style="color: red;">Zero, this command means something completely different than the switch command show mac address-table.</b>
+</li>
+<li>Enter the show arp command.<br>
+Is there an entry for 172.16.31.2? <b style="color: red;">Yes</b><br>
+What happens to the first ping in a situation where the router responds to the ARP request? <b style="color: red;">Request timed out.</b>
+</li>
+</ol>
+
+<h3>RESULT</h3>
+<p>Examined and verified an ARP Request, Switch MAC Address Table, and the ARP Process in Remote Communication</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment12.html" class="btn">Previous Exercise</a>
+    <a href="experiment14.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

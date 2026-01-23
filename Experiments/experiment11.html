@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 11</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 11</h1>
+<h1>CONNECT A ROUTER TO A LAN USING IPV4 ADDRESSING</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Display Router Information<br>
+   &emsp;&emsp;- Configure Basic Settings<br>
+   &emsp;&emsp;- Configure Router Interfaces<br>
+   &emsp;&emsp;- Verify the Configuration
+</p>
+
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp11_Topology.png" alt="Experiment 11 Topology">
+</div>
+
+
+<div class="container">
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+            <th>Default Gateway</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+    <td rowspan="2">R1</td>
+    <td>G0/0/0</td>
+    <td>192.168.1.1</td>
+    <td>255.255.255.0</td>
+    <td>NOT APPLICABLE</td>
+</tr>
+<tr>
+    <td>G0/0/1</td>
+    <td>192.168.2.1</td>
+    <td>255.255.255.0</td>
+    <td>NOT APPLICABLE</td>
+</tr>
+
+<tr>
+    <td>S1</td>
+    <td>VLAN 1</td>
+    <td>192.168.1.2</td>
+    <td>255.255.255.0</td>
+    <td>192.168.1.1</td>
+</tr>
+<tr>
+    <td>S2</td>
+    <td>VLAN 1</td>
+    <td>192.168.2.2</td>
+    <td>255.255.255.0</td>
+    <td>192.168.2.1</td>
+</tr>
+
+<tr>
+    <td>PC1</td>
+    <td>NIC</td>
+    <td>192.168.1.10</td>
+    <td>255.255.255.0</td>
+    <td>192.168.1.1</td>
+</tr>
+<tr>
+    <td>PC2</td>
+    <td>NIC</td>
+    <td>192.168.1.11</td>
+    <td>255.255.255.0</td>
+    <td>192.168.1.1</td>
+</tr>
+<tr>
+    <td>PC3</td>
+    <td>NIC</td>
+    <td>192.168.2.10</td>
+    <td>255.255.255.0</td>
+    <td>192.168.2.1</td>
+</tr>
+<tr>
+    <td>PC4</td>
+    <td>NIC</td>
+    <td>192.168.2.11</td>
+    <td>255.255.255.0</td>
+    <td>192.168.2.1</td>
+</tr>
+    </tbody>
+</table>
+</div>
+
+
+<h3>DISPLAY ROUTER INFORMATION</h3>
+
+<h4>PERFORM BASIC CONFIGURATIONS ON S1</h4>
+<pre>
+Router>enable
+Router#show running-config
+</pre>
+
+<h3>CONFIGURE BASIC SETTINGS</h3>
+<pre>
+Router>enable
+Router#clock set 10:30:15 01 January 2026
+Router#configure terminal
+Router(config)#no ip domain-lookup
+Router(config)#hostname R1
+R1(config)#banner motd "Unauthorized access is strictly prohibited"
+R1(config)# ip domain-name nttftrg.com
+R1(config)#enable password cisco
+R1(config)#enable secret itsasecret
+R1(config)#service password-encryption
+
+R1(config)#line console 0
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)# logging synchronous
+R1(config-line)#exec-timeout 5
+
+R1(config-line)#line vty 0 15
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)# logging synchronous
+R1(config-line)#exec-timeout 5
+R1(config-line)#exit
+</pre>
+
+<h3>CONFIGURE ROUTER INTERFACES</h3>
+<pre>
+R1(config)#interface G0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+
+R1(config-if)#interface G0/0/1
+R1(config-if)#ip address 192.168.2.1 255.255.255.0
+R1(config-if)#no shutdown
+
+R1(config-if)#end
+R1#copy running-config startup-config
+</pre>
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname S1
+
+S1(config)#interface vlan1
+S1(config-if)#ip address 192.168.1.2 255.255.255.0
+S1(config-if)#no shutdown
+S1(config-if)#exit
+
+S1(config)#ip default-gateway 192.168.1.1
+S1(config)#exit
+
+S1#copy running-config startup-config
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname S2
+
+S2(config)#interface vlan1
+S2(config-if)#ip address 192.168.2.2 255.255.255.0
+S2(config-if)#no shutdown
+S2(config-if)#exit
+
+S2(config)#ip default-gateway 192.168.2.1
+S2(config)#exit
+
+S2#copy running-config startup-config
+</pre>
+
+<h3>CONFIGURE THE PCs</h3>
+
+<h3>PC1 IP CONFIGURATION</h3>
+<pre>
+IPv4 Address: 192.168.1.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.1.1
+</pre>
+
+
+<h3>PC2 IP CONFIGURATION</h3>
+<pre>
+IPv4 Address: 192.168.1.11
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.1.1
+</pre>
+
+<h3>PC3 IP CONFIGURATION</h3>
+<pre>
+IPv4 Address: 192.168.2.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.2.1
+</pre>
+
+<h3>PC4 IP CONFIGURATION</h3>
+<pre>
+IPv4 Address: 192.168.2.11
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.2.1
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
+<pre>
+R1#show running-config
+R1#show ip interface brief
+S1#show ip interface brief
+S2#show ip interface brief
+C:/>ipconfig /all
+</pre>
+
+<h3>RESULT:</h3>
+<p>Configured and verified Connect a Router to LAN</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment10.html" class="btn">Previous Exercise</a>
+    <a href="experiment12.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

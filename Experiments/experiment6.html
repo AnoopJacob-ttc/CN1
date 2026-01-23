@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 6</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 6</h1>
+<h1>CONNECT A WIRED AND WIRELESS LAN</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Connect to the Wireless Router Web Interface<br>
+   &emsp;&emsp;- Configure Wireless Security Settings<br>
+   &emsp;&emsp;- Connect Laptop to Wireless Router<br>
+   &emsp;&emsp;- Configure the Access Point<br>
+   &emsp;&emsp;- Connect Laptop to Access Point
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp6_Topology.png" alt="Experiment 6 Topology">
+</div>
+
+
+<div class="container">
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Wireless Router</td>
+            <td>Router IP</td>
+            <td>192.168.0.1</td>
+            <td>255.255.255.0</td>
+        </tr>
+        <tr>
+            <td>Admin</td>
+            <td>NIC</td>
+	    <td colspan="2" style="text-align: center;">DHCP</td>
+        </tr>
+        <tr>
+            <td>Laptop1</td>
+            <td>NIC</td>
+	    <td colspan="2" style="text-align: center;">DHCP</td>
+        </tr>
+	<tr>
+            <td>Laptop2</td>
+            <td>NIC</td>
+	    <td colspan="2" style="text-align: center;">DHCP</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<h3>CONFIGURATION STEPS</h3>
+<h3>Configure Admin PC to get IP Address from DHCP</h3>
+<pre>
+Click Admin &rarr; Desktop &rarr; IP Configuration &rarr; DHCP
+</pre>
+
+<h3>CONNECT TO THE WIRELESS ROUTER WEB INTERFACE.</h3>
+<ul>
+    <li>Click on Admin PC</li>
+    <li>In the <b>Desktop</b> tab on <b>Admin</b>, choose <b>Web Browser</b>.</li>
+    <li>Enter <b>192.168.0.1</b> in the URL field to open the web configuration page of the wireless router.</li>
+    <li>Use <b>admin</b> for both the <b>username</b> and <b>password</b>.</li>
+</ul>
+
+
+<h3>CONFIGURE THE WIRELESS SETTINGS</h3>
+<ul>
+    <li>Navigate to <b>Wireless</b> > <b>Basic Wireless Settings</b>.</li>
+    <li>Change <b>Network Name (SSID)</b> to <b>CP08</b> for only 2.4 GHz.</li>
+    <li>Change the <b>Standard Channel</b> to <b>6 - 2.437GHz</b>.</li>
+    <li>Disable both <b>5 GHz</b> frequencies. Leave the rest of the settings unchanged.</li>
+    <li>Scroll to the bottom of the window and click <b>Save Settings</b>.</li>
+</ul>
+
+<h3>CONFIGURE WIRELESS SECURITY SETTINGS.</h3>
+<ul>
+<li>In this step, you configure the <b>wireless security settings</b> using <b>WPA2 security</b> mode with encryption and passphrase.</li>
+<li>Navigate to <b>Wireless</b>&rarr;<b>Wireless Security.</b></li>
+<li>Under the <b>2.4 GHz</b> heading, select <b>WPA2 Personal</b> for the <b>Security Mode</b>.</li>
+<li>For the <b>Encryption</b> field, keep the default <b>AES</b> setting.</li>
+<li>In the <b>Passphrase</b> field, enter <b>Cisco123</b> as the passphrase.</li>
+<li>Click <b>Save Settings</b>.</li>
+</ul>
+
+
+<h3>CONNECT LAPTOP1 TO WIRELESS ROUTER</h3>
+<ul>
+<li>Open <b>Laptop1</b>, in the <b>physical tab</b>, switch off Laptop and remove <b>Fast Ethernet Interface Card</b> and insert the <b>Linksys-WPC300N</b> module, then switch on the Laptop</li>
+<li>Select <b>Desktop</b> tab and Click <b>PC Wireless</b>.</li>
+<li>Select the <b>Connect</b> tab. Click Refresh as necessary. Select the Wireless Network Name <b>CP08</b>.</li>
+<li>Enter the passphrase configured in the previous step. Enter <b>Cisco123</b> In the <b>pre-shared</b> key field and click <b>Connect</b>. Close the PC Wireless window.</li>
+</ul>
+
+<h3>CONFIGURE THE ACCESS POINT.</h3>
+<ul>
+<li>Click <b>Access Point</b>. Select the <b>Config</b> tab.</li>
+<li>Under the INTERFACE heading, select <b>Port 1</b>.</li>
+<li>In the <b>SSID</b> field, enter <b>CP15</b>.</li>
+<li>Select <b>WPA2-PSK</b>. Enter the <b>passphrase Cisco123</b> in the Pass Phrase field.</li>
+<li>Keep <b>AES</b> as the default <b>Encryption</b> Type.</li>
+<li>Close the <b>Access Point</b> Window</li>
+</ul>
+
+<h3>CONNECT LAPTOP2 TO ACCESS POINT</h3>
+<ul>
+<li>Open <b>Laptop2</b>, in the <b>physical</b> tab, switch off Laptop and remove <b>Fast Ethernet Interface Card</b> and insert the <b>Linksys-WPC300N</b> module, then switch on the Laptop</li>
+<li>Select <b>Desktop</b> tab and Click <b>PC Wireless</b>.</li>
+<li>Select the <b>Connect</b> tab. Click Refresh as necessary. Select the Wireless Network Name <b>CP15</b>.</li>
+<li>Enter the passphrase configured in the previous step. Enter <b>Cisco123</b> In the <b>pre-shared key</b> field and click <b>Connect</b>. Close the Laptop Wireless window.</li>
+</ul>
+
+<h3>RESULT:</h3>
+<p>Configured and verified a Wired and Wireless LAN</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment5.html" class="btn">Previous Exercise</a>
+    <a href="experiment7.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

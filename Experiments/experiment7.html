@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 7</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 7</h1>
+<h1>CONFIGURE INITIAL ROUTER SETTINGS</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Verify the Default Router Configuration<br>
+   &emsp;&emsp;- Configure and Verify the Initial Router Configuration<br>
+   &emsp;&emsp;- Save the Running Configuration File
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp7_Topology.png" alt="Experiment 7 Topology">
+</div>
+
+<h3>VERIFY THE DEFAULT ROUTER CONFIGURATION</h3>
+<pre>
+Router>enable
+Router#show running-config
+</pre>
+
+<h3>CONFIGURE AND VERIFY THE INITIAL ROUTER CONFIGURATION</h3>
+<h3>PREVENT THE ROUTER FROM TRYING TO RESOLVE INCORRECTLY GIVEN COMMANDS IN THE CLI</h3>
+<pre>
+Router>enable
+Router#configure terminal
+Router(config)#no ip domain-lookup
+</pre>
+
+
+<h3>HOST NAME</h3>
+<pre>
+Router(config)#hostname R1
+R1(config)#exit
+R1#
+</pre>
+
+<h3>SET THE CLOCK</h3>
+<pre>
+R1#clock set 10:30:15 01 January 2026</pre>
+
+<h3>BANNER MOTD</h3>
+<pre>
+R1#configure terminal
+R1(config)#banner motd "Unauthorized access is strictly prohibited"</pre>
+
+<h3>CONFIGURE DOMAIN NAME</h3>
+<pre>R1(config)# ip domain-name nttftrg.com</pre>
+
+<h3>ENABLE PASSWORD -ENABLE SECRET</h3>
+<pre>R1(config)#enable password cisco
+R1(config)#enable secret itsasecret</pre>
+
+<h3>CONFIGURE LINE PASSWORDS</h3>
+<pre>R1(config)#line console 0
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)# logging synchronous
+R1(config-line)#exec-timeout 5
+
+R1(config-line)#line vty 0 15
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)# logging synchronous
+R1(config-line)#exec-timeout 5
+R1(config-line)#exit
+R1(config)#</pre>
+
+<h3>ENCRYPT ALL PLAIN TEXT PASSWORDS</h3>
+<pre>R1(config)#service password-encryption</pre>
+
+<h3>SAVE CONFIGURATION FILES TO NVRAM</h3>
+<pre>R1(config)#exit
+R1#copy running-config startup-config</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
+<pre>R1#show running-config
+R1#show startup-config</pre>
+
+
+<h3>RESULT:</h3>
+<p>Configured and verified initial Router settings</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment6.html" class="btn">Previous Exercise</a>
+    <a href="experiment8.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 4</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 4</h1>
+<h1>CONFIGURE INITIAL SWITCH SETTINGS</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure Line Passwords<br>
+   &emsp;&emsp;- Encrypt all plain text passwords<br>
+   &emsp;&emsp;- Logging synchronous<br>
+   &emsp;&emsp;- Exec timeout<br>
+   &emsp;&emsp;- Save Configuration Files to NVRAM
+</p>
+
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp1_Topology.png" alt="Experiment 4 Topology">
+</div>
+
+
+<h3>CONFIGURE LINE PASSWORDS</h3>
+<pre>
+Switch(config)#line console 0
+Switch(config-line)#password cisco
+Switch(config-line)#login
+
+Switch(config-line)#line vty 0 15
+Switch(config-line)#password cisco
+Switch(config-line)#login
+Switch(config-line)#exit
+Switch(config)#
+</pre>
+
+<h3>ENCRYPT ALL PLAIN TEXT PASSWORDS</h3>
+<pre>
+Switch(config)#service password-encryption
+</pre>
+
+<h3>LOGGING SYNCHRONOUS</h3>
+<pre>
+Switch(config)#line console 0
+Switch(config-line)#logging synchronous 
+
+Switch(config-line)#line vty 0 15
+Switch(config-line)#logging synchronous
+</pre>
+
+<h3>LOGIN ATTEMPT LIMITATION SETTINGS - EXEC TIMEOUT</h3>
+<pre>
+Switch(config-line)#line console 0
+Switch(config-line)#exec-timeout 5
+
+Switch(config-line)#line vty 0 15
+Switch(config-line)#exec-timeout 5
+Switch(config-line)#end
+Switch#
+</pre>
+
+<h3>SAVE CONFIGURATION FILES TO NVRAM</h3>
+<pre>
+Switch#copy running-config startup-config
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION:</h3>
+<pre>
+S1#show running-config
+S1#show startup-config
+</pre>
+
+<h3>RESULT:</h3>
+<p>Configure and Verify Line passwords, encrypt all plain text passwords, logging synchronous, Login attempt limitation setting, and finally save the configuration from RAM to NVRAM</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment3.html" class="btn">Previous Exercise</a>
+    <a href="experiment5.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

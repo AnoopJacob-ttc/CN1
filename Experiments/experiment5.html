@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 5</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 5</h1>
+<h1>IMPLEMENT BASIC CONNECTIVITY</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Perform Basic Configurations on a Switch<br>
+   &emsp;&emsp;- Configure the PCs<br>
+   &emsp;&emsp;- Configure the Switch Management Interface<br>
+</p>
+
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp5_Topology.png" alt="Experiment 5 Topology">
+</div>
+
+
+<div class="container">
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>S1</td>
+            <td>VLAN 1</td>
+            <td>192.168.1.253</td>
+            <td>255.255.255.0</td>
+        </tr>
+        <tr>
+            <td>S2</td>
+            <td>VLAN 1</td>
+            <td>192.168.1.254</td>
+            <td>255.255.255.0</td>
+        </tr>
+        <tr>
+            <td>PC1</td>
+            <td>NIC</td>
+            <td>192.168.1.1</td>
+            <td>255.255.255.0</td>
+        </tr>
+	<tr>
+            <td>PC2</td>
+            <td>NIC</td>
+            <td>192.168.1.2</td>
+            <td>255.255.255.0</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+
+
+<h3>PERFORM BASIC CONFIGURATIONS ON A SWITCH</h3>
+
+<h4>PERFORM BASIC CONFIGURATIONS ON S1</h4>
+<pre>
+Switch>enable
+Switch#configure terminal
+Switch(config)#no ip domain-lookup
+Switch(config)#hostname S1
+S1(config)#ip domain-name nttftrg.com
+S1(config)#enable secret class
+S1(config)#banner motd "Unauthorized access is strictly prohibited"
+S1(config)#service password-encryption
+S1(config)#no ip domain-lookup
+S1(config)#line console 0
+S1(config-line)#password cisco
+S1(config-line)#login
+S1(config-line)#logging synchronous
+S1(config-line)#exec-timeout 5
+S1(config)#line vty 0 15
+S1(config-line)#password cisco
+S1(config-line)#login
+S1(config-line)#logging synchronous
+S1(config-line)#exec-timeout 5
+S1(config-line)#exit
+S1(config)#
+</pre>
+
+<h3>PERFORM BASIC CONFIGURATIONS ON S2</h3>
+<pre>
+Switch>enable
+Switch#configure terminal
+Switch(config)#no ip domain-lookup
+Switch(config)#hostname S2
+S2(config)#ip domain-name nttftrg.com
+S2(config)#enable secret class
+S2(config)#banner motd "Unauthorized access is strictly prohibited"
+S2(config)#service password-encryption
+S2(config)#no ip domain-lookup
+S2(config)#line console 0
+S2(config-line)#password cisco
+S2(config-line)#login
+S2(config-line)#logging synchronous
+S2(config-line)#exec-timeout 5
+S2(config)#line vty 0 15
+S2(config-line)#password cisco
+S2(config-line)#login
+S2(config-line)#logging synchronous
+S2(config-line)#exec-timeout 5
+S2(config-line)#exit
+S2(config)#
+</pre>
+
+<h3>CONFIGURE THE PCs</h3>
+
+
+<h3>PC1</h3>
+<pre>
+IP Address: 192.168.1.1
+Subnet Mask: 255.255.255.0
+</pre>
+
+
+<h3>PC2</h3>
+<pre>
+IP Address: 192.168.1.2
+Subnet Mask: 255.255.255.0
+</pre>
+
+<h3>CONFIGURE THE SWITCH MANAGEMENT INTERFACE</h3>
+<pre>
+S1 CONFIGURATION
+S1(config)#interface vlan 1
+S1(config-if)#ip address 192.168.1.253 255.255.255.0
+S1(config-if)#description Management Interface
+S1(config-if)#no shutdown
+S1(config-if)#end
+S1#
+</pre>
+
+<h3>SAVE CONFIGURATION FILE TO NVRAM</h3>
+<pre>
+S1#copy running-config startup-config
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+S2(config)#interface vlan 1
+S2(config-if)#ip address 192.168.1.254 255.255.255.0
+S2(config-if)#description Management Interface
+S2(config-if)#no shutdown
+S2(config-if)#end
+S2#
+</pre>
+
+<h3>SAVE CONFIGURATION FILE TO NVRAM</h3>
+<pre>
+S2#copy running-config startup-config
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION:</h3>
+<pre>
+S1#show running-config
+S1#show startup-config
+C:\>ping 192.168.1.1
+</pre>
+
+
+
+
+<h3>RESULT:</h3>
+<p>Configured and verified Basic Configuration on Switches, Configure the PCs, Configure the Switch Management Interface, save the configuration from RAM to NVRAM, and finally tested End to End Connectivity.</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment4.html" class="btn">Previous Exercise</a>
+    <a href="experiment6.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

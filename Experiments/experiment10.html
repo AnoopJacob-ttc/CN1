@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 10</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 10</h1>
+<h1>DESIGN AND IMPLEMENT A VLSM ADDRESSING (USING PKA)</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="button-container">
+    <a href="../Attachments/Exercise-No10-Packet-Tracer-Design-and-Implement-a-VLSM-Addressing-Scheme.pka" download class="btn">Download PKA File</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Design a VLSM IP addressing scheme given requirements.<br>
+   &emsp;&emsp;- Configure addressing on network devices and hosts.<br>
+   &emsp;&emsp;- Verify IP connectivity.
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp10_Topology.png" alt="Experiment 10 Topology">
+</div>
+
+<h3>HOST REQUIREMENTS</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>LAN</th>
+            <th>Number of Addresses Required</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+    <td>ES-1 LAN</td>
+    <td>21</td>
+</tr>
+<tr>
+    <td>ES-2 LAN</td>
+    <td>14</td>
+</tr>
+<tr>
+    <td>WS-1 LAN</td>
+    <td>32</td>
+</tr>
+<tr>
+    <td>WS-2 LAN</td>
+    <td>19</td>
+</tr>
+    </tbody>
+</table>
+
+<h3>DESIGN REQUIREMENTS</h3>
+<ul>
+    <li>The network address is 192.168.203.0/24</li>
+    <li>Create the addressing design.</li>
+    <li>The subnets should be contiguous. There should be no unused address space between subnets.</li>
+    <li>Provide the most efficient subnet possible for the point-to-point link between the routers.</li>
+</ul>
+
+<h3>DOCUMENT THE VLSM SUBNETS.</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Subnet Description</th>
+            <th>Number of Hosts Needed</th>
+            <th>Network Address/CIDR</th>
+            <th>First Usable Host Address</th>
+            <th>Broadcast Address</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+    <td>WS-1 LAN</td>
+    <td>32</td>
+    <td>192.168.203.0/26</td>
+    <td>192.168.203.1</td>
+    <td>192.168.203.63</td>
+</tr>
+<tr>
+    <td>ES-1 LAN</td>
+    <td>21</td>
+    <td>192.168.203.64/27</td>
+    <td>192.168.203.65</td>
+    <td>192.168.203.95</td>
+</tr>
+<tr>
+    <td>WS-2 LAN</td>
+    <td>19</td>
+    <td>192.168.203.96/27</td>
+    <td>192.168.203.97</td>
+    <td>192.168.203.127</td>
+</tr>
+<tr>
+    <td>ES-2 LAN</td>
+    <td>14</td>
+    <td>192.168.203.128/28</td>
+    <td>192.168.203.129</td>
+    <td>192.168.203.143</td>
+</tr>
+<tr>
+    <td>East–West</td>
+    <td>2</td>
+    <td>192.168.203.144/30</td>
+    <td>192.168.203.145</td>
+    <td>192.168.203.147</td>
+</tr>
+    </tbody>
+</table>
+
+<h3>CONFIGURATION REQUIREMENTS</h3>
+<ul>
+    <li>Assign the first usable IP addresses in the appropriate subnets to East for the two LAN links and the WAN link.</li>
+    <li>Assign the first usable IP addresses in the appropriate subnets to West for the two LANs links. Assign the last usable IP address for the WAN link.</li>
+    <li>Assign the second usable IP addresses in the appropriate subnets to the switches.</li>
+    <li>The switch management interface should be reachable from hosts on all of the LANs.</li>
+    <li>Assign the last usable IP addresses in the appropriate subnets to the hosts.</li>
+</ul>
+
+<h3>ADDRESSING TABLE</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>DEVICE</th>
+            <th>INTERFACE</th>
+            <th>IP ADDRESS</th>
+            <th>SUBNET MASK</th>
+            <th>DEFAULT GATEWAY</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+    <td rowspan="3">East</td>
+    <td>G0/0</td>
+    <td>192.168.203.129</td>
+    <td>255.255.255.240</td>
+    <td>N/A</td>
+</tr>
+<tr>
+    <td>G0/1</td>
+    <td>192.168.203.97</td>
+    <td>255.255.255.224</td>
+    <td>N/A</td>
+</tr>
+<tr>
+    <td>S0/0/0</td>
+    <td>192.168.203.145</td>
+    <td>255.255.255.252</td>
+    <td>N/A</td>
+</tr>
+
+<tr>
+    <td rowspan="3">West</td>
+    <td>G0/0</td>
+    <td>192.168.203.65</td>
+    <td>255.255.255.224</td>
+    <td>N/A</td>
+</tr>
+<tr>
+    <td>G0/1</td>
+    <td>192.168.203.1</td>
+    <td>255.255.255.192</td>
+    <td>N/A</td>
+</tr>
+<tr>
+    <td>S0/0/0</td>
+    <td>192.168.203.146</td>
+    <td>255.255.255.252</td>
+    <td>N/A</td>
+</tr>
+
+<tr>
+    <td>ES-1</td>
+    <td>VLAN 1</td>
+    <td>192.168.203.130</td>
+    <td>255.255.255.240</td>
+    <td>192.168.203.129</td>
+</tr>
+<tr>
+    <td>ES-2</td>
+    <td>VLAN 1</td>
+    <td>192.168.203.98</td>
+    <td>255.255.255.224</td>
+    <td>192.168.203.97</td>
+</tr>
+<tr>
+    <td>WS-1</td>
+    <td>VLAN 1</td>
+    <td>192.168.203.66</td>
+    <td>255.255.255.224</td>
+    <td>192.168.203.65</td>
+</tr>
+<tr>
+    <td>WS-2</td>
+    <td>VLAN 1</td>
+    <td>192.168.203.2</td>
+    <td>255.255.255.192</td>
+    <td>192.168.203.1</td>
+</tr>
+
+<tr>
+    <td>E1-22</td>
+    <td>NIC</td>
+    <td>192.168.203.142</td>
+    <td>255.255.255.240</td>
+    <td>192.168.203.129</td>
+</tr>
+<tr>
+    <td>E2-47</td>
+    <td>NIC</td>
+    <td>192.168.203.126</td>
+    <td>255.255.255.224</td>
+    <td>192.168.203.97</td>
+</tr>
+<tr>
+    <td>W1-201</td>
+    <td>NIC</td>
+    <td>192.168.203.94</td>
+    <td>255.255.255.224</td>
+    <td>192.168.203.65</td>
+</tr>
+<tr>
+    <td>W2-87</td>
+    <td>NIC</td>
+    <td>192.168.203.62</td>
+    <td>255.255.255.192</td>
+    <td>192.168.203.1</td>
+</tr>
+    </tbody>
+</table>
+
+
+<h3>EAST ROUTER CONFIGURATION</h3>
+<pre>
+East>enable
+East#configure terminal
+East(config)#interface g0/0
+East(config-if)#ip address 192.168.203.129 255.255.255.240
+East(config-if)#no shutdown
+
+East(config-if)#interface g0/1
+East(config-if)#ip address 192.168.203.97 255.255.255.224
+East(config-if)#no shutdown
+
+East(config-if)#interface s0/0/0
+East(config-if)#ip address 192.168.203.145 255.255.255.252
+East(config-if)#no shutdown
+East(config-if)#end
+East#copy run start
+</pre>
+
+<h3>WEST ROUTER CONFIGURATION</h3>
+<pre>
+West>enable
+West#configure terminal
+West(config)#interface g0/0
+West(config-if)#ip address 192.168.203.65 255.255.255.224
+West(config-if)#no shutdown
+
+West(config-if)#interface g0/1
+West(config-if)#ip address 192.168.203.1 255.255.255.192
+West(config-if)#no shutdown
+
+West(config-if)#interface s0/0/0
+West(config-if)#ip address 192.168.203.146 255.255.255.252
+West(config-if)#no shutdown
+West(config-if)#end
+West#copy run start
+</pre>
+
+<h3>ES-1 SWITCH CONFIGURATION</h3>
+<pre>
+ES-1>enable
+ES-1#configure terminal
+ES-1(config)#interface vlan 1
+ES-1(config-if)#ip address 192.168.203.130 255.255.255.240
+ES-1(config-if)#no shutdown
+ES-1(config-if)#ip default-gateway 192.168.203.129
+ES-1(config-if)#end
+ES-1#copy run start
+</pre>
+
+<h3>ES-2 SWITCH CONFIGURATION</h3>
+<pre>
+ES-2>enable
+ES-2#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+ES-2(config)#interface vlan 1
+ES-2(config-if)#ip address 192.168.203.98 255.255.255.224
+ES-2(config-if)#no shutdown
+ES-2(config-if)#ip default-gateway 192.168.203.97
+ES-2(config-if)#end
+ES-2#copy run start
+</pre>
+
+<h3>WS-1 SWITCH CONFIGURATION</h3>
+<pre>
+WS-1>enable
+WS-1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+WS-1(config)#interface vlan 1
+WS-1(config-if)#ip address 192.168.203.66 255.255.255.224
+WS-1(config-if)#no shutdown
+WS-1(config-if)#ip default-gateway 192.168.203.65
+WS-1(config-if)#end
+WS-1#end
+</pre>
+
+<h3>WS-2 SWITCH CONFIGURATION</h3>
+<pre>
+WS-2>enable
+WS-2#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+WS-2(config)#interface vlan 1
+WS-2(config-if)#ip address 192.168.203.2 255.255.255.192
+WS-2(config-if)#no shutdown
+WS-2(config-if)#ip default-gateway 192.168.203.1
+WS-2(config-if)#end
+WS-2#copy run start
+</pre>
+
+<h3>CONFIGURE IP ADDRESSING ON PCs</h3>
+<h3>E1-22</h3>
+<p>IP Address: <b>192.168.203.142</b><br>
+Subnet Mask: <b>255.255.255.240</b><br>
+Default Gateway: <b>192.168.203.129</b></p>
+
+<h3>E2-47</h3>
+<p>IP Address: <b>192.168.203.126</b><br>
+Subnet Mask: <b>255.255.255.224</b><br>
+Default Gateway: <b>192.168.203.97</b></p>
+
+<h3>W1-201</h3>
+<p>IP Address: <b>192.168.203.94</b><br>
+Subnet Mask: <b>255.255.255.224</b><br>
+Default Gateway: <b>192.168.203.65</b></p>
+
+<h3>W2-87</h3>
+<p>IP Address: <b>192.168.203.62</b><br>
+Subnet Mask: <b>255.255.255.192</b><br>
+Default Gateway: <b>192.168.203.1</b></p>
+
+
+
+<h3>VERIFY CONNECTIVITY</h3>
+<p>Able to ping every IP address listed in the Addressing Table</p>
+
+<h3>RESULT</h3>
+<p>Designed, configured and implemented a VLSM addressing successfully.</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment9.html" class="btn">Previous Exercise</a>
+    <a href="experiment11.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

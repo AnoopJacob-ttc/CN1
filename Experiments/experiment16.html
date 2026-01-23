@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 16</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 16</h1>
+<h1>CONNECT TWO NETWORKS USING A CISCO ROUTER (IPV4 AND IPV6)</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Connect two switches to the router<br>
+   &emsp;&emsp;- Connect one PC to each switch<br>
+   &emsp;&emsp;- Configure basic settings on all devices<br>
+   &emsp;&emsp;- Assign different IPv4 and IPv6 networks to each LAN<br>
+   &emsp;&emsp;- Configure router interfaces with IPv4 and IPv6 addresses<br>
+   &emsp;&emsp;- Assign IP addresses to both PCs<br>
+   &emsp;&emsp;- Implement SSH on the router for secure access<br>
+   &emsp;&emsp;- Test connectivity between PCs using the ping command<br>
+   &emsp;&emsp;- Verify directly connected networks
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp16_Topology.png" alt="Experiment 16 Topology">
+</div>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+<tr>
+            <th rowspan="2">Device</th>
+            <th rowspan="2">Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+            <th rowspan="2">Default Gateway</th>
+            <th rowspan="2">Description</th>
+        </tr>
+        <tr>
+            <th colspan="2">IPv6 Address/Prefix</th>
+        </tr>
+
+    </thead>
+    <tbody>
+<tr>
+        <td rowspan="4"><b>R1</b></td>
+        <td rowspan="2">G0/0/0</td>
+        <td>192.168.1.1</td>
+        <td>255.255.255.0</td>
+        <td>NOT APPLICABLE</td>
+        <td rowspan="2">Connected to S1 G0/1</td>
+    </tr>
+    <tr>
+        <td colspan="2">2001:DB8:ACAD:1::1/64</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+
+    <tr>
+        <td rowspan="2">G0/0/1</td>
+        <td>192.168.2.1</td>
+        <td>255.255.255.0</td>
+        <td>NOT APPLICABLE</td>
+        <td rowspan="2">Connected to S2 G0/1</td>
+    </tr>
+    <tr>
+        <td colspan="2">2001:DB8:ACAD:2::1/64</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+
+    <tr>
+        <td rowspan="2"><b>S1</b></td>
+        <td rowspan="2">VLAN 1</td>
+        <td>192.168.1.2</td>
+        <td>255.255.255.0</td>
+        <td>192.168.1.1</td>
+        <td rowspan="2">SVI for Management</td>
+    </tr>
+    <tr>
+        <td colspan="2">2001:DB8:ACAD:1::2/64</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+
+
+    <tr>
+        <td rowspan="2"><b>S2</b></td>
+        <td rowspan="2">VLAN 1</td>
+        <td>192.168.2.2</td>
+        <td>255.255.255.0</td>
+        <td>192.168.2.1</td>
+        <td rowspan="2">SVI for Management</td>
+    </tr>
+    <tr>
+        <td colspan="2">2001:DB8:ACAD:2::2/64</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+
+    <tr>
+        <td rowspan="2"><b>PC1</b></td>
+        <td rowspan="2">NIC</td>
+        <td>192.168.1.10</td>
+        <td>255.255.255.0</td>
+        <td>192.168.1.1</td>
+        <td rowspan="2">Connected to S1 Fa0/1</td>
+    </tr>
+    <tr>
+        <td colspan="2">2001:DB8:ACAD:1::10/64</td>
+        <td>FE80::1</td>
+    </tr>
+
+    <tr>
+        <td rowspan="2"><b>PC2</b></td>
+        <td rowspan="2">NIC</td>
+        <td>192.168.2.10</td>
+        <td>255.255.255.0</td>
+        <td>192.168.2.1</td>
+        <td rowspan="2">Connected to S2 Fa0/1</td>
+    </tr>
+    <tr>
+        <td colspan="2">2001:DB8:ACAD:2::10/64</td>
+        <td>FE80::1</td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+
+<h3>R1 CONFIGURATION</h3>
+
+<pre>
+Router>
+Router>enable
+Router#conf t
+Router(config)#hostname R1
+R1(config)#enable secret class
+R1(config)#service password-encryption
+R1(config)#banner motd "Warning! Authorized access only"
+R1(config)#no ip domain-lookup
+R1(config)#ip domain-name cisco.com
+R1(config)#username admin secret admin
+R1(config)#ipv6 unicast-routing
+R1(config)#crypto key generate rsa 
+1024
+R1(config)#ip ssh version 2
+
+R1(config)#line console 0
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)#line vty 0 15
+R1(config-line)#login local
+R1(config-line)#transport input ssh
+
+R1(config-line)#interface G0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#description Connected to S1
+R1(config-if)#ipv6 address 2001:DB8:ACAD:1::1/64
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#no shutdown
+
+R1(config-line)#interface G0/0/1
+R1(config-if)#ip address 192.168.2.1 255.255.255.0
+R1(config-if)#description Connected to S1
+R1(config-if)#ipv6 address 2001:DB8:ACAD:2::1/64
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#no shutdown
+
+R1(config-if)#end
+R1#copy running-config startup-config
+
+</pre>
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#configure terminal
+Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
+Switch(config)#exit
+Switch#reload
+System configuration has been modified. Save? [yes/no]:yes
+Proceed with reload? [confirm][Press Enter Here]
+[After reload]
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S1
+
+S1(config)#interface vlan1
+S1(config-if)#ip address 192.168.1.2 255.255.255.0
+S1(config-if)#ipv6 address 2001:DB8:ACAD:1::2/64
+S1(config-if)#no shutdown
+S1(config-if)#exit
+
+S1(config)#ip default-gateway 192.168.1.1
+S1(config)#exit
+
+S1#copy running-config startup-config
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#configure terminal
+Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
+Switch(config)#exit
+Switch#reload
+
+System configuration has been modified. Save? [yes/no]:yes
+Proceed with reload? [confirm][Press Enter Here]
+
+[After reload]
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S2
+
+S2(config)#interface vlan1
+S2(config-if)#ip address 192.168.2.2 255.255.255.0
+S2(config-if)#ipv6 address 2001:DB8:ACAD:2::2/64
+S2(config-if)#no shutdown
+S2(config-if)#exit
+
+S2(config)#ip default-gateway 192.168.2.1
+S2(config)#exit
+
+S2#copy running-config startup-config
+</pre>
+
+
+<h3>PC1</h3>
+<h4>IP CONFIGURATION</h4>
+<pre>
+<b>IP Address:</b>192.168.1.10
+<b>Subnet Mask:</b>255.255.255.0
+<b>Default Gateway: </b>192.168.1.1
+</pre>
+<h4>IPv6 CONFIGURATION</h4>
+<pre>
+<b>IPv6 Address:</b>2001:DB8:ACAD:1::10/64
+<b>Default Gateway: </b>FE80::1
+</pre>
+
+<h3>PC2</h3>
+<h4>IP CONFIGURATION</h4>
+<pre>
+<b>IP Address:</b>192.168.2.10
+<b>Subnet Mask:</b>255.255.255.0
+<b>Default Gateway: </b>192.168.2.1
+</pre>
+<h4>IPv6 CONFIGURATION</h4>
+<pre>
+<b>IPv6 Address:</b>2001:DB8:ACAD:2::10/64
+<b>Default Gateway: </b>FE80::1
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
+<pre>R1#show running-config
+R1#show ip interface brief
+show ipv6 interface brief
+S1#show ip interface brief
+S1#show ipv6 interface brief
+S2#show ip interface brief
+S2#show ipv6 interface brief
+C:/>ipconfig /all
+</pre>
+
+<h3>RESULT</h3>
+Configured and verified Connect two networks using CISCO router and configured both IPv4 and IPv6
+</div>
+<div class="button-container">
+    <a href="experiment15.html" class="btn">Previous Exercise</a>
+    <a href="experiment17.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

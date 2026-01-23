@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 18</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 18</h1>
+<h1>VLAN CONFIGURATION</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure Basic Settings<br>
+   &emsp;&emsp;- Verify the Default VLAN Configuration<br>
+   &emsp;&emsp;- Configure VLANs<br>
+   &emsp;&emsp;- Assign VLANs to Ports
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp18_Topology.png" alt="Experiment 18 Topology">
+</div>
+
+<h3>VLAN TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>VLAN ID</th>
+            <th>VLAN Name</th>
+            <th>Network Address</th>
+            <th>Subnet Mask</th>
+            <th>Ports to be assigned</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>10</td>
+            <td>Student</td>
+            <td>192.168.10.0</td>
+            <td>255.255.255.0</td>
+            <td>S1: Fa0/1-6</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>Staff</td>
+            <td>192.168.20.0</td>
+            <td>255.255.255.0</td>
+            <td>S1: Fa0/7-12</td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td>Management</td>
+            <td>192.168.30.0</td>
+            <td>255.255.255.0</td>
+            <td>S1: Fa0/13-18</td>
+        </tr>
+        <tr>
+            <td>88</td>
+            <td>Unused</td>
+            <td colspan="2">NOT APPLICABLE</td>
+            <td>S1: Fa0/19-24, G0/1-2</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>S1</td>
+            <td>VLAN 30</td>
+            <td>192.168.30.254</td>
+            <td>255.255.255.0</td>
+            <td>SVI for S1 Management</td>
+        </tr>
+        <tr>
+            <td>Student-PC1</td>
+            <td>NIC</td>
+            <td>192.168.10.10</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S1 Fa0/1</td>
+        </tr>
+        <tr>
+            <td>Student-PC2</td>
+            <td>NIC</td>
+            <td>192.168.10.11</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S1 Fa0/2</td>
+        </tr>
+        <tr>
+            <td>Staff-PC1</td>
+            <td>NIC</td>
+            <td>192.168.20.10</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S1 Fa0/7</td>
+        </tr>
+        <tr>
+            <td>Staff-PC2</td>
+            <td>NIC</td>
+            <td>192.168.20.11</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S1 Fa0/8</td>
+        </tr>
+        <tr>
+            <td>Management-PC1</td>
+            <td>NIC</td>
+            <td>192.168.30.10</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S1 Fa0/13</td>
+        </tr>
+        <tr>
+            <td>Management-PC2</td>
+            <td>NIC</td>
+            <td>192.168.30.11</td>
+            <td>255.255.255.0</td>
+            <td>Connected to S1 Fa0/14</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>S1 CONFIGURATION</h3>
+
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S1
+
+S1(config)#vlan 10
+S1(config-vlan)#name Student
+
+S1(config-vlan)#vlan 20
+S1(config-vlan)#name Staff
+
+S1(config-vlan)#vlan 30
+S1(config-vlan)#name Management
+
+S1(config-vlan)#vlan 88
+S1(config-vlan)#name Unused
+
+S1(config-vlan)#interface range fa0/1-6
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 10
+S1(config-if-range)#description VLAN10 for Students
+
+S1(config-if-range)#interface range fa0/7-12
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 20
+S1(config-if-range)#description VLAN20 for Staff
+
+S1(config-if-range)#interface range fa0/13-18
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 30
+S1(config-if-range)#description VLAN30 for Management
+
+
+S1(config-if-range)#interface range fa0/19-24,g0/1-2
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 88
+S1(config-if-range)#description VLAN88 for Unused Ports
+S1(config-if-range)#shutdown
+
+S1(config-if-range)#interface vlan 30
+S1(config-if)#ip address 192.168.30.254 255.255.255.0
+
+S1(config-if)#end
+S1#copy run start
+</pre>
+
+
+<h3>STUDENT-PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.10.10
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>STUDENT-PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.10.11
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>STAFF-PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.20.10
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>STAFF-PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.20.11
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>MANAGEMENT-PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.30.10
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+<h3>MANAGEMENT-PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.30.11
+<b>Subnet Mask: </b> 255.255.255.0
+</pre>
+
+
+<h3>SHOW COMMANDS USED</h3>
+<pre>
+S1#Show vlan brief
+S1#Show running-config
+</pre>
+
+<h3>PING RESULT</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Ping from</th>
+            <th>To</th>
+            <th>Destination IP</th>
+            <th>Succeeded Yes/No</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Student-PC1 -->
+        <tr>
+            <td rowspan="6">Student-PC1</td>
+            <td>Student-PC2</td>
+            <td>192.168.10.11</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>Staff-PC1</td>
+            <td>192.168.20.10</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>Staff-PC2</td>
+            <td>192.168.20.11</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>Management-PC1</td>
+            <td>192.168.30.10</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>Management-PC2</td>
+            <td>192.168.30.11</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>S1</td>
+            <td>192.168.30.254</td>
+            <td>No</td>
+        </tr>
+
+        <!-- Staff-PC1 -->
+        <tr>
+            <td rowspan="4">Staff-PC1</td>
+            <td>Staff-PC2</td>
+            <td>192.168.20.11</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>Management-PC1</td>
+            <td>192.168.30.10</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>Management-PC2</td>
+            <td>192.168.30.11</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>S1</td>
+            <td>192.168.30.254</td>
+            <td>No</td>
+        </tr>
+
+        <!-- Management-PC1 -->
+        <tr>
+            <td rowspan="2">Management-PC1</td>
+            <td>Management-PC2</td>
+            <td>192.168.30.11</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>S1</td>
+            <td>192.168.30.254</td>
+            <td>Yes</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>RESULT</h3>
+Verified the Default VLAN Configuration, Configured VLANs, and Assign VLANs to Ports successfully.
+</div>
+<div class="button-container">
+    <a href="experiment17.html" class="btn">Previous Exercise</a>
+    <a href="experiment19.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

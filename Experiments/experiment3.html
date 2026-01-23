@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 3</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 3</h1>
+<h1>CONFIGURE INITIAL SWITCH SETTINGS</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Verify the Default Switch Configuration<br>
+   &emsp;&emsp;- Disable DNS lookup<br>
+   &emsp;&emsp;- Configure domain name<br>
+   &emsp;&emsp;- Enable Password<br>
+   &emsp;&emsp;- Enable Secret<br>
+   &emsp;&emsp;- Save Configuration Files to NVRAM
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp1_Topology.png" alt="Experiment 3 Topology">
+</div>
+
+<h3>VERIFY THE DEFAULT SWITCH CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#show running-config
+</pre>
+
+<h3>DISABLE DNS LOOKUP</h3>
+<pre>
+Switch#configure terminal
+Switch(config)#no ip domain-lookup
+</pre>
+
+<h3>CONFIGURE DOMAIN NAME</h3>
+<pre>
+Switch(config)#ip domain-name nttftrg.com
+</pre>
+
+<h3>ENABLE PASSWORD</h3>
+<pre>
+Switch(config)#enable password cisco
+</pre>
+
+<h3>ENABLE SECRET</h3>
+<pre>
+Switch(config)#enable secret itsasecret
+</pre>
+
+<h3>SAVE CONFIGURATION FILES TO NVRAM</h3>
+<pre>
+Switch#copy running-config startup-config
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION:</h3>
+<pre>
+S1#show running-config
+S1#show startup-config
+</pre>
+
+<h3>RESULT:</h3>
+<p>Configured and verified Default Switch Configuration, disable DNS Lookup, configure domain name Enable Password and Enable Secret, and finally save the configuration from RAM to NVRAM</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment2.html" class="btn">Previous Exercise</a>
+    <a href="experiment4.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

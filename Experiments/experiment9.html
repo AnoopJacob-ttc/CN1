@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 9</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 9</h1>
+<h1>VLSM DESIGN AND IMPLEMENTATION PRACTICE (USING PKA)</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="button-container">
+    <a href="../Attachments/Exercise-No9-Packet-Tracer-VLSM-Design-and-Implementation-Practice.pka" download class="btn">Download PKA File</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Examine the Network Requirements<br>
+   &emsp;&emsp;- Design the VLSM Addressing Scheme<br>
+   &emsp;&emsp;- Assign IP Addresses to Devices and Verify Connectivity
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp9_Topology.png" alt="Experiment 9 Topology">
+</div>
+
+<h3>EXAMINE THE NETWORK REQUIREMENTS</h3>
+<h3>DETERMINE THE NUMBER OF SUBNETS NEEDED.</h3>
+Subnet the network address 10.11.48.0/24. The network has the following requirements:
+<ul>
+    <li>Room-114 LAN will require 14 host IP addresses</li>
+    <li>Room-279 LAN will require 30 host IP addresses</li>
+    <li>Room-312 LAN will require 6 host IP addresses</li>
+    <li>Room-407 LAN will require 60 host IP addresses</li>
+</ul>
+
+How many subnets are needed in the network topology? <b style="color: red;">5</b>
+<h3>DETERMINE THE SUBNET MASK INFORMATION FOR EACH SUBNET.</h3>
+
+<p>Which subnet mask will accommodate the number of IP addresses required for Room-114?
+<b style="color: red;">255.255.255.240/28</b></p>
+
+<p>How many usable host addresses will this subnet support? <b style="color: red;">14</b></p>
+
+<p>Which subnet mask will accommodate the number of IP addresses required for Room-279?
+<b style="color: red;">255.255.255.224/27</b></p>
+
+<p>How many usable host addresses will this subnet support? <b style="color: red;">30</b></p>
+
+<p>Which subnet mask will accommodate the number of IP addresses required for Room-312?
+<b style="color: red;">255.255.255.248/29</b></p>
+
+<p>How many usable host addresses will this subnet support? <b style="color: red;">6</b></p>
+
+<p>Which subnet mask will accommodate the number of IP addresses required for Room-407?
+<b style="color: red;">255.255.255.192/26</b></p>
+
+<p>How many usable host addresses will this subnet support? <b style="color: red;">62</b></p>
+
+<p>Which subnet mask will accommodate the number of IP addresses required for the connection between Branch1 and Branch2? <b style="color: red;">255.255.255.252/30</b>
+
+<p>How many usable host addresses will this subnet support? <b style="color: red;">2</b>
+
+
+<h3>DESIGN THE VLSM ADDRESSING SCHEME</h3>
+<b>DIVIDE THE 10.11.48.0/24 NETWORK BASED ON THE NUMBER OF HOSTS PER SUBNET.</b><br>
+Allocate subnets in descending order of LAN size, using the first four subnets for the largest to smallest LANs and the fifth subnet for the Branch1–Branch2 link.
+
+<h3>DOCUMENT THE VLSM SUBNETS.</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Subnet Description</th>
+            <th>Number of Hosts Needed</th>
+            <th>Network Address/CIDR</th>
+            <th>First Usable Host Address</th>
+            <th>Broadcast Address</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+    <td>Room-407</td>
+    <td>60</td>
+    <td>10.11.48.0</td>
+    <td>10.11.48.1</td>
+    <td>10.11.48.63</td>
+</tr>
+<tr>
+    <td>Room-279</td>
+    <td>30</td>
+    <td>10.11.48.64</td>
+    <td>10.11.48.65</td>
+    <td>10.11.48.95</td>
+</tr>
+<tr>
+    <td>Room-114</td>
+    <td>14</td>
+    <td>10.11.48.96</td>
+    <td>10.11.48.97</td>
+    <td>10.11.48.111</td>
+</tr>
+<tr>
+    <td>Room-312</td>
+    <td>6</td>
+    <td>10.11.48.112</td>
+    <td>10.11.48.113</td>
+    <td>10.11.48.119</td>
+</tr>
+<tr>
+    <td>Branch1–Branch2</td>
+    <td>2</td>
+    <td>10.11.48.120</td>
+    <td>10.11.48.121</td>
+    <td>10.11.48.123</td>
+</tr>
+    </tbody>
+</table>
+
+<h3>DOCUMENT THE ADDRESSING SCHEME.</h3>
+<ul>
+    <li>Assign the first usable IP addresses to Branch1 for the two LAN links and the WAN link.</li>
+    <li>Assign the first usable IP addresses to Branch2 for the two LAN links. Assign the last usable IP address for the WAN link.</li>
+    <li>Assign the second usable IP addresses to the switches.</li>
+    <li>Assign the last usable IP addresses to the hosts.</li>
+</ul>
+
+
+<h3>ADDRESSING TABLE</h3>
+<table class="addressing-table">
+    <thead>
+    <tr>
+	<th>DEVICE</th>
+        <th>INTERFACE</th>
+        <th>IP ADDRESS</th>
+        <th>SUBNET MASK</th>
+        <th>DEFAULT GATEWAY</th>
+    </tr>
+
+    </thead>
+    <tbody>
+<tr>
+    <td rowspan="3">Branch1</td>
+    <td>G0/0</td>
+    <td>10.11.48.97</td>
+    <td>255.255.255.240</td>
+    <td>N/A</td>
+</tr>
+<tr>
+    <td>G0/1</td>
+    <td>10.11.48.65</td>
+    <td>255.255.255.224</td>
+    <td>N/A</td>
+</tr>
+<tr>
+    <td>S0/0/0</td>
+    <td>10.11.48.121</td>
+    <td>255.255.255.252</td>
+    <td>N/A</td>
+</tr>
+
+<tr>
+    <td rowspan="3">Branch2</td>
+    <td>G0/0</td>
+    <td>10.11.48.113</td>
+    <td>255.255.255.248</td>
+    <td>N/A</td>
+</tr>
+<tr>
+    <td>G0/1</td>
+    <td>10.11.48.1</td>
+    <td>255.255.255.192</td>
+    <td>N/A</td>
+</tr>
+<tr>
+    <td>S0/0/0</td>
+    <td>10.11.48.122</td>
+    <td>255.255.255.252</td>
+    <td>N/A</td>
+</tr>
+
+<tr>
+    <td>Room-114</td>
+    <td>VLAN 1</td>
+    <td>10.11.48.98</td>
+    <td>255.255.255.240</td>
+    <td>10.11.48.97</td>
+</tr>
+<tr>
+    <td>Room-279</td>
+    <td>VLAN 1</td>
+    <td>10.11.48.66</td>
+    <td>255.255.255.224</td>
+    <td>10.11.48.65</td>
+</tr>
+<tr>
+    <td>Room-312</td>
+    <td>VLAN 1</td>
+    <td>10.11.48.114</td>
+    <td>255.255.255.248</td>
+    <td>10.11.48.113</td>
+</tr>
+<tr>
+    <td>Room-407</td>
+    <td>VLAN 1</td>
+    <td>10.11.48.2</td>
+    <td>255.255.255.192</td>
+    <td>10.11.48.1</td>
+</tr>
+
+<tr>
+    <td>PC-A</td>
+    <td>NIC</td>
+    <td>10.11.48.110</td>
+    <td>255.255.255.240</td>
+    <td>10.11.48.97</td>
+</tr>
+<tr>
+    <td>PC-B</td>
+    <td>NIC</td>
+    <td>10.11.48.94</td>
+    <td>255.255.255.224</td>
+    <td>10.11.48.65</td>
+</tr>
+<tr>
+    <td>PC-C</td>
+    <td>NIC</td>
+    <td>10.11.48.118</td>
+    <td>255.255.255.248</td>
+    <td>10.11.48.113</td>
+</tr>
+<tr>
+    <td>PC-D</td>
+    <td>NIC</td>
+    <td>10.11.48.62</td>
+    <td>255.255.255.192</td>
+    <td>10.11.48.1</td>
+</tr>
+    </tbody>
+</table>
+
+<h3>CONFIGURE IP ADDRESSING ON THE BRANCH1 ROUTER LAN INTERFACES.</h3>
+<pre>
+Branch1>enable
+Branch1#configure terminal
+Branch1(config)#interface g0/0
+Branch1(config-if)#ip address 10.11.48.97 255.255.255.240
+Branch1(config-if)#no shutdown
+
+Branch1(config-if)#interface g0/1
+Branch1(config-if)#ip address 10.11.48.65 255.255.255.224
+Branch1(config-if)#no shutdown
+Branch1(config-if)#end
+Branch1#copy run start
+</pre>
+
+<h3>CONFIGURE IP ADDRESSING ON THE ROOM-312, SWITCH INCLUDING THE DEFAULT GATEWAY.</h3>
+<pre>
+Room-312>enable
+Room-312#configure terminal
+Room-312(config)#interface vlan 1
+Room-312(config-if)#ip address 10.11.48.114 255.255.255.248
+Room-312(config-if)#no shutdown
+Room-312(config-if)#ip default-gateway 10.11.48.113
+Room-312(config-if)#end
+Room-312#copy run start
+</pre>
+
+<h3>CONFIGURE IP ADDRESSING ON PC-D, INCLUDING THE DEFAULT GATEWAY.</h3>
+<p>IP Address: <b>10.11.48.62</b><br>
+Subnet Mask: <b>255.255.255.192</b><br>
+Default Gateway: <b>10.11.48.1</b></p>
+
+<h3>VERIFY CONNECTIVITY</h3>
+<p>Able to ping every IP address listed in the Addressing Table</p>
+
+<h3>RESULT</h3>
+<p>Designed, configured and implemented a VLSM addressing successfully.</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment8.html" class="btn">Previous Exercise</a>
+    <a href="experiment10.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

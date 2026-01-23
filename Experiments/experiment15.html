@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 15</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 15</h1>
+<h1>CONFIGURE DHCP SERVER FOR MULTIPLE NETWORKS</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Connect and set basic configs on all devices<br>
+   &emsp;&emsp;- Assign different IPv4 networks to each LAN<br>
+   &emsp;&emsp;- Configure Server as DHCP server for all networks<br>
+   &emsp;&emsp;- Verify PCs get IPs automatically and test with ping
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp15_Topology.png" alt="Experiment 15 Topology">
+</div>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IPv4 Address</th>
+            <th>Subnet Mask</th>
+            <th>Default Gateway</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- R1 -->
+        <tr>
+            <td rowspan="2">R1</td>
+            <td>G0/0/0</td>
+            <td>192.168.1.1</td>
+            <td>255.255.255.0</td>
+            <td>NOT APPLICABLE</td>
+        </tr>
+        <tr>
+            <td>G0/0/1</td>
+            <td>192.168.2.1</td>
+            <td>255.255.255.0</td>
+            <td>NOT APPLICABLE</td>
+        </tr>
+
+        <!-- S1 -->
+        <tr>
+            <td>S1</td>
+            <td>VLAN 1</td>
+            <td>192.168.1.2</td>
+            <td>255.255.255.0</td>
+            <td>192.168.1.1</td>
+        </tr>
+
+        <!-- S2 -->
+        <tr>
+            <td>S2</td>
+            <td>VLAN 1</td>
+            <td>192.168.2.2</td>
+            <td>255.255.255.0</td>
+            <td>192.168.2.1</td>
+        </tr>
+
+        <!-- DHCP Server -->
+        <tr>
+            <td>DHCP Server</td>
+            <td>NIC</td>
+            <td>192.168.2.3</td>
+            <td>255.255.255.0</td>
+            <td>192.168.2.1</td>
+        </tr>
+
+        <!-- PCs -->
+        <tr>
+            <td>PC1</td>
+            <td>NIC</td>
+            <td colspan="3">DHCP</td>
+        </tr>
+        <tr>
+            <td>PC2</td>
+            <td>NIC</td>
+            <td colspan="3">DHCP</td>
+        </tr>
+        <tr>
+            <td>PC3</td>
+            <td>NIC</td>
+            <td colspan="3">DHCP</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>R1 CONFIGURATION</h3>
+
+<pre>
+Router>enable
+Router#clock set 10:30:15 01 January 2026
+Router#configure terminal
+Router(config)#no ip domain-lookup
+Router(config)#hostname R1
+R1(config)#service password-encryption
+R1(config)#banner motd "Unauthorized access is strictly prohibited"
+R1(config)#enable secret itsasecret
+
+R1(config)#line console 0
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)#logging synchronous
+R1(config-line)#exec-timeout 5
+R1(config-line)#line vty 0 15
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)#logging synchronous
+R1(config-line)#exec-timeout 5
+
+R1(config-line)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#description Connected to S1
+R1(config-if)#ip helper-address 192.168.2.3
+R1(config-if)#no shutdown
+
+R1(config-if)#interface g0/0/1
+R1(config-if)#ip address 192.168.2.1 255.255.255.0
+R1(config-if)#description Connected to S2
+R1(config-if)#no shutdown
+R1(config-if)#end
+
+R1#copy running-config startup-config
+</pre>
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#clock set 10:30:15 01 January 2026
+Switch#configure terminal
+Switch(config)#no ip domain-lookup
+Switch(config)#hostname S1
+S1(config)#service password-encryption
+S1(config)#banner motd "Unauthorized access is strictly prohibited"
+S1(config)#enable secret itsasecret
+
+S1(config)#line console 0
+S1(config-line)#password cisco
+S1(config-line)#login
+S1(config-line)#logging synchronous
+S1(config-line)#exec-timeout 5
+S1(config-line)#line vty 0 15
+S1(config-line)#password cisco
+S1(config-line)#login
+S1(config-line)#logging synchronous
+S1(config-line)#exec-timeout 5
+
+S1(config-line)#interface vlan 1
+S1(config-if)#ip address 192.168.1.2 255.255.255.0
+S1(config-if)#exit
+S1(config)#ip default-gateway 192.168.1.1
+S1(config)#exit
+
+S1#copy run start
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#clock set 10:30:15 01 January 2026
+Switch#configure terminal
+Switch(config)#no ip domain-lookup
+Switch(config)#hostname S2
+S2(config)#service password-encryption
+S2(config)#banner motd "Unauthorized access is strictly prohibited"
+S2(config)#enable secret itsasecret
+
+S2(config)#line console 0
+S2(config-line)#password cisco
+S2(config-line)#login
+S2(config-line)#logging synchronous
+S2(config-line)#exec-timeout 5
+S2(config-line)#line vty 0 15
+S2(config-line)#password cisco
+S2(config-line)#login
+S2(config-line)#logging synchronous
+S2(config-line)#exec-timeout 5
+
+S2(config-line)#interface vlan 1
+S2(config-if)#ip address 192.168.2.2 255.255.255.0
+S2(config-if)#exit
+S2(config)#ip default-gateway 192.168.2.1
+S2(config)#exit
+
+S2#copy run start
+</pre>
+
+
+<h3>CONFIGURE SERVER AS DHCP SERVER FOR ALL NETWORKS</h3>
+<p>Click on <b>DHCP Server</b> → <b>Services</b> → <b>DHCP</b><br>
+<b>Service</b> → <b>On</b></p>
+
+<pre>
+<b>Pool Name:</b> S1LAN
+<b>Default Gateway:</b> 192.168.1.1
+<b>Start IP Address:</b> 192.168.1.10
+<b>Subnet Mask:</b> 255.255.255.0
+<b>Maximum Number of Users:</b> 200
+Click <b>Add</b>
+</pre>
+
+<pre>
+<b>Pool Name:</b> serverPool
+<b>Default Gateway:</b> 192.168.2.1
+<b>Start IP Address:</b> 192.168.2.10
+<b>Subnet Mask:</b> 255.255.255.0
+<b>Maximum Number of Users:</b> 200
+Click <b>Add</b>
+</pre>
+
+
+<h3>PC1, PC2, AND PC3 CONFIGURATION</h3>
+<pre>
+<b>IP Configuration:</b> DHCP
+</pre>
+
+<h3>CONNECTIVITY TEST</h3>
+<p>Ping each PC and make sure that they communicate successfully with each other.</p>
+
+<h3>RESULT</h3>
+<p>The DHCP server was successfully configured to assign IP addresses to multiple networks, and all PCs received IPs automatically and communicated successfully using ping.</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment14.html" class="btn">Previous Exercise</a>
+    <a href="experiment16.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>

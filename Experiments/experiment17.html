@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment 17</title>
+    <link rel="stylesheet" href="../Support/style.css">
+</head>
+<body>
+
+<header class="header">
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
+    <div class="header-text">
+        <h1>Experiment – 17</h1>
+<h1>TROUBLESHOOT CONNECTIVITY ISSUES</h1>
+    </div>
+</header>
+
+<!-- TOP NAVIGATION LINKS -->
+<div class="top-nav">
+    <a href="experiments.html">← Back to Experiment List</a>
+    <a href="../index.html">← Back to Main Page</a>
+</div>
+
+<div class="button-container">
+    <a href="../Attachments/Exercise-No17-Packet-Tracer-Troubleshoot-Connectivity-Issues.pka" download class="btn">Download PKA File</a>
+</div>
+
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Troubleshoot and resolve connectivity issues, if possible.<br>
+   &emsp;&emsp;- Otherwise, the issues should be clearly documented so they can be escalated.
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp17_Topology.png" alt="Experiment 17 Topology">
+</div>
+
+<h3>ADDRESSING TABLE</h3>
+<table class="addressing-table">
+    <thead>
+<tr>
+        <th>Device</th>
+        <th>Interface</th>
+        <th>IP Address</th>
+        <th>Subnet Mask</th>
+        <th>Default Gateway</th>
+    </tr>
+    </thead>
+    <tbody>
+ <!-- R1 -->
+    <tr>
+        <td rowspan="3"><b>R1</b></td>
+        <td>G0/0</td>
+        <td>172.16.1.1</td>
+        <td>255.255.255.0</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td>G0/1</td>
+        <td>172.16.2.1</td>
+        <td>255.255.255.0</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td>S0/0/0</td>
+        <td>209.165.200.226</td>
+        <td>255.255.255.252</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+
+    <!-- R2 -->
+    <tr>
+        <td rowspan="2"><b>R2</b></td>
+        <td>G0/0</td>
+        <td>209.165.201.1</td>
+        <td>255.255.255.224</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td>S0/0/0 (DCE)</td>
+        <td>209.165.200.225</td>
+        <td>255.255.255.252</td>
+        <td>NOT APPLICABLE</td>
+    </tr>
+
+    <!-- PCs -->
+    <tr>
+        <td>PC-01</td>
+        <td>NIC</td>
+        <td>172.16.1.3</td>
+        <td>255.255.255.0</td>
+        <td>172.16.1.1</td>
+    </tr>
+    <tr>
+        <td>PC-02</td>
+        <td>NIC</td>
+        <td>172.16.1.4</td>
+        <td>255.255.255.0</td>
+        <td>172.16.1.1</td>
+    </tr>
+    <tr>
+        <td>PC-A</td>
+        <td>NIC</td>
+        <td>172.16.2.3</td>
+        <td>255.255.255.0</td>
+        <td>172.16.2.1</td>
+    </tr>
+    <tr>
+        <td>PC-B</td>
+        <td>NIC</td>
+        <td>172.16.2.4</td>
+        <td>255.255.255.0</td>
+        <td>172.16.2.1</td>
+    </tr>
+
+    <!-- Servers -->
+    <tr>
+        <td>Web</td>
+        <td>NIC</td>
+        <td>209.165.201.2</td>
+        <td>255.255.255.224</td>
+        <td>209.165.201.1</td>
+    </tr>
+    <tr>
+        <td>DNS1</td>
+        <td>NIC</td>
+        <td>209.165.201.3</td>
+        <td>255.255.255.224</td>
+        <td>209.165.201.1</td>
+    </tr>
+    <tr>
+        <td>DNS2</td>
+        <td>NIC</td>
+        <td>209.165.201.4</td>
+        <td>255.255.255.224</td>
+        <td>209.165.201.1</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>STEP 1: DETERMINE CONNECTIVITY ISSUES FROM PC-01</h3>
+<p>a. On PC-01, open the command prompt. Enter the command ipconfig to verify what IP address and default gateway have been assigned to PC-01. Correct as necessary according to the Addressing Table.<br>
+<b style="color: red;">IP incorrect, change IP address to 172.16.1.3</b>
+</p>
+
+<p>b. After verifying/correcting the IP addressing issues on PC-01, issue pings to the default gateway, web server, and other PCs. Were the pings successful? Record the results.
+
+<h4>Questions:</h4>
+Ping to default gateway (172.16.1.1)? <b style="color: red;">Yes</b><br>
+To web server (209.165.201.2)? <b style="color: red;">Yes</b><br>
+Ping to PC-02? <b style="color: red;">Yes</b><br>
+To PC-A? <b style="color: red;">No</b><br>
+To PC-B? <b style="color: red;">No</b><br>
+</p>
+
+<p>c. Use the web browser to access the web server on PC-01. Access the web server by first entering the URL http://www.cisco.pka and then by using the IP address 209.165.201.2. Record the results.
+<h4>Questions:</h4>
+Can PC-01 access www.cisco.pka?<b style="color: red;"> Yes</b><br>
+Using the web server IP address?<b style="color: red;"> Yes</b><br>
+</p>
+
+<h3>STEP 2: DETERMINE CONNECTIVITY ISSUES FROM PC-02</h3>
+<p>a. On PC-02, open the command prompt. Enter the command ipconfig to verify the configuration for the IP address and default gateway. Correct as necessary.<br>
+<b style="color: red;">Default Gateway incorrect, change Default Gateway address to 172.16.1.1</b>
+</p>
+
+<p>b. After verifying/correcting the IP addressing issues on PC-02, issue pings to the default gateway, web server, and other PCs. Were the pings successful? Record the results.
+
+<h4>Questions:</h4>
+Ping to default gateway (172.16.1.1)? <b style="color: red;">Yes</b><br>
+To web server (209.165.201.2)? <b style="color: red;">Yes</b><br>
+Ping to PC-01? <b style="color: red;">Yes</b><br>
+To PC-A? <b style="color: red;">No</b><br>
+To PC-B? <b style="color: red;">No</b><br>
+</p>
+
+<p>c. Navigate to www.cisco.pka using the web browser on PC-02. Record the results.
+<h4>Questions:</h4>
+Can PC-02 access www.cisco.pka?<b style="color: red;"> Yes</b><br>
+Using the web server IP address?<b style="color: red;"> Yes</b><br>
+</p>
+
+<h3>STEP 3: DETERMINE CONNECTIVITY ISSUES FROM PC-A</h3>
+<p>a. On PC-A, open the command prompt. Enter the command ipconfig to verify the configuration for the IP address and default gateway. Correct as necessary.
+</p>
+
+<p>b. After correcting the IP addressing issues on PC-A, issue the pings to the web server, default gateway, and other PCs. Were the pings successful? Record the results.
+
+<h4>Questions:</h4>
+To web server (209.165.201.2)? <b style="color: red;">No</b><br>
+Ping to default gateway (172.16.2.1)? No <b style="color: red;">No</b><br>
+Ping to PC-B? Yes <b style="color: red;">Yes</b><br>
+To PC-01? <b style="color: red;">No</b><br>
+To PC-02? <b style="color: red;">No</b><br>
+</p>
+
+<p>c. Navigate to www.cisco.pka using the web browser on PC-A. Record the results.
+<h4>Questions:</h4>
+Can PC-0A access www.cisco.pka?<b style="color: red;"> No</b><br>
+Using the web server IP address?<b style="color: red;"> No</b><br>
+</p>
+
+<p>d. Document the issues and provide the solution(s). Correct the issues if possible.<br>
+<b style="color: red;">PC-A can only access the local LAN. The interface G0/1 on router R1 is incorrectly configured. Correct the IP address on interface G0/1. Access router R1 using SSH from PC-01 or PC-02 to change the IP address from 172.16.3.1 to 172.16.2.1</b><br><br>
+<b style="color: red;">ACCESS R1 FROM PC-01 COMMAND PROMPT<br>
+C:\>ssh -l Admin01 172.16.1.1<br>
+Password: cisco12345<br>
+R1#show ip interface brief<br>
+R1(config)#interface g0/1<br>
+R1(config-if)#ip address 172.16.2.1 255.255.255.0<br>
+R1(config-if)#end<br>
+R#copy run start
+</b>
+</p>
+
+<h3>STEP 4: DETERMINE CONNECTIVITY ISSUES FROM PC-B</h3>
+<p>a. On PC-B, open the command prompt. Enter the command ipconfig to verify the configuration for the IP address and default gateway. Correct as necessary.
+</p>
+
+<p>b. After correcting the IP addressing issues on PC-B, issue the pings to the web server, default gateway, and other PCs. Were the pings successful? Record the results.
+
+<h4>Questions:</h4>
+To web server (209.165.201.2)? <b style="color: red;">Yes</b><br>
+Ping to default gateway (172.16.2.1)? No <b style="color: red;">Yes</b><br>
+Ping to PC-A? Yes <b style="color: red;">Yes</b><br>
+To PC-01? <b style="color: red;">Yes</b><br>
+To PC-02? <b style="color: red;">Yes</b><br>
+</p>
+
+<p>c. Navigate to www.cisco.pka using the web browser. Record the results.
+<h4>Questions:</h4>
+Can PC-0B access www.cisco.pka?<b style="color: red;"> No</b><br>
+Using the web server IP address?<b style="color: red;"> Yes</b><br>
+</p>
+
+<p>d. Document the issues and provide the solution(s). Correct the issues if possible.<br>
+<b style="color: red;">PC-B can access the web server using the IP address only. PC-B is also configured with the correct DNS-2 server address. This indicates that DNS-2 server may be incorrectly configured. To resolve this issue temporarily, the DNS server address can be configured to be used 209.165.200.3. The issue with DNS-2 server needs to be escalated because we do not have administrative access to devices outside your network.</b></p>
+
+<p>e. Could all the issues be resolved on PC-B and still make use of DNS2? If not, what would you need to do?<br>
+<b style="color: red;">No. DNS2 apparently has configuration issues. I need to contact the person in charge of the DNS2 server and report findings.</b></p>
+
+
+<h3>RESULT</h3>
+<p>Troubleshot the connectivity issues and verified that all PCs can access the web server at www.cisco.pka.</p>
+
+</div>
+<div class="button-container">
+    <a href="experiment16.html" class="btn">Previous Exercise</a>
+    <a href="experiment18.html" class="btn">Next Exercise</a>
+</div>
+<footer class="footer">
+    © 2025 Author: Anoop Jacob - TTC
+</footer>
+</body>
+</html>
