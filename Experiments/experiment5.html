@@ -150,7 +150,7 @@ Subnet Mask: 255.255.255.0
 
 <h3>CONFIGURE THE SWITCH MANAGEMENT INTERFACE</h3>
 <pre>
-S1 CONFIGURATION
+S1#configure terminal
 S1(config)#interface vlan 1
 S1(config-if)#ip address 192.168.1.253 255.255.255.0
 S1(config-if)#description Management Interface
@@ -183,6 +183,8 @@ S2#copy running-config startup-config
 <pre>
 S1#show running-config
 S1#show startup-config
+S1#show ip interface brief
+S1#show interface vlan 1
 C:\>ping 192.168.1.1
 </pre>
 
@@ -201,4 +203,5 @@ C:\>ping 192.168.1.1
     © 2025 Author: Anoop Jacob - TTC
 </footer>
 </body>
+
 </html>
