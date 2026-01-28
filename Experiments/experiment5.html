@@ -92,7 +92,6 @@ S1(config)#ip domain-name nttftrg.com
 S1(config)#enable secret class
 S1(config)#banner motd "Unauthorized access is strictly prohibited"
 S1(config)#service password-encryption
-S1(config)#no ip domain-lookup
 S1(config)#line console 0
 S1(config-line)#password cisco
 S1(config-line)#login
@@ -117,7 +116,6 @@ S2(config)#ip domain-name nttftrg.com
 S2(config)#enable secret class
 S2(config)#banner motd "Unauthorized access is strictly prohibited"
 S2(config)#service password-encryption
-S2(config)#no ip domain-lookup
 S2(config)#line console 0
 S2(config-line)#password cisco
 S2(config-line)#login
@@ -205,3 +203,4 @@ C:\>ping 192.168.1.1
 </body>
 
 </html>
+
