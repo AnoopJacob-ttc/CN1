@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cisco IOS Access and Navigation tutorial page.">
-    <title>1.2 CISCO IOS Access and IOS Navigation</title>
+    <title>1.2 CISCO IOS Access & IOS Navigation</title>
     <link rel="stylesheet" href="../Support/style.css">
 </head>
 <body>
 
 <header class="header">
-    <img src="../Images/logo.png" alt="NTTF Logo" class="logo" />
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
-        <h1>1.2 CISCO IOS Access and IOS Navigation</h1>
+        <h1>1.2 CISCO IOS Access & IOS Navigation</h1>
     </div>
 </header>
 
@@ -23,217 +21,37 @@
 </div>
 
 <div class="container">
-    <h3>CISCO IOS ACCESS METHODS</h3>
-    <table class="addressing-table">
-        <thead>
-            <tr>
-                <th>METHOD</th>
-                <th>DESCRIPTION</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- CONSOLE -->
-            <tr>
-                <td><b>CONSOLE</b></td>
-                <td>This is a physical management port that provides out-of-band access to a Cisco device. Out-of-band access refers to access via a dedicated management channel that is used for device maintenance purposes only. The advantage of using a console port is that the device is accessible even if no networking services are configured, such as performing the initial configuration. A computer running terminal emulation software and a special console cable to connect to the device are required for a console connection.</td>
-            </tr>
-            <!-- SECURE SHELL (SSH) -->
-            <tr>
-                <td><b>SECURE SHELL (SSH)</b></td>
-                <td>SSH is an in-band and recommended method for remotely establishing a secure CLI connection, through a virtual interface, over a network. Unlike a console connection, SSH connections require active networking services on the device, including an active interface configured with an address. Most versions of Cisco IOS include an SSH server and an SSH client that can be used to establish SSH sessions with other devices</td>
-            </tr>
-            <!-- TELNET -->
-            <tr>
-                <td><b>TELNET</b></td>
-                <td>Telnet is an insecure, in-band method of remotely establishing a CLI session, through a virtual interface, over a network. Unlike SSH, Telnet does not provide a secure, encrypted connection and should only be used in a lab environment. User authentication, passwords, and commands are sent over the network in plaintext. The best practice is to use SSH instead of Telnet. Cisco IOS includes both a Telnet server and Telnet client.</td>
-            </tr>
-        </tbody>
-    </table>
+<table class="addressing-table">
+    <thead>
+    <tr>
+	<th>SL NO.</th>
+        <th>SUB-TOPICS TOPICS</th>
+        <th>HOURS ALLOTTED</th>
+    </tr>
 
-    <div class="ios-modes">
-        <h3>NAVIGATE BETWEEN DIFFERENT IOS MODES</h3>
+    </thead>
+    <tbody>
+<tr>
+    <td rowspan="5" style="text-align: center;">1.2</td>
+    <td><b>CISCO IOS Access & IOS Navigation<b></td>
+    <td rowspan="5" style="text-align: center;">1</td>
+</tr>
+<tr>
+    <td>CISCO IOS Access Methods</td>
+</tr>
+<tr>
+    <td>Navigate between different IOS Modes</td>
+</tr>
+<tr>
+    <td>Basic CISCO Device Configuration</td>
+</tr>
+<tr>
+    <td>Configure IP Address manually on an End Device</td>
+</tr>
+    </tbody>
+</table>
+</div>
 
-        <!-- Mode Card -->
-        <div class="mode-card user-exec">
-            <h4>User-EXEC Mode</h4>
-            <p><strong>Prompt:</strong> <code>Switch&gt;</code></p>
-            <p><strong>Purpose:</strong> Basic monitoring; cannot make configuration changes.</p>
-            <p><strong>Next Step:</strong> Type <code>enable</code> to enter Privileged EXEC mode.</p>
-        </div>
-
-        <div class="mode-card privileged-exec">
-            <h4>Privileged EXEC Mode</h4>
-            <p><strong>Prompt:</strong> <code>Switch#</code></p>
-            <p><strong>Purpose:</strong> Full command access, view and modify configurations.</p>
-            <p><strong>Enter:</strong> <code>enable</code> (from User-EXEC)</p>
-            <p><strong>Exit:</strong> <code>disable</code> (back to User-EXEC)</p>
-        </div>
-
-        <div class="mode-card global-config">
-            <h4>Global Configuration Mode</h4>
-            <p><strong>Prompt:</strong> <code>Switch(config)#</code></p>
-            <p><strong>Purpose:</strong> Configure system-wide settings.</p>
-            <p><strong>Enter:</strong> <code>configure terminal</code> or <code>conf t</code></p>
-            <p><strong>Exit:</strong> <code>end</code> or <code>Ctrl + Z</code></p>
-        </div>
-
-        <div class="mode-card special-config">
-            <h4>Special Configuration Modes</h4>
-            <p><strong>Interface Mode:</strong> <code>Switch(config-if)#</code> → <code>interface fa0/1</code></p>
-            <p><strong>Routing Protocol Mode:</strong> <code>Switch(config-router)#</code> → <code>router ospf 1</code></p>
-            <p><strong>Exit:</strong> <code>exit</code> → back to Global Configuration</p>
-        </div>
-    </div>
-
-<pre>
-Switch>				//User Exec Mode
-Switch>enable
-Switch#				// Privileged Exec Mode
-Switch# configure terminal
-Switch(config)#			//Global Configuration Mode
-Switch(config)#interface fa0/1
-Switch(config-if)#		//Interface Mode (Specific Configuration Mode)
-</pre>
-
-    <div class="cisco-basic-config">
-        <h3>BASIC CISCO DEVICE CONFIGURATION</h3>
-        <h4>SET THE CLOCK</h4>
-        <pre>
-Switch>enable
-Switch#clock set 10:30:15 01 January 2026
-Switch#show clock
-        </pre>
-
-        <h4>HOST NAME</h4>
-        <pre>
-Switch>enable
-Switch#configure terminal
-Switch(config)#hostname S1
-S1(config)#
-        </pre>
-
-        <h4>BANNER MOTD</h4>
-        <pre>
-S1(config)#banner motd "Unauthorized access is strictly prohibited"
-        </pre>
-
-        <h4>DISABLE DNS LOOKUP</h4>
-        <pre>
-Switch#configure terminal
-Switch(config)#no ip domain-lookup
-        </pre>
-
-        <h4>CONFIGURE DOMAIN NAME</h4>
-        <pre>
-Switch(config)#ip domain-name nttftrg.com
-        </pre>
-
-        <h4>ENABLE PASSWORD</h4>
-        <pre>
-Switch(config)#enable password cisco
-        </pre>
-
-        <h4>ENABLE SECRET</h4>
-        <pre>
-Switch(config)#enable secret itsasecret
-        </pre>
-
-        <h4>CONFIGURE LINE PASSWORDS</h4>
-        <pre>
-Switch(config)#line console 0
-Switch(config-line)#password cisco
-Switch(config-line)#login
-
-Switch(config-line)#line vty 0 15
-Switch(config-line)#password cisco
-Switch(config-line)#login
-Switch(config-line)#exit
-Switch(config)#
-        </pre>
-
-        <h4>ENCRYPT ALL PLAIN TEXT PASSWORDS</h4>
-        <pre>
-Switch(config)#service password-encryption
-        </pre>
-
-        <h4>LOGGING SYNCHRONOUS</h4>
-        <pre>
-Switch(config)#line console 0
-Switch(config-line)#logging synchronous
-
-Switch(config-line)#line vty 0 15
-Switch(config-line)#logging synchronous
-        </pre>
-
-        <h4>LOGIN ATTEMPT LIMITATION SETTINGS - EXEC TIMEOUT</h4>
-        <pre>
-Switch(config-line)#line console 0
-Switch(config-line)#exec-timeout 5
-
-Switch(config-line)#line vty 0 15
-Switch(config-line)#exec-timeout 5
-Switch(config-line)#end
-Switch#
-        </pre>
-
-        <h4>SAVE CONFIGURATION FILES TO NVRAM</h4>
-        <pre>
-S1(config)#exit
-S1#copy running-config startup-config
-        </pre>
-    </div>
-
-    <div class="end-device-ip-config">
-        <h3>CONFIGURE IP ADDRESS MANUALLY ON AN END DEVICE</h3>
-
-        <p>Follow these steps to manually configure the IP address on a <b>Windows</b> computer:</p>
-        
-        <ol>
-            <li><b>Open Network Settings</b>  
-                <ul>
-                    <li>Go to the "Start" menu and click on "Control Panel".</li>
-                    <li>In the "Control Panel", go to "Network and Sharing Center".</li>
-                    <li>Click on "Change adapter settings" on the left pane.</li>                   
-		    <li>Right-click on your active network connection (Ethernet or Wi-Fi) and select "Properties".</li>
-                </ul>
-            </li>
-
-            <li><b>Select TCP/IPv4</b>  
-                <ul>
-                    <li>In the "Properties" window, select <b>Internet Protocol Version 4 (TCP/IPv4)</b> and click on the "Properties" button.</li>
-                </ul>
-            </li>
-
-            <li><b>Assign IP Address</b>  
-                <ul>
-                    <li>In the new window, choose the option: <b>Use the following IP address</b>.</li>
-                    <li>Enter the desired <b>IP address</b> (for example, <b>192.168.1.10</b>), <b>subnet mask</b> (<b>255.255.255.0</b>), and <b>default gateway</b> (<b>192.168.1.1</b>) for the device.</li>
-                </ul>
-            </li>
-
-<li><b>Set DNS Servers</b>  
-    <ul>
-        <li>If required, enter the <b>DNS servers</b>. For example, you can use Google's DNS servers:</li>
-        <li><b>Preferred DNS server:</b> <b>8.8.8.8</b></li>
-        <li><b>Alternate DNS server:</b> <b>8.8.4.4</b></li>
-    </ul>
-</li>
-            <li><b>Save and Apply</b>  
-                <ul>
-                    <li>Click <b>OK</b> to save the settings, and then close the remaining windows.</li>
-                    <li>Your PC is now manually configured with the static IP address.</li>
-                </ul>
-            </li>
-        </ol>
-
-        <h4>Verification:</h4>
-        <p>To verify the configuration:</p>
-        <ul>
-            <li>Open <b>Command Prompt</b> and type the following command to check the IP configuration:</li>
-            <pre>ipconfig</pre>
-            <li>Verify that the <b>IP address</b>, <b>subnet mask</b>, and <b>default gateway</b> appear correctly.</li>
-        </ul>
-    </div>
 
 </div>
 <div class="button-container">
@@ -243,6 +61,5 @@ S1#copy running-config startup-config
 <footer class="footer">
     © 2025 Author: Anoop Jacob - TTC
 </footer>
-
 </body>
 </html>
