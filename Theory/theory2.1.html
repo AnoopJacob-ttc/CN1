@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cisco IOS Access and Navigation tutorial page.">
-    <title>2.1 Physical Layer</title>
+    <title>2.1  Physical Layer</title>
     <link rel="stylesheet" href="../Support/style.css">
 </head>
 <body>
 
 <header class="header">
-    <img src="../Images/logo.png" alt="NTTF Logo" class="logo" />
+    <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
-        <h1>2.1 Physical Layer</h1>
+        <h1>2.1  Physical Layer</h1>
     </div>
 </header>
 
@@ -23,222 +21,47 @@
 </div>
 
 <div class="container">
+<table class="addressing-table">
+    <thead>
+    <tr>
+	<th>SL NO.</th>
+        <th>SUB-TOPICS TOPICS</th>
+        <th>HOURS ALLOTTED</th>
+    </tr>
 
-<h3>FUNCTIONAL AREAS OF PHYSICAL LAYER</h3>
-<p>The physical layer standards address three functional areas:<p>
-<ul><li>Physical Components</li>
-<li>Encoding</li>
-<li>Signaling</li></ul>
-
-<h4>Physical Components</h4>
-The physical components are the electronic hardware devices, media, and other connectors that transmit the signals that represent the bits.
-Hardware components such as NICs, interfaces and connectors, cable materials, and cable designs are all specified in standards associated with the physical layer.
-
-<h4>Encoding</h4>
-Encoding or line encoding is a method of converting a stream of data bits into a predefined "code". Codes are groupings of bits used to provide a predictable pattern that can be recognized by both the sender and the receiver. In other words, encoding is the method or pattern used to represent digital information. This is similar to how Morse code encodes a message using a series of dots and dashes
-<div class="topology-img">
-    <img src="../Images/Theory2.1(1).png" alt="Theory 1.3 Image">
-</div>
-<h4>Signaling</h4>
-The physical layer must generate the electrical, optical, or wireless signals that represent the "1" and "'" on the media. The way that bits are represented is called the signaling method.
-<div class="topology-img">
-    <img src="../Images/Theory2.1(2).png" alt="Theory 1.3 Image">
-</div>
-
-<h3>BANDWIDTH</h3>
-Different physical media support the transfer of bits at different rates. Data transfer is usually discussed in terms of bandwidth. Bandwidth is the capacity at which a medium can carry data. Digital bandwidth measures the amount of data that can flow from one place to another in a given amount of time. Bandwidth is typically measured in kilobits per second (kbps), megabits per second (Mbps), or gigabits per second (Gops).
-Bandwidth is sometimes thought of as the speed that bits travel, however this is not accurate. For example, in both 10Mbps and 100Mbps Ethernet, the bits are sent at the speed of electricity. The difference is the number of bits that are transmitted per second
-
-<p>A combination of factors determines the practical bandwidth of a network:<p>
-<ul><li>The properties of the physical media</li>
-<li>The technologies chosen for signaling and detecting network signals</li></ul>
-
-<p>Physical media properties, current technologies, and the laws of physics all play a role in determining the available bandwidth.</p>
-<p>The table shows the commonly used units of measure for bandwidth.</p>
-
-    <table class="addressing-table">
-        <thead>
-            <tr>
-                <th>Unit of Bandwidth</th>
-                <th>Abbreviation</th>
-                <th>Equivalence</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Bits per second</td>
-                <td>bps</td>
-                <td>1 bps = fundamental unit of bandwidth</td>
-            </tr>
-
-            <tr>
-                <td>Kilobits per second</td>
-                <td>Kbps</td>
-                <td>1 Kbps = 1,000 bps</td>
-            </tr>
-
-            <tr>
-                <td>Megabits per second</td>
-                <td>Mbps</td>
-                <td>1 Mbps = 1,000,000 bps</td>
-            </tr>
-
-            <tr>
-                <td>Gigabits per second</td>
-                <td>Gbps</td>
-                <td>1 Gbps = 1,000,000,000 bps</td>
-            </tr>
-
-            <tr>
-                <td>Terabits per second</td>
-                <td>Tbps</td>
-                <td>1 Tbps = 1.000.000.000.000 bps</td>
-            </tr>
-        </tbody>
-    </table>
-
-<h3>BANDWIDTH TERMINOLOGY</h3>
-<p>Terms used to measure the quality of bandwidth include:</p>
-<ul><li>Latency</li>
-<li>Throughput</li>
-<li>Goodput</li></ul>
-
-<h4>Latency</h4>
-Latency refers to the amount of time, including delays, for data to travel from one given point to another.
-<p>In an internetwork, or a network with multiple segments, throughput cannot be faster than the slowest link in the path from source to destination.
-Even if all, or most, of the segments have high bandwidth, it will only take one segment in the path with low throughput to create a bottleneck in the throughput of the entire network.</p>
-
-<h4>Throughput</h4>
-Throughput is the measure of the transfer of bits across the media over a given period of time
-<p>Due to a number of factors, throughput usually does not match the specified bandwidth in physical layer implementations. Throughput is usually lower than the bandwidth. There are many factors that influence throughput:</p>
-
-<ul><li>The amount of traffic</li>
-<li>The type of traffic</li>
-<li>The latency created by the number of network devices encountered between source and destination</li></ul>
-
-<h4>Goodput</h4>
-There is a third measurement to assess the transfer of usable data; it is known as goodput. Goodput is the measure of usable data transferred over a given period of time. Goodput is throughput minus traffic overhead for establishing sessions, acknowledgments, encapsulation, and retransmitted bits. Goodput is always lower than throughput, which is generally lower than the bandwidth.
-
-<h3>COPPER CABLING</h3>
-<h4>Characteristics of Copper Cabling</h4>
-Copper cabling is the most common type of cabling used in networks today. In fact, copper cabling is not just one type of cable. There are three different types of copper cabling that are each used in specific situations.
-<p>Networks use copper media because it is inexpensive, easy to install, and has low resistance to electrical current. However, copper media is limited by distance and signal interference.</p>
-
-<h4>Types of Copper Cabling</h4>
-<ul><li>UTP - Unshielded Twisted-Pair Cable</li>
-<li>STP - Shielded Twisted-Pair Cable</li>
-<li>Coaxial Cable</li></ul>
-<div class="topology-img">
-    <img src="../Images/Theory2.1(3).png" alt="Theory 1.3 Image">
+    </thead>
+    <tbody>
+<tr>
+    <td rowspan="8" style="text-align: center;">2.1</td>
+    <td><b>Physical Layer<b></td>
+    <td rowspan="8" style="text-align: center;">1</td>
+</tr>
+<tr>
+    <td>Functional Areas of Physical Layer</td>
+</tr>
+<tr>
+    <td>Bandwidth & Its Terminologies</td>
+</tr>
+<tr>
+    <td>Copper Cabling</td>
+</tr>
+<tr>
+    <td>Key Characteristics of UTP Cable</td>
+</tr>
+<tr>
+    <td>Copper Straight-through & Cross-Over Cable</td>
+</tr>
+<tr>
+    <td>Fiber Optic Cable & Types of Fiber Optic Cable</td>
+</tr>
+<tr>
+    <td>Wireless Media - Limitations, Types, Standards</td>
+</tr>
+    </tbody>
+</table>
 </div>
 
-<h3>KEY CHARACTERISTICS OF UNSHIELDED TWISTED-PAIR CABLE</h3>
-<ul><li>The outer jacket protects the copper wires from physical damage.</li>
-<li>Twisted-pairs protect the signal from interference.</li>
-<li>Color-coded plastic insulation electrically isolates wires from each other and identifies each pair.</li></ul>
 
-<h3>STRAIGHT-THROUGH AND CROSSOVER UTP CABLES</h3>
-Different situations may require UP cables to be wired according to different wiring conventions. This means that the individual wires in the cable have to be connected in different orders to different sets of pins in the RJ-45 connectors.
-<h4>Main cable types that are obtained by using specific wiring conventions:</h4>
-<ul><li><b>Ethernet Straight-through</b> - The most common type of networking cable. It is commonly used to interconnect a host to a switch and a switch to a router.<li>
-<li><b>Ethernet Crossover</b> - A cable used to interconnect similar devices. For example, to connect a switch to a switch, a host to a host, or a router to a router. However, crossover cables are now considered legacy as NICs use medium-dependent interface crossover (auto-MDIX) to automatically detect the cable type and make the internal connection.</li></ul>
-
-<div class="topology-img">
-    <img src="../Images/Theory2.1(4).png" alt="Theory 1.3 Image">
-</div>
-
-<h4>Cable Types and Standards</h4>
-    <table class="addressing-table">
-        <thead>
-            <tr>
-                <th>Cable Type</th>
-                <th>Standard</th>
-                <th>Application</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Ethernet Straight-through</td>
-                <td>Both ends T568A or both ends T568B</td>
-                <td>Connects a network host to a network device such as a switch or hub</td>
-            </tr>
-            <tr>
-                <td>Ethernet Crossover</td>
-                <td>One end T568A, other end T568B</td>
-                <td>Connects two network hosts Connects two network intermediary devices (switch to switch or router to router)</td>
-            </tr>
-            <tr>
-                <td>Rollover</td>
-                <td>Cisco proprietary</td>
-                <td>Connects a workstation serial port to a router console port, using an adapter</td>
-            </tr>
-        </tbody>
-    </table>
-
-
-<h3>FIBER-OPTIC CABLE</h3>
-As you have learned, fiber-optic cabling is the other type of cabling used in networks. Because it is expensive, it is not as commonly used at the various types of copper cabling.
-
-<p>Optical fiber cable transmits data over longer distances and at higher bandwidths than any other networking media. Unlike copper wires, fiber-optic cable can transmit signals with less attenuation and is completely immune to EMI and RFI. Optical fiber is commonly used to interconnect network devices.</p>
-
-<p>Optical fiber is a flexible, but extremely thin, transparent strand of very pure glass, not much bigger than a human hair. Bits are encoded on the fiber as light impulses. The fiber-optic cable acts as a waveguide, or "light pipe," to transmit light between the two ends with minimal loss of signal.</p>
-
-<h3>Types of Fiber Media</h3>
-Fiber-optic cables are broadly classified into two types:
-<ul><li>Single-mode fiber (SMF)</li>
-<li>Multimode fiber (MMF)</li></ul>
-
-<h4>Single-Mode Fiber</h4>
-SMF consists of a very small core and uses expensive laser technology to send a single ray of light, as shown in the figure. SMF is popular in long-distance situations spanning hundreds of kilometers, such as those required in long haul telephony and cable TV applications.
-
-<div class="topology-img">
-    <img src="../Images/Theory2.1(5).png" alt="Theory 1.3 Image">
-</div>
-
-<h4>Multimode Fiber</h4>
-MMF consists of a larger core and uses LED emitters to send light pulses. Specifically, light from an LED enters the multimode fiber at different angles, as shown in the figure. MFs are popular in LANs because they can be powered by low-cost LEDs. It provides bandwidth up to 10 Gbps over link lengths of up to 550 meters.
-
-<div class="topology-img">
-    <img src="../Images/Theory2.1(6).png" alt="Theory 1.3 Image">
-</div>
-
-<h3>WIRELESS MEDIA</h3>
-You may be taking this course using a tablet or a smart phone. This is only possible due to wireless media, which is the third way to connect to the physical layer of a network.
-
-<p>Wireless media carry electromagnetic signals that represent the binary digits of data communications using radio or microwave frequencies.</p>
-
-<p>Wireless media provide the greatest mobility options of all media, and the number of wireless-enabled devices continues to increase. Wireless is now the primary way users connect to home and enterprise networks</p>
-
-<h4>Limitations of wireless:</h4>
-
-<ul><li><b>Coverage area</b> - Wireless data communication technologies work well in open environments. However, certain construction materials used in buildings and structures, and the local terrain, will limit the effective coverage</li>
-<li><b>Interference</b> - Wireless is susceptible to interference and can be disrupted by such common devices as household cordless phones, some types of fluorescent lights, microwave ovens, and other wireless communications</li>
-<li><b>Security</b> - Wireless communication coverage requires no access to a physical strand of media. Therefore, devices and users, not authorized for access to the network, can gain access to the transmission. Network security is a major component of wireless network administration.</li>
-<li><b>Shared medium</b> - WLANs operate in half-duplex, which means only one device can send or receive at a time. The wireless medium is shared amongst all wireless users. Many users accessing the WLAN simultaneously results in reduced bandwidth for each user.</li></ul>
-
-<h4>Types of Wireless Media</h4>
-The IEEE and telecommunications industry standards for wireless data communications cover both the data link and physical layers. In each of these standards, physical layer specifications are applied to areas that include the following:
-
-<ul><li>Data to radio signal encoding</li>
-<li>Frequency and power of transmission</li>
-<li>Signal reception and decoding requirements</li>
-<li>Antenna design and construction</li></ul>
-
-<h4>Wireless standards:</h4>
-<ul><li><b>Wi-Fi (IEEE 802.11)</b> - Wireless LAN (WLAN) technology, commonly referred to as Wi-Fi. WLAN uses a contention-based protocol known as carrier sense multiple access/collision avoidance (CSMA/CA). The wireless NIC must first listen before transmitting to determine if the radio channel is clear. If another wireless device is transmitting, then the NIC must wait until the channel is clear. Wi-Fi is a trademark of the Wi-Fi Alliance. Wi-Fi is used with certified WLAN devices based on the IEEE 802.11 standards</li>
-<li><b>Bluetooth (IEEE 802.15)</b> - This is a wireless personal area network (WPAN) standard, commonly known as "Bluetooth." It uses a device pairing process to communicate over distances from 1 to 100 meters.</li>
-<li><b>WiMAX (IEEE 802.16)</b> - Commonly known as Worldwide Interoperability for Microware Access (WiMAX), this wireless standard uses a point-to-multipoint topology to provide wireless broadband access.</li>
-<li><b>Zigbee (IEEE 802.15.4)</b> - Zigbee is a specification used for low-data rate, low-power communications. It is intended for applications that require short-range, low data-rates and long battery life. Zigbee is typically used for industrial and Internet of Things (loT) environments such as wireless light switches and medical device data collection</li></ul>
-
-<h4>Wireless LAN</h4>
-A common wireless data implementation is enabling devices to connect wirelessly via a LAN.
-
-<h4>A WLAN requires the following network devices:</h4>
-
-<ul><li><b>Wireless Access Point (AP)</b> - These concentrate the wireless signals from users and connect to the existing copper-based network infrastructure, such as Ethernet. Home and small business wireless routers integrate the functions of a router, switch, and access point into one device</li>
-<li><b>Wireless NIC adapters</b> - These provide wireless communication capability to network hosts.
-As the technology has developed, a number of WLAN Ethernet-based standards have emerged. When purchasing wireless devices, ensure compatibility and interoperability.
-The benefits of wireless data communications technologies are evident, especially the savings on costly premises wiring and the convenience of host mobility. Network administrators must develop and apply stringent security policies and processes to protect WLANs from unauthorized access and damage.</li></ul>
 </div>
 <div class="button-container">
     <a href="theory1.3.html" class="btn">Previous Topic</a>
@@ -247,6 +70,5 @@ The benefits of wireless data communications technologies are evident, especiall
 <footer class="footer">
     © 2025 Author: Anoop Jacob - TTC
 </footer>
-
 </body>
 </html>
