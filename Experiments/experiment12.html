@@ -81,14 +81,15 @@
             <td>PC1</td>
             <td>NIC</td>
             <td>2001:DB8:ACAD:A::F/64</td>
-            <td>FE80::1</td>
+            <td>2001:DB8:ACAD:A::1</td>
         </tr>
 
         <!-- PC2 -->
         <tr>
             <td>PC2</td>
             <td>NIC</td>
-            <td colspan="2">Automatic</td>
+            <td>2001:DB8:ACAD:B::F/64</td>
+            <td>2001:DB8:ACAD:B::1</td>
         </tr>
     </tbody>
 </table>
@@ -190,13 +191,14 @@ S2#copy run start
 <h3>PC1 IPV6 CONFIGURATION</h3>
 <pre>
 <b>IPv6 Address:</b> 2001:DB8:ACAD:A::F/64
-<b>Default Gateway:</b> FE80::1
+<b>Default Gateway:</b> 2001:DB8:ACAD:A::1
 </pre>
 
 
 <h3>PC2 IPV6 CONFIGURATION</h3>
 <pre>
-<b>IPv6 Configuration:</b> Automatic
+<b>IPv6 Address:</b> 2001:DB8:ACAD:B::F/64
+<b>Default Gateway:</b> 2001:DB8:ACAD:B::1
 </pre>
 
 <h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
@@ -206,7 +208,7 @@ R1#show ipv6 interface brief
 S1#show ipv6 interface brief
 S2#show ipv6 interface brief
 C:/>ipconfig /all
-C:/>ping 2001:DB8:ACAD:A::F
+C:/>ping 2001:DB8:ACAD:B::F
 All devices will be able to ping each other using IPv6 Address.
 </pre>
 
@@ -224,4 +226,5 @@ All devices will be able to ping each other using IPv6 Address.
 </body>
 
 </html>
+
 
