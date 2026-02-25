@@ -202,10 +202,11 @@ S2#copy run start
 <h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
 <pre>
 R1#show running-config
-R1#show ip interface brief
-S1#show ip interface brief
-S2#show ip interface brief
+R1#show ipv6 interface brief
+S1#show ipv6 interface brief
+S2#show ipv6 interface brief
 C:/>ipconfig /all
+C:/>ping 2001:DB8:ACAD:A::F
 All devices will be able to ping each other using IPv6 Address.
 </pre>
 
@@ -223,3 +224,4 @@ All devices will be able to ping each other using IPv6 Address.
 </body>
 
 </html>
+
