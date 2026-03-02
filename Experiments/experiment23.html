@@ -165,7 +165,7 @@ S1(config-if-range)#switchport access vlan 20
 S1(config-if-range)#interface GigabitEthernet0/1
 S1(config-if)#switchport mode trunk
 S1(config-if)#switchport trunk native vlan 99
-switchport trunk allowed vlan 10,20,99
+S1(config-if)#switchport trunk allowed vlan 10,20,99
 
 S1(config-if)#end
 S1#copy run start
@@ -192,7 +192,7 @@ MLS(config-vlan)#interface g1/0/1
 MLS(config-if)#switchport mode trunk
 MLS(config-if)#switchport trunk allowed vlan 10,20,99
 
-MLS(config)#interface vlan 10
+MLS(config-if)#interface vlan 10
 MLS(config-if)#ip address 192.168.10.1 255.255.255.0
 MLS(config-if)#no shutdown
 
@@ -294,7 +294,7 @@ MLS#Show running-config
 </table>
 
 <h3>RESULT</h3>
-Configured and Verified Layer 3 Switching & Inter-VLAN Routing Using IPv4 successfully.
+Configured and verified inter-vlan routing using ipv4 on a multilayer switch successfully.
 </div>
 <div class="button-container">
     <a href="experiment22.html" class="btn">Previous Exercise</a>
@@ -305,4 +305,5 @@ Configured and Verified Layer 3 Switching & Inter-VLAN Routing Using IPv4 succes
 </footer>
 </body>
 </html>
+
 
