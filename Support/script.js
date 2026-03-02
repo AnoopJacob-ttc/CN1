@@ -177,7 +177,7 @@ name: `<strong>CONNECT A WIRED AND WIRELESS LAN</strong><br>
     no: 21,
     name: `<strong>CONFIGURE ROUTER-ON-A-STICK INTER-VLAN IPV4 ADDRESSES</strong><br>
            <em>&emsp;- Configure Basic Settings</em><br>
-           <em>&emsp;- Add VLANs to a Switch</em><br>
+           <em>&emsp;- Add VLANs to Switch</em><br>
            <em>&emsp;- Configure Sub interfaces</em><br>
            <em>&emsp;- Test Connectivity with Inter-VLAN Routing</em>`,
 	hours: 2
@@ -195,8 +195,9 @@ name: `<strong>CONNECT A WIRED AND WIRELESS LAN</strong><br>
     no: 23,
     name: `<strong>CONFIGURE LAYER 3 SWITCHING & INTER-VLAN ROUTING USING IPV4</strong><br>
            <em>&emsp;- Configure Basic Settings</em><br>
+		   <em>&emsp;- Add VLANs to Switch & MLS</em><br>
            <em>&emsp;- Configure Layer 3 Switching</em><br>
-           <em>&emsp;- Configure Inter-VLAN Routing using IPv4 Addresses</em>`,
+           <em>&emsp;- Test Connectivity with Inter-VLAN Routing</em>`,
 	hours: 2
 },
 {
@@ -587,5 +588,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         theoryTable.innerHTML = rows;
     }
+
 
 });
