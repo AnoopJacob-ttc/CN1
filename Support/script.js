@@ -196,7 +196,7 @@ name: `<strong>CONNECT A WIRED AND WIRELESS LAN</strong><br>
     name: `<strong>CONFIGURE INTER-VLAN ROUTING USING IPV4 ON A MULTILAYER SWITCH</strong><br>
            <em>&emsp;- Configure Basic Settings</em><br>
 		   <em>&emsp;- Add VLANs to Switch & MLS</em><br>
-           <em>&emsp;- Configure Layer 3 Switching</em><br>
+           <em>&emsp;- Configure Layer 3 Switching using IPv4</em><br>
            <em>&emsp;- Test Connectivity with Inter-VLAN Routing</em>`,
 	hours: 2
 },
@@ -204,8 +204,9 @@ name: `<strong>CONNECT A WIRED AND WIRELESS LAN</strong><br>
     no: 24,
     name: `<strong>CONFIGURE INTER-VLAN ROUTING USING IPV6 ON A MULTILAYER SWITCH</strong><br>
            <em>&emsp;- Configure Basic Settings</em><br>
-           <em>&emsp;- Configure Layer 3 Switching</em><br>
-           <em>&emsp;- Configure Inter-VLAN Routing using IPv6 Addresses</em>`,
+		   	<em>&emsp;- Add VLANs to Switch & MLS</em><br>
+           <em>&emsp;- Configure Layer 3 Switching using IPv6</em><br>
+           <em>&emsp;- Test Connectivity with Inter-VLAN Routing</em>`,
 	hours: 2
 },
 {
@@ -591,6 +592,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+
 
 
 
