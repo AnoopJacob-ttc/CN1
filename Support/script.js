@@ -178,7 +178,7 @@ name: `<strong>CONNECT A WIRED AND WIRELESS LAN</strong><br>
     name: `<strong>CONFIGURE ROUTER-ON-A-STICK INTER-VLAN IPV4 ADDRESSES</strong><br>
            <em>&emsp;- Configure Basic Settings</em><br>
            <em>&emsp;- Add VLANs to Switch</em><br>
-           <em>&emsp;- Configure Sub interfaces</em><br>
+           <em>&emsp;- Configure Sub-interfaces</em><br>
            <em>&emsp;- Test Connectivity with Inter-VLAN Routing</em>`,
 	hours: 2
 },
@@ -187,7 +187,7 @@ name: `<strong>CONNECT A WIRED AND WIRELESS LAN</strong><br>
     name: `<strong>CONFIGURE ROUTER-ON-A-STICK INTER-VLAN USING IPV6 ADDRESSES</strong><br>
            <em>&emsp;- Configure Basic Settings</em><br>
            <em>&emsp;- Add VLANs to Switch</em><br>
-           <em>&emsp;- Configure Sub interfaces</em><br>
+           <em>&emsp;- Configure Sub-interfaces</em><br>
            <em>&emsp;- Test Connectivity with Inter-VLAN Routing</em>`,
 	hours: 2
 },
@@ -591,5 +591,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+
 
 
