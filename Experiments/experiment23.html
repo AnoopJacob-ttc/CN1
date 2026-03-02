@@ -11,7 +11,7 @@
     <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
         <h1>Experiment – 23</h1>
-<h1>Configure Layer 3 Switching & Inter-VLAN Routing Using IPv4</h1>
+<h1>CONFIGURE INTER-VLAN ROUTING USING IPV4 ON A MULTILAYER SWITCH</h1>
     </div>
 </header>
 
@@ -22,18 +22,283 @@
 </div>
 
 <div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure Basic Settings<br>
+   &emsp;&emsp;- Add VLANs to Switch & MLS<br>
+   &emsp;&emsp;- Configure Layer 3 Switching using IPv4<br>
+   &emsp;&emsp;- Test Connectivity with Inter-VLAN Routing
+</p>
 
-<div style="text-align:center; margin-top:50px; font-family:Arial, sans-serif; color:#555;">
-  <span style="font-size:50px;">⏳</span>
-  <h1>Content Coming Soon</h1>
-  <p>We’re updating this section. Please check back shortly!</p>
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp23_Topology.png" alt="Experiment 23 Topology">
 </div>
 
+<h3>VLAN TABLE</h3>
 
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>VLAN ID</th>
+            <th>VLAN Name</th>
+            <th>Network Address</th>
+            <th>Subnet Mask</th>
+            <th>Ports to be assigned</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- VLAN 10 IT -->
+        <tr>
+            <td>10</td>
+            <td>IT</td>
+            <td>192.168.10.0</td>
+            <td>255.255.255.0</td>
+            <td>S1: Fa0/1-2</td>
+        </tr>
+        <!-- VLAN 20 IT -->
+        <tr>
+            <td>20</td>
+            <td>HR</td>
+            <td>192.168.20.0</td>
+            <td>255.255.255.0</td>
+            <td>S1: Fa0/3-4</td>
+        </tr>
+        <!-- VLAN 99 -->
+        <tr>
+            <td>99</td>
+            <td>Native</td>
+            <td colspan="3" style="text-align: center;">S1: G0/1, MLS: G1/0/1</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+            <th>Default Gateway</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+    <td rowspan="2">MLS</td>
+    <td>VLAN 10</td>
+    <td>192.168.10.1</td>
+    <td>255.255.255.0</td>
+    <td>NOT APPLICABLE</td>
+    <td>SVI for VLAN 10</td>
+  </tr>
+<tr>
+    <td>VLAN 20</td>
+    <td>192.168.20.1</td>
+    <td>255.255.255.0</td>
+    <td>NOT APPLICABLE</td>
+    <td>SVI for VLAN 20</td>
+  </tr>
+<tr>
+    <td>IT-PC1</td>
+    <td>NIC</td>
+    <td>192.168.10.10</td>
+    <td>255.255.255.0</td>
+    <td>192.168.10.1</td>
+    <td>Connected to S1 Fa0/1</td>
+  </tr>
+<tr>
+    <td>IT-PC2</td>
+    <td>NIC</td>
+    <td>192.168.10.11</td>
+    <td>255.255.255.0</td>
+    <td>192.168.10.1</td>
+    <td>Connected to S1 Fa0/2</td>
+  </tr>
+<tr>
+    <td>HR-PC1</td>
+    <td>NIC</td>
+    <td>192.168.20.10</td>
+    <td>255.255.255.0</td>
+    <td>192.168.20.1</td>
+    <td>Connected to S1 Fa0/3</td>
+  </tr>
+  <tr>
+    <td>HR-PC2</td>
+    <td>NIC</td>
+    <td>192.168.20.11</td>
+    <td>255.255.255.0</td>
+    <td>192.168.20.1</td>
+    <td>Connected to S1 Fa0/4</td>
+  </tr>
+    </tbody>
+</table>
+
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S1
+
+S1(config)#vlan 10
+S1(config-vlan)#name IT
+
+S1(config-vlan)#vlan 20
+S1(config-vlan)#name HR
+
+S1(config-vlan)#vlan 99
+S1(config-vlan)#name Native
+
+S1(config-vlan)#interface range fa0/1-2
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 10
+
+S1(config-if-range)#interface range fa0/3-4
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 20
+
+S1(config-if-range)#interface GigabitEthernet0/1
+S1(config-if)#switchport mode trunk
+S1(config-if)#switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,99
+
+S1(config-if)#end
+S1#copy run start
+</pre>
+
+<h3>MLS CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname MLS
+MLS(config)#ip routing
+
+MLS(config)#vlan 10
+MLS(config-vlan)#name IT
+
+MLS(config-vlan)#vlan 20
+MLS(config-vlan)#name HR
+
+MLS(config-vlan)#vlan 99
+MLS(config-vlan)#name Native
+
+
+MLS(config-vlan)#interface g1/0/1
+MLS(config-if)#switchport mode trunk
+MLS(config-if)#switchport trunk allowed vlan 10,20,99
+
+MLS(config)#interface vlan 10
+MLS(config-if)#ip address 192.168.10.1 255.255.255.0
+MLS(config-if)#no shutdown
+
+MLS(config-if)#interface vlan 20
+MLS(config-if)#ip address 192.168.20.1 255.255.255.0
+MLS(config-if)#no shutdown
+
+MLS(config-if)#end
+MLS#copy run start
+</pre>
+
+
+<h3>IT-PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.10.10
+<b>Subnet Mask: </b>255.255.255.0
+<b>Default Gateway: </b> 192.168.10.1
+</pre>
+
+<h3>IT-PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.10.11
+<b>Subnet Mask: </b>255.255.255.0
+<b>Default Gateway: </b>192.168.10.1
+</pre>
+
+<h3>HR-PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.20.10
+<b>Subnet Mask: </b>255.255.255.0
+<b>Default Gateway: </b>192.168.20.1
+</pre>
+
+<h3>HR-PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.20.11
+<b>Subnet Mask: </b>255.255.255.0
+<b>Default Gateway: </b>192.168.20.1
+</pre>
+
+<h3>SHOW COMMANDS USED</h3>
+<pre>
+S1#Show vlan brief
+S1#Show interfaces trunk
+S1#Show running-config
+MLS#Show ip interfaces brief
+MLS#Show interfaces trunk
+MLS#Show ip route
+MLS#Show running-config
+</pre>
+
+<h3>PING RESULT</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Ping from</th>
+            <th>To</th>
+            <th>Destination IP</th>
+            <th>Succeeded Yes/No</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- IT-PC1 -->
+        <tr>
+            <td rowspan="3">IT-PC1</td>
+            <td>IT-PC2</td>
+            <td>192.168.10.11</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>HR-PC1</td>
+            <td>192.168.20.10</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>HR-PC2</td>
+            <td>192.168.20.11</td>
+            <td>Yes</td>
+        </tr>
+
+        <!-- HR-PC1 -->
+        <tr>
+            <td rowspan="3">HR-PC1</td>
+            <td>IT-PC1</td>
+            <td>192.168.10.10</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>IT-PC2</td>
+            <td>192.168.10.11</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>HR-PC2</td>
+            <td>192.168.20.11</td>
+            <td>Yes</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>RESULT</h3>
+Configured and Verified Layer 3 Switching & Inter-VLAN Routing Using IPv4 successfully.
 </div>
 <div class="button-container">
-    <a href="experiment22.html" class="btn">Previous Exercise</a>
-    <a href="experiment24.html" class="btn">Next Exercise</a>
+    <a href="experiment20.html" class="btn">Previous Exercise</a>
+    <a href="experiment22.html" class="btn">Next Exercise</a>
 </div>
 <footer class="footer">
     © 2025 Author: Anoop Jacob - TTC
