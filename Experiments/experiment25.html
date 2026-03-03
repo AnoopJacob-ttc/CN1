@@ -11,7 +11,7 @@
     <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
         <h1>Experiment – 25</h1>
-<h1>Apply VLSM to efficiently use IP addresses for multiple VLANs.</h1>
+<h1>APPLY VLSM TO EFFICIENTLY USE IP ADDRESSES FOR MULTIPLE VLANS</h1>
     </div>
 </header>
 
@@ -22,14 +22,320 @@
 </div>
 
 <div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Given the network 192.168.1.0/24, design a VLSM plan for the following requirements:<br>
+   &emsp;&emsp;- Determine subnet masks and address ranges for each VLAN.<br>
+   &emsp;&emsp;&emsp;&emsp;- VLAN 10 – 60 hosts<br>
+   &emsp;&emsp;&emsp;&emsp;- VLAN 20 – 25 hosts<br>
+   &emsp;&emsp;&emsp;&emsp;- VLAN 30 – 10 hosts<br>
+   &emsp;&emsp;&emsp;&emsp;- VLAN 40 – 5 hosts<br>
+   &emsp;&emsp;- Configure the addressing on a Router-on-a-Stick topology using a single router and four VLANs.<br>
+   &emsp;&emsp;- Verify connectivity between all VLANs.
+</p>
 
-<div style="text-align:center; margin-top:50px; font-family:Arial, sans-serif; color:#555;">
-  <span style="font-size:50px;">⏳</span>
-  <h1>Content Coming Soon</h1>
-  <p>We’re updating this section. Please check back shortly!</p>
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp25_Topology.png" alt="Experiment 25 Topology">
 </div>
 
+<h3>VLSM TABLE</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>VLAN ID</th>
+            <th>REQUIRED HOSTS</th>
+            <th>NETWORK ADDRESS</th>
+            <th>FIRST HOST</th>
+            <th>LAST HOST</th>
+            <th>BROADCAST</th>
+            <th>SUBNET MASK</th>
+        </tr>
+    </thead>
+    <tbody>
 
+<tr>
+    <td>VLAN 10</td>
+    <td>60</td>
+    <td>192.168.1.0</td>
+    <td>192.168.1.1</td>
+    <td>192.168.1.62</td>
+    <td>192.168.1.63</td>
+    <td>255.255.255.192</td>
+  </tr>
+
+<tr>
+    <td>VLAN 20</td>
+    <td>25</td>
+    <td>192.168.1.64</td>
+    <td>192.168.1.65</td>
+    <td>192.168.1.94</td>
+    <td>192.168.1.95</td>
+    <td>255.255.255.224</td>
+  </tr>
+
+<tr>
+    <td>VLAN 30</td>
+    <td>10</td>
+    <td>192.168.1.96</td>
+    <td>192.168.1.97</td>
+    <td>192.168.1.110</td>
+    <td>192.168.1.111</td>
+    <td>255.255.255.240</td>
+  </tr>
+
+<tr>
+    <td>VLAN 40</td>
+    <td>5</td>
+    <td>192.168.1.112</td>
+    <td>192.168.1.113</td>
+    <td>192.168.1.118</td>
+    <td>192.168.1.119</td>
+    <td>255.255.255.248</td>
+  </tr>
+    </tbody>
+</table>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+            <th>Default Gateway</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+    <td rowspan="4">R1</td>
+    <td>G0/0/0.10</td>
+    <td>192.168.10.1</td>
+    <td>255.255.255.192</td>
+    <td>NOT APPLICABLE</td>
+    <td>Sub-Interface for VLAN 10</td>
+  </tr>
+<tr>
+    <td>G0/0/0.20</td>
+    <td>192.168.1.65</td>
+    <td>255.255.255.224</td>
+    <td>NOT APPLICABLE</td>
+    <td>Sub-Interface for VLAN 20</td>
+  </tr>
+<tr>
+    <td>G0/0/0.30</td>
+    <td>192.168.1.97</td>
+    <td>255.255.255.240</td>
+    <td>NOT APPLICABLE</td>
+    <td>Sub-Interface for VLAN 30</td>
+  </tr>
+<tr>
+    <td>G0/0/0.40</td>
+    <td>192.168.1.113</td>
+    <td>255.255.255.248</td>
+    <td>NOT APPLICABLE</td>
+    <td>Sub-Interface for VLAN 40</td>
+  </tr>
+
+<tr>
+    <td>VLAN 10</td>
+    <td>NIC</td>
+    <td>192.168.1.62</td>
+    <td>255.255.255.192</td>
+    <td>192.168.1.1</td>
+    <td>Connected to S1 Fa0/1</td>
+  </tr>
+<tr>
+    <td>VLAN 20</td>
+    <td>NIC</td>
+    <td>192.168.1.94</td>
+    <td>255.255.255.224</td>
+    <td>192.168.1.65</td>
+    <td>Connected to S1 Fa0/2</td>
+  </tr>
+<tr>
+    <td>VLAN 30</td>
+    <td>NIC</td>
+    <td>192.168.1.110</td>
+    <td>255.255.255.240</td>
+    <td>192.168.1.97</td>
+    <td>Connected to S1 Fa0/3</td>
+  </tr>
+<tr>
+    <td>VLAN 40</td>
+    <td>NIC</td>
+    <td>192.168.1.118</td>
+    <td>255.255.255.248</td>
+    <td>192.168.1.113</td>
+    <td>Connected to S1 Fa0/4</td>
+  </tr>
+    </tbody>
+</table>
+
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#no ip domain-lookup
+Switch(config)#hostname S1
+
+S1(config)#vlan 10
+S1(config-vlan)#vlan 20
+S1(config-vlan)#vlan 30
+S1(config-vlan)#vlan 40
+
+S1(config-vlan)#interface fa0/1
+S1(config-if)#switchport mode access
+S1(config-if)#switchport access vlan 10
+
+S1(config-if)#interface fa0/2
+S1(config-if)#switchport mode access
+S1(config-if)#switchport access vlan 20
+
+S1(config-if)#interface fa0/3
+S1(config-if)#switchport mode access
+S1(config-if)#switchport access vlan 30
+
+S1(config-if)#interface fa0/4
+S1(config-if)#switchport mode access
+S1(config-if)#switchport access vlan 40
+
+S1(config-if)#interface GigabitEthernet0/1
+S1(config-if)#switchport mode trunk
+S1(config-if)#switchport trunk native vlan 99
+S1(config-if)#switchport trunk allowed vlan 10,20,30,40
+
+S1(config-if)#end
+S1#copy run start
+</pre>
+
+<h3>R1 CONFIGURATION</h3>
+<pre>
+Router>enable
+Router#conf t
+Router(config)#no ip domain-lookup
+Router(config)#hostname R1
+
+R1(config)#interface g0/0/0
+R1(config-if)#no shutdown
+
+R1(config-if)#interface g0/0/0.10
+R1(config-subif)#encapsulation dot1Q 10
+R1(config-subif)#ip address 192.168.1.1 255.255.255.192
+
+R1(config-subif)#interface g0/0/0.20
+R1(config-subif)#encapsulation dot1Q 20
+R1(config-subif)#ip address 192.168.1.65 255.255.255.224
+
+R1(config-subif)#interface g0/0/0.30
+R1(config-subif)#encapsulation dot1Q 30
+R1(config-subif)#ip address 192.168.1.97 255.255.255.240
+
+R1(config-subif)#interface g0/0/0.40
+R1(config-subif)#encapsulation dot1Q 40
+R1(config-subif)#ip address 192.168.1.113 255.255.255.248
+
+R1(config-subif)#end
+R1#copy run start
+</pre>
+
+
+<h3>VLAN 10 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.1.62
+<b>Subnet Mask: </b>255.255.255.192
+<b>Default Gateway: </b> 192.168.1.1
+</pre>
+
+<h3>VLAN 20 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.1.94
+<b>Subnet Mask: </b>255.255.255.224
+<b>Default Gateway: </b>192.168.1.65
+</pre>
+
+<h3>VLAN 30 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.1.110
+<b>Subnet Mask: </b>255.255.255.240
+<b>Default Gateway: </b>192.168.1.97
+</pre>
+
+<h3>VLAN 40 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>192.168.1.118
+<b>Subnet Mask: </b>255.255.255.248
+<b>Default Gateway: </b>192.168.1.113
+</pre>
+
+<h3>SHOW COMMANDS USED</h3>
+<pre>
+S1#Show vlan brief
+S1#Show interfaces trunk
+S1#Show running-config
+R1#Show ip interfaces brief
+R1#Show ip route
+R1#Show running-config
+</pre>
+
+<h3>PING RESULT</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Ping from</th>
+            <th>To</th>
+            <th>Destination IP</th>
+            <th>Succeeded Yes/No</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- IT-PC1 -->
+        <tr>
+            <td rowspan="7">VLAN 10</td>
+            <td>R1 G0/0/0.10</td>
+            <td>192.168.1.1</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>R1 G0/0/0.20</td>
+            <td>192.168.1.65</td>
+            <td>Yes</td>
+        </tr>
+	<tr>
+            <td>R1 G0/0/0.30</td>
+            <td>192.168.1.97</td>
+            <td>Yes</td>
+        </tr>
+	<tr>
+            <td>R1 G0/0/0.40</td>
+            <td>192.168.1.113</td>
+            <td>Yes</td>
+        </tr>
+	<tr>
+            <td>VLAN 20</td>
+            <td>192.168.1.94</td>
+            <td>Yes</td>
+        </tr>
+	<tr>
+            <td>VLAN 30</td>
+            <td>192.168.1.110</td>
+            <td>Yes</td>
+        </tr>
+	<tr>
+            <td>VLAN 40</td>
+            <td>192.168.1.118</td>
+            <td>Yes</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>RESULT</h3>
+Applied VLSM and configured and Verified Router-on-a-Stick Inter-VLAN successfully.
 </div>
 <div class="button-container">
     <a href="experiment24.html" class="btn">Previous Exercise</a>
