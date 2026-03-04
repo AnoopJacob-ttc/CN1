@@ -11,7 +11,7 @@
     <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
         <h1>Experiment – 28</h1>
-<h1>Configure Static EtherChannel</h1>
+<h1>CONFIGURE STATIC ETHERCHANNEL</h1>
     </div>
 </header>
 
@@ -22,14 +22,137 @@
 </div>
 
 <div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure Basic Switch Settings<br>
+   &emsp;&emsp;- Configure a static EtherChannel (mode on) on both switches<br>
+   &emsp;&emsp;- Verify Ether-channel Configuration
+</p>
 
-<div style="text-align:center; margin-top:50px; font-family:Arial, sans-serif; color:#555;">
-  <span style="font-size:50px;">⏳</span>
-  <h1>Content Coming Soon</h1>
-  <p>We’re updating this section. Please check back shortly!</p>
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp28_Topology.png" alt="Experiment 28 Topology">
 </div>
 
+<h3>ADDRESSING TABLE</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+    <td>S1</td>
+    <td>VLAN 1</td>
+    <td>10.1.1.1</td>
+    <td>255.255.255.0</td>
+  </tr>
+<tr>
+    <td>S2</td>
+    <td>VLAN 1</td>
+    <td>10.1.1.2</td>
+    <td>255.255.255.0</td>
+  </tr>
+<tr>
+    <td>PC1</td>
+    <td>VLAN 1</td>
+    <td>10.1.1.3</td>
+    <td>255.255.255.0</td>
+  </tr>
+<tr>
+    <td>PC2</td>
+    <td>VLAN 1</td>
+    <td>10.1.1.4</td>
+    <td>255.255.255.0</td>
+  </tr>
+    </tbody>
+</table>
 
+<h3>PAGP ETHERCHANNEL LINK CONFIGURATION TABLE</h3>
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>CONNECTION</th>
+            <th>INTERFACE USED</th>
+            <th>SWITCH MODE</th>
+            <th>PORT-CHANNEL NO.</th>
+    </thead>
+    <tbody>
+
+<tr>
+    <td>S1 - S2</td>
+    <td>Fa0/1, Fa0/2, Fa0/3</td>
+    <td>S1: on<br>S2: on</td>
+    <td>1</td>
+  </tr>
+    </tbody>
+</table>
+
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#no ip domain-lookup
+Switch(config)#hostname S1
+
+S1(config)#interface vlan 1
+S1(config-if)#ip address 10.1.1.1 255.255.255.0
+S1(config-if)#description Management VLAN
+S1(config-if)#no shutdown
+
+S1(config-if)#interface range fa0/1-3
+S1(config-if-range)#channel-group 1 mode on
+S1(config-if-range)#end
+S1#copy run start
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#no ip domain-lookup
+Switch(config)#hostname S2
+
+S2(config)#interface vlan 1
+S2(config-if)#description Management VLAN 1
+S2(config-if)#ip address 10.1.1.2 255.255.255.0
+S2(config-if)#no shutdown
+
+S2(config-if)#interface range fa0/1-3
+S2(config-if-range)#channel-group 1 mode on
+
+S2(config-if-range)#end
+S2#copy run start
+</pre>
+
+<h3>PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>10.1.1.3
+<b>Subnet Mask: </b>255.255.255.0
+</pre>
+
+<h3>PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IPv4 Address: </b>10.1.1.4
+<b>Subnet Mask: </b>255.255.255.0
+</pre>
+
+<h3>SHOW COMMANDS USED</h3>
+<pre>
+S1# show etherchannel summary
+S2# show etherchannel summary
+S1#Show ip interface brief
+S2#Show ip interface brief
+</pre>
+
+<h3>RESULT</h3>
+Configured and verified a static EtherChannel (mode on) on both switches
 </div>
 <div class="button-container">
     <a href="experiment27.html" class="btn">Previous Exercise</a>
