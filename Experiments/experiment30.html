@@ -11,7 +11,7 @@
     <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
         <h1>Experiment – 30</h1>
-<h1>Configure DHCPv6</h1>
+<h1>CONFIGURE DHCPV6</h1>
     </div>
 </header>
 
@@ -22,13 +22,193 @@
 </div>
 
 <div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure Basic Settings<br>
+   &emsp;&emsp;- Configure and verify a Stateless DHCPv6 Server<br>
+   &emsp;&emsp;- Configure and verify a Stateful DHCPv6 Server
+</p>
 
-<div style="text-align:center; margin-top:50px; font-family:Arial, sans-serif; color:#555;">
-  <span style="font-size:50px;">⏳</span>
-  <h1>Content Coming Soon</h1>
-  <p>We’re updating this section. Please check back shortly!</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp12_Topology.png" alt="Experiment 30 Topology">
 </div>
 
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Interface</th>
+            <th>IPv6 Address / Prefix</th>
+            <th>Default Gateway</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- R1 -->
+        <tr>
+            <td rowspan="2">R1</td>
+            <td>G0/0/0</td>
+            <td>2001:DB8:ACAD:A::1/64</td>
+            <td>NOT APPLICABLE</td>
+        </tr>
+        <tr>
+            <td>G0/0/1</td>
+            <td>2001:DB8:ACAD:B::1/64</td>
+            <td>NOT APPLICABLE</td>
+        </tr>
+
+        <!-- S1 -->
+        <tr>
+            <td>S1</td>
+            <td>VLAN 1</td>
+            <td colspan="2">2001:DB8:ACAD:A::2/64</td>
+        </tr>
+
+        <!-- S2 -->
+        <tr>
+            <td>S2</td>
+            <td>VLAN 1</td>
+            <td colspan="2">2001:DB8:ACAD:B::2/64</td>
+        </tr>
+
+        <!-- PC1 -->
+        <tr>
+            <td>PC1</td>
+            <td>NIC</td>
+            <td style="text-align:center;" colspan="2">Automatic</td>
+        </tr>
+
+        <!-- PC2 -->
+        <tr>
+            <td>PC2</td>
+            <td>NIC</td>
+            <td style="text-align:center;" colspan="2">Automatic</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>R1 CONFIGURATION</h3>
+<pre>
+Router>enable
+Router#configure terminal
+Router(config)#no ip domain-lookup
+Router(config)#hostname R1
+
+R1(config)#ipv6 unicast-routing
+R1(config)#interface g0/0/0
+R1(config-if)#ipv6 address 2001:DB8:ACAD:A::1/64
+R1(config-if)#ipv6 address FE80::A link-local
+R1(config-if)#no shutdown
+
+R1(config-if)#interface g0/0/1
+R1(config-if)#ipv6 address 2001:DB8:ACAD:B::1/64
+R1(config-if)#ipv6 address FE80::B link-local
+R1(config-if)#no shutdown
+</pre>
+
+<h3>CONFIGURE STATELESS DHCPV6 ON R1</h3>
+<pre>
+R1(config)#ipv6 dhcp pool STATELESS
+R1(config-dhcpv6)#dns-server 2001:8:8::8
+R1(config-dhcpv6)#domain-name stateless.com
+R1(config-dhcpv6)#exit
+R1(config)#interface g0/0/0
+R1(config-if)#ipv6 nd other-config-flag
+R1(config-if)#ipv6 dhcp server STATELESS
+</pre>
+
+<h3>CONFIGURE STATEFUL DHCPV6 ON R1</h3>
+<pre>
+R1(config-if)#ipv6 dhcp pool STATEFUL
+R1(config-dhcpv6)#address prefix 2001:DB8:ACAD:B::/64
+R1(config-dhcpv6)#dns-server 2001:8:8::8
+R1(config-dhcpv6)#domain-name stateful.com
+R1(config-dhcpv6)#exit
+R1(config)#interface g0/0/1
+R1(config-if)#ipv6 dhcp server STATEFUL
+R1(config-if)#ipv6 nd managed-config-flag
+R1(config-if)#end
+R1#
+R1#copy run start
+</pre>
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#configure terminal
+Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
+Switch(config)#exit
+Switch#reload
+
+System configuration has been modified. Save? [yes/no]:yes
+Proceed with reload? [confirm][Press Enter Here]
+
+[After reload]
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S1
+
+S1(config)#interface vlan 1
+S1(config-if)#ipv6 address 2001:DB8:ACAD:A::2/64
+S1(config-if)#ipv6 address FE80::1 link-local
+S1(config-if)#no shutdown
+S1(config-if)#end
+
+S1#copy run start
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#sdm prefer dual-ipv4-and-ipv6 default
+
+Switch(config)#exit
+Switch#reload
+
+System configuration has been modified. Save? [yes/no]:yes
+Proceed with reload? [confirm][press Enter Here]
+
+[After reload]
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S2
+
+S2(config)#interface vlan 1
+S2(config-if)#ipv6 address 2001:DB8:ACAD:B::2/64
+S2(config-if)#ipv6 address FE80::1 link-local
+S2(config-if)#no shutdown
+S2(config-if)#end
+S2#copy run start
+</pre>
+
+<h3>PC1 IPV6 CONFIGURATION</h3>
+<pre>
+<b>IPv6 Configuration:</b> Automatic
+</pre>
+
+
+<h3>PC2 IPV6 CONFIGURATION</h3>
+<pre>
+<b>IPv6 Configuration:</b> Automatic
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
+<pre>
+R1# show ipv6 dhcp pool
+R1#show ipv6 dhcp binding
+R1#show ipv6 interface brief
+S1#show ipv6 interface brief
+S2#show ipv6 interface brief
+All devices will be able to ping each other using IPv6 Address.
+</pre>
+
+<h3>RESULT</h3>
+<p>Configured and verified stateless and stateful DHCPv6</p>
 
 </div>
 <div class="button-container">
