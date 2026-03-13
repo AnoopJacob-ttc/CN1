@@ -52,14 +52,14 @@
         <tr>
             <td>10</td>
             <td>IT</td>
-            <td>2001:DB8:ACAD:1::/64</td>
+            <td>2001:DB8:ACAD:10::/64</td>
             <td>S1: Fa0/1-2</td>
         </tr>
         <!-- VLAN 20 IT -->
         <tr>
             <td>20</td>
             <td>HR</td>
-            <td>2001:DB8:ACAD:2::/64</td>
+            <td>2001:DB8:ACAD:20::/64</td>
             <td>S1: Fa0/3-4</td>
         </tr>
         <!-- VLAN 99 -->
@@ -87,13 +87,13 @@
 <tr>
     <td rowspan="3">R1</td>
     <td>G0/0/0.10</td>
-    <td>2001:DB8:ACAD:1::1/64</td>
+    <td>2001:DB8:ACAD:10::1/64</td>
     <td>NOT APPLICABLE</td>
     <td>Sub-Interface for VLAN 10</td>
   </tr>
 <tr>
     <td>G0/0/0.20</td>
-    <td>2001:DB8:ACAD:2::1/64</td>
+    <td>2001:DB8:ACAD:20::1/64</td>
     <td>NOT APPLICABLE</td>
     <td>Sub-Interface for VLAN 20</td>
   </tr>
@@ -105,29 +105,29 @@
 <tr>
     <td>IT-PC1</td>
     <td>NIC</td>
-    <td>2001:DB8:ACAD:1::2/64</td>
-    <td>2001:DB8:ACAD:1::1</td>
+    <td>2001:DB8:ACAD:10::2/64</td>
+    <td>FE80::10</td>
     <td>Connected to S1 Fa0/1</td>
   </tr>
 <tr>
     <td>IT-PC2</td>
     <td>NIC</td>
-    <td>2001:DB8:ACAD:1::3/64</td>
-    <td>2001:DB8:ACAD:1::1</td>
+    <td>2001:DB8:ACAD:10::3/64</td>
+    <td>FE80::10</td>
     <td>Connected to S1 Fa0/2</td>
   </tr>
 <tr>
     <td>HR-PC1</td>
     <td>NIC</td>
-    <td>2001:DB8:ACAD:2::2/64</td>
-    <td>2001:DB8:ACAD:2::1</td>
+    <td>2001:DB8:ACAD:20::2/64</td>
+    <td>FE80::20</td>
     <td>Connected to S1 Fa0/3</td>
   </tr>
   <tr>
     <td>HR-PC2</td>
     <td>NIC</td>
-    <td>2001:DB8:ACAD:2::3/64</td>
-    <td>2001:DB8:ACAD:2::1</td>
+    <td>2001:DB8:ACAD:20::3/64</td>
+    <td>FE80::20</td>
     <td>Connected to S1 Fa0/4</td>
   </tr>
     </tbody>
@@ -178,12 +178,12 @@ R1(config-if)#no shutdown
 
 R1(config)#interface g0/0/0.10
 R1(config-subif)#encapsulation dot1Q 10
-R1(config-subif)#ipv6 address 2001:DB8:ACAD:1::1/64
+R1(config-subif)#ipv6 address 2001:DB8:ACAD:10::1/64
 R1(config-subif)#ipv6 address FE80::10 link-local
 
 R1(config-subif)#interface g0/0/0.20
 R1(config-subif)#encapsulation dot1Q 20
-R1(config-subif)#ipv6 address 2001:DB8:ACAD:2::1/64
+R1(config-subif)#ipv6 address 2001:DB8:ACAD:20::1/64
 R1(config-subif)#ipv6 address FE80::20 link-local
 
 R1(config-subif)#interface g0/0/0.99
@@ -196,26 +196,26 @@ R1#copy run start
 
 <h3>IT-PC1 IPV6 CONFIGURATION</h3>
 <pre>
-<b>IPv6 Address: </b>2001:DB8:ACAD:1::2/64
-<b>Default Gateway: </b>2001:DB8:ACAD:1::1
+<b>IPv6 Address: </b>2001:DB8:ACAD:10::2/64
+<b>Default Gateway: </b>FE80::10
 </pre>
 
 <h3>IT-PC2 IPV6 CONFIGURATION</h3>
 <pre>
-<b>IPv6 Address: </b>2001:DB8:ACAD:1::3/64
-<b>Default Gateway: </b>2001:DB8:ACAD:1::1
+<b>IPv6 Address: </b>2001:DB8:ACAD:10::3/64
+<b>Default Gateway: </b>FE80::10
 </pre>
 
 <h3>HR-PC1 IPV6 CONFIGURATION</h3>
 <pre>
-<b>IPv6 Address: </b>2001:DB8:ACAD:2::2/64
-<b>Default Gateway: </b>2001:DB8:ACAD:2::1
+<b>IPv6 Address: </b>2001:DB8:ACAD:20::2/64
+<b>Default Gateway: </b>FE80::20
 </pre>
 
 <h3>HR-PC2 IPV6 CONFIGURATION</h3>
 <pre>
-<b>IPv6 Address: </b>2001:DB8:ACAD:2::3/64
-<b>Default Gateway: </b>2001:DB8:ACAD:2::1
+<b>IPv6 Address: </b>2001:DB8:ACAD:20::3/64
+<b>Default Gateway: </b>FE80::20
 </pre>
 
 <h3>SHOW COMMANDS USED</h3>
@@ -243,27 +243,27 @@ R1#Show running-config
         <tr>
             <td rowspan="5">IT-PC1</td>
             <td>R1 G0/0/0.10</td>
-            <td>2001:DB8:ACAD:1::1</td>
+            <td>2001:DB8:ACAD:10::1</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>R1 G0/0/0.20</td>
-            <td>2001:DB8:ACAD:2::1</td>
+            <td>2001:DB8:ACAD:20::1</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>IT-PC2</td>
-            <td>2001:DB8:ACAD:1::3</td>
+            <td>2001:DB8:ACAD:10::3</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>HR-PC1</td>
-            <td>2001:DB8:ACAD:2::2</td>
+            <td>2001:DB8:ACAD:20::2</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>HR-PC2</td>
-            <td>2001:DB8:ACAD:2::3</td>
+            <td>2001:DB8:ACAD:20::3</td>
             <td>Yes</td>
         </tr>
 
@@ -271,22 +271,22 @@ R1#Show running-config
         <tr>
             <td rowspan="4">HR-PC1</td>
             <td>R1 G0/0/0.10</td>
-            <td>2001:DB8:ACAD:1::1</td>
+            <td>2001:DB8:ACAD:10::1</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>R1 G0/0/0.20</td>
-            <td>2001:DB8:ACAD:2::1</td>
+            <td>2001:DB8:ACAD:20::1</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>IT-PC2</td>
-            <td>2001:DB8:ACAD:1::3</td>
+            <td>2001:DB8:ACAD:10::3</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>HR-PC2</td>
-            <td>2001:DB8:ACAD:2::3</td>
+            <td>2001:DB8:ACAD:20::3</td>
             <td>Yes</td>
         </tr>
     </tbody>
@@ -305,5 +305,6 @@ Configured and Verified Router-on-a-Stick Inter-VLAN using IPv6 successfully.
 </body>
 
 </html>
+
 
 
