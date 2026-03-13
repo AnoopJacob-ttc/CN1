@@ -179,12 +179,12 @@ R1(config-if)#no shutdown
 R1(config)#interface g0/0/0.10
 R1(config-subif)#encapsulation dot1Q 10
 R1(config-subif)#ipv6 address 2001:DB8:ACAD:1::1/64
-R1(config-subif)#ipv6 address FE80::1 link-local
+R1(config-subif)#ipv6 address FE80::10 link-local
 
 R1(config-subif)#interface g0/0/0.20
 R1(config-subif)#encapsulation dot1Q 20
 R1(config-subif)#ipv6 address 2001:DB8:ACAD:2::1/64
-R1(config-subif)#ipv6 address FE80::1 link-local
+R1(config-subif)#ipv6 address FE80::20 link-local
 
 R1(config-subif)#interface g0/0/0.99
 R1(config-subif)#encapsulation dot1Q 99 Native
@@ -305,4 +305,5 @@ Configured and Verified Router-on-a-Stick Inter-VLAN using IPv6 successfully.
 </body>
 
 </html>
+
 
