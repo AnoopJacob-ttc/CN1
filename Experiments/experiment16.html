@@ -121,7 +121,7 @@
     </tr>
     <tr>
         <td colspan="2">2001:DB8:ACAD:1::10/64</td>
-        <td>2001:DB8:ACAD:1::1</td>
+        <td>FE80::1</td>
     </tr>
 
     <tr>
@@ -134,7 +134,7 @@
     </tr>
     <tr>
         <td colspan="2">2001:DB8:ACAD:2::10/64</td>
-        <td>2001:DB8:ACAD:2::1</td>
+        <td>FE80::2</td>
     </tr>
 
     </tbody>
@@ -178,7 +178,7 @@ R1(config-if)#interface G0/0/1
 R1(config-if)#ip address 192.168.2.1 255.255.255.0
 R1(config-if)#description Connected to S1
 R1(config-if)#ipv6 address 2001:DB8:ACAD:2::1/64
-R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#ipv6 address FE80::2 link-local
 R1(config-if)#no shutdown
 
 R1(config-if)#end
@@ -264,7 +264,7 @@ S2#copy running-config startup-config
 <h4>IPv6 CONFIGURATION</h4>
 <pre>
 <b>IPv6 Address:</b>2001:DB8:ACAD:2::10/64
-<b>Default Gateway: </b>FE80::1
+<b>Default Gateway: </b>FE80::2
 </pre>
 
 <h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
@@ -291,4 +291,5 @@ Configured and verified Connect two networks using CISCO router and configured b
 </body>
 
 </html>
+
 
