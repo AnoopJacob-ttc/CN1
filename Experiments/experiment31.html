@@ -11,7 +11,7 @@
     <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
         <h1>Experiment – 31</h1>
-<h1>Skills Integration Challenge</h1>
+<h1>SKILL INTEGRATION CHALLENGE (USING PKA)</h1>
     </div>
 </header>
 
@@ -21,14 +21,365 @@
     <a href="../index.html">← Back to Main Page</a>
 </div>
 
-<div class="container">
-
-<div style="text-align:center; margin-top:50px; font-family:Arial, sans-serif; color:#555;">
-  <span style="font-size:50px;">⏳</span>
-  <h1>Content Coming Soon</h1>
-  <p>We’re updating this section. Please check back shortly!</p>
+<div class="button-container">
+    <a href="../Attachments/Exercise-No31-Packet-Tracer-Skills-Integration-Challenge.pka" download class="btn">Download PKA File</a>
 </div>
 
+<div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure Basic Settings<br>
+   &emsp;&emsp;- Create the Subnets and Document<br>
+   &emsp;&emsp;- Configure the devices as per the instructions
+</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp31_Topology.png" alt="Experiment 31 Topology">
+</div>
+
+<h3>IPV4 ADDRESSING</h3>
+Use 192.168.0.0/24 to create subnets that meet the host requirements.
+<ul>
+    <li>Staff: 100 hosts</li>
+    <li>Sales: 50 hosts</li>
+    <li>IT: 25 hosts</li>
+</ul>
+Guest network to be added later: 25 hosts
+<br>Document the IPv4 addresses that have been assigned in the Addressing Table.
+
+<h3>ADDRESSING TABLE</h3>
+<table class="addressing-table">
+    <tr>
+        <th style="text-align:center;">Device</th>
+        <th style="text-align:center;">Interface</th>
+        <th style="text-align:center;" colspan="2">IP Address<br>IPv6 Address/Prefix</th>
+        <th style="text-align:center;">Default Gateway</th>
+    </tr>
+
+    <!-- R1 -->
+    <tr>
+        <td style="text-align:center;" style="text-align:center;" rowspan="6">R1</td>
+        <td style="text-align:center;" rowspan="2">G0/0</td>
+        <td style="text-align:center;">192.168.0.1</td>
+        <td style="text-align:center;">255.255.255.128</td>
+        <td style="text-align:center;" rowspan="2">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:acad::1/64</td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;" rowspan="2">G0/1</td>
+        <td style="text-align:center;">192.168.0.129</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;" rowspan="2">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:acad:1::1/64</td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;" rowspan="2">G0/2</td>
+        <td style="text-align:center;">192.168.0.193</td>
+        <td style="text-align:center;">255.255.255.224</td>
+        <td style="text-align:center;" rowspan="2">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:acad:2::1/64</td>
+    </tr>
+
+    <!-- CENTRAL -->
+    <tr>
+        <td style="text-align:center;" rowspan="4">CENTRAL</td>
+        <td style="text-align:center;" rowspan="2">S0/0/1</td>
+        <td style="text-align:center;">172.16.1.2</td>
+        <td style="text-align:center;"style="text-align:center;">255.255.255.252</td>
+        <td style="text-align:center;" rowspan="2">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:2::1/64</td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;" rowspan="2">S0/0/0</td>
+        <td style="text-align:center;">209.165.200.226</td>
+        <td style="text-align:center;">255.255.255.252</td>
+        <td style="text-align:center;" rowspan="2">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:1::1/64</td>
+    </tr>
+
+    <!-- Switches -->
+    <tr>
+        <td style="text-align:center;">S1</td>
+        <td style="text-align:center;">VLAN 1</td>
+        <td style="text-align:center;">192.168.0.2</td>
+        <td style="text-align:center;">255.255.255.128</td>
+        <td style="text-align:center;">192.168.0.1</td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;">S2</td>
+        <td style="text-align:center;">VLAN 1</td>
+        <td style="text-align:center;">192.168.0.130</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">192.168.0.129</td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;">S3</td>
+        <td style="text-align:center;">VLAN 1</td>
+        <td style="text-align:center;">192.168.0.194</td>
+        <td style="text-align:center;">255.255.255.224</td>
+        <td style="text-align:center;">192.168.0.193</td>
+    </tr>
+
+    <!-- Hosts -->
+    <tr>
+        <td style="text-align:center;" rowspan="2">Staff</td>
+        <td style="text-align:center;" rowspan="2">NIC</td>
+        <td style="text-align:center;">192.168.0.3</td>
+        <td style="text-align:center;">255.255.255.128</td>
+        <td style="text-align:center;">192.168.0.1</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:acad::2/64</td>
+        <td style="text-align:center;">FE80::1</td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;" style="text-align:center;" rowspan="2">Sales</td>
+        <td style="text-align:center;" rowspan="2">NIC</td>
+        <td style="text-align:center;">192.168.0.131</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">192.168.0.129</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:acad:1::2/64</td>
+        <td style="text-align:center;">FE80::1</td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;" rowspan="2">IT</td>
+        <td style="text-align:center;" rowspan="2">NIC</td>
+        <td style="text-align:center;">192.168.0.195</td>
+        <td style="text-align:center;">255.255.255.224</td>
+        <td style="text-align:center;">192.168.0.193</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:acad:2::2/64</td>
+        <td style="text-align:center;">FE80::1</td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;" rowspan="2">Web</td>
+        <td style="text-align:center;" rowspan="2">NIC</td>
+        <td style="text-align:center;">64.100.0.3</td>
+        <td style="text-align:center;">255.255.255.248</td>
+        <td style="text-align:center;">64.100.0.1</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="2">2001:db8:cafe::3/64</td>
+        <td style="text-align:center;">FE80::1</td>
+    </tr>
+</table>
+
+<h3>PC CONFIGURATIONS</h3>
+Configure the assigned IPv4 address, subnet mask, and default gateway settings on the Staff, Sales, and IT PCs using your addressing scheme. Assign the IPv6 unicast and link local addresses and default gateways to the Staff, Sales, and IT networks according to the Addressing Table.
+
+<h3>IT PC</h3>
+<pre>
+<b>IP Address:</b>192.168.0.195
+<b>Subnet Mask:</b>255.255.255.224
+<b>Default Gateway: </b>192.168.0.193
+<b>IPv6 Address:</b>2001:db8:acad:2::2/64
+<b>Default Gateway: </b>FE80::1
+<b>Link Local Address: </b>FE80::2
+</pre>
+
+<h3>SALES PC</h3>
+<pre>
+<b>IP Address:</b>192.168.0.131
+<b>Subnet Mask:</b>255.255.255.192
+<b>Default Gateway: </b>192.168.0.129
+<b>IPv6 Address:</b>2001:db8:acad:1::2/64
+<b>Default Gateway: </b>FE80::1
+<b>Link Local Address: </b>FE80::2
+</pre>
+
+<h3>STAFF PC</h3>
+<pre>
+<b>IP Address:</b>192.168.0.3
+<b>Subnet Mask:</b>255.255.255.128
+<b>Default Gateway: </b>192.168.0.1
+<b>IPv6 Address:</b>2001:db8:acad::2/64
+<b>Default Gateway: </b>FE80::1
+<b>Link Local Address: </b>FE80::2
+</pre>
+
+<h3>R1 CONFIGURATIONS</h3>
+Configure the device name according to the Addressing Table.
+<pre>
+Router>enable
+Router#config t
+Router(config)#hostname R1
+</pre>
+
+Disable DNS lookup.
+<pre>R1(config)#no ip domain-lookup</pre>
+
+Assign Ciscoenpa55 as the encrypted privileged EXEC mode password.
+<pre>R1(config)#enable secret Ciscoenpa55</pre>
+
+Assign Ciscoconpa55 as the console password and enable login.
+<pre>R1(config)#line console 0
+R1(config-line)#password Ciscoconpa55
+R1(config-line)#login
+R1(config-line)#exit</pre>
+
+Require that a minimum of 10 characters be used for all passwords.
+<pre>R1(config)#security passwords min-length 10</pre>
+
+Encrypt all plaintext passwords.
+<pre>R1(config)#service password-encryption</pre>
+
+Create a banner that warns anyone accessing the device that unauthorized access is prohibited.
+<pre>R1(config)#banner motd #Warning! Unauthorized access is strictly prohibited#</pre>
+
+Configure and enable all the Gigabit Ethernet interfaces.
+<br>Configure the IPv4 addresses according to your addressing scheme.
+<br>Configure the IPv6 addresses according to the Addressing Table.
+<pre>R1(config)#ipv6 unicast-routing
+R1(config)#interface GigabitEthernet0/0
+R1(config-if)#ip address 192.168.0.1 255.255.255.128
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#ipv6 address 2001:DB8:ACAD::1/64
+R1(config-if)#no shutdown
+
+R1(config-if)#interface GigabitEthernet0/1
+R1(config-if)#ip address 192.168.0.129 255.255.255.192
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#ipv6 address 2001:DB8:ACAD:1::1/64
+R1(config-if)#no shutdown
+
+R1(config-if)#interface GigabitEthernet0/2
+R1(config-if)#ip address 192.168.0.193 255.255.255.224
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#ipv6 address 2001:DB8:ACAD:2::1/64
+R1(config-if)#no shutdown
+
+R1(config-if)#interface Serial0/0/1
+R1(config-if)#ip address 172.16.1.2 255.255.255.252
+R1(config-if)#ipv6 address FE80::1 link-local
+R1(config-if)#ipv6 address 2001:DB8:2::1/64
+R1(config-if)#no shutdown
+R1(config-if)#exit</pre>
+
+Configure SSH on R1:
+<br>Set the domain name to CCNA-lab.com
+<pre>R1(config)#ip domain-name CCNA-lab.com</pre>
+
+Generate a 1024-bit RSA key.
+<pre>R1(config)#crypto key generate rsa general-keys modulus 1024</pre>
+
+Configure the VTY lines for SSH access.
+<pre>R1(config)#line vty 0 15
+R1(config-line)#login local
+R1(config-line)#transport input ssh
+R1(config-line)#exit</pre>
+
+Use the local user profiles for authentication.
+<br>Create a user Admin1 with a privilege level of 15 and use the encrypted password of Admin1pa55.
+<pre>R1(config)#username Admin1 secret Admin1pa55</pre>
+
+Configure the console and VTY lines to log out after five minutes of inactivity.
+<pre>R1(config)#line console 0
+R1(config-line)#exec-timeout 5 0
+R1(config-line)#line vty 0 15
+R1(config-line)#exec-timeout 5 0</pre>
+
+Block anyone for three minutes who fails to log in after four attempts within a two-minute period.
+<pre>R1(config)#login block-for 180 attempts 4 within 120</pre>
+
+<h3>SWITCH CONFIGURATION</h3>
+Configure the device name according to the Addressing Table.
+<pre>Switch(config)#hostname S1
+Switch(config)#hostname S2
+Switch(config)#hostname S3</pre>
+
+Configure the SVI interface with the IPv4 address and subnet mask according to your addressing scheme.
+<pre>S1(config)#interface Vlan1
+S1(config-if)#ip address 192.168.0.2 255.255.255.128
+S1(config-if)#no shutdown
+
+S2(config)#interface Vlan1
+S2(config-if)#ip address 192.168.0.130 255.255.255.192
+S2(config-if)#no shutdown
+
+
+S3(config)#interface Vlan1
+S3(config-if)#ip address 192.168.0.194 255.255.255.224
+S3(config-if)#no shutdown</pre>
+
+Configure the default gateway.
+<pre>S1(config-if)#ip default-gateway 192.168.0.1
+S2(config-if)#ip default-gateway 192.168.0.129
+S3(config-if)#ip default-gateway 192.168.0.193</pre>
+
+Disable DNS lookup.
+<pre>S1(config)#no ip domain-lookup
+S2(config)#no ip domain-lookup
+S3(config)#no ip domain-lookup</pre>
+
+Assign Ciscoenpa55 as the encrypted privileged EXEC mode password.
+<pre>S1(config)#enable secret Ciscoenpa55
+S2(config)#enable secret Ciscoenpa55
+S3(config)#enable secret Ciscoenpa55</pre>
+
+Assign Ciscoconpa55 as the console password and enable login.
+<pre>S1(config)#line con 0
+S1(config-line)#password Ciscoconpa55
+S1(config-line)#login
+
+S2(config)#line con 0
+S2(config-line)#password Ciscoconpa55
+S2(config-line)#login
+
+S3(config)#line con 0
+S3(config-line)#password Ciscoconpa55
+S3(config-line)#login</pre>
+
+Configure the console and VTY lines to log out after five minutes of inactivity.
+<pre>S1(config)#line con 0
+S1(config-line)#exec-timeout 5 0
+S1(config-line)#line vty 0 15
+S1(config-line)#exec-timeout 5 0
+
+S2(config)#line con 0
+S2(config-line)#exec-timeout 5 0
+S2(config-line)#line vty 0 15
+S2(config-line)#exec-timeout 5 0
+
+S3(config)#line con 0
+S3(config-line)#exec-timeout 5 0
+S3(config-line)#line vty 0 15
+S3(config-line)#exec-timeout 5 0</pre>
+
+Encrypt all plaintext passwords.
+<pre>S1(config)#service password-encryption
+S2(config)#service password-encryption
+S3(config)#service password-encryption</pre>
+
+<h3>CONNECTIVITY REQUIREMENTS</h3>
+Use the web browser on the Staff, Sales, and IT PCs to navigate to <b>www.cisco.srv</b>
+<br>Use the web browser on the Staff, Sales, and IT PCs to navigate to <b>www.cisco6.srv</b>
+<br>All PCs should be able to ping all other devices.
+
+<h3>RESULT</h3>
+<p>Configured and verified Packet Tracer Skill Integration Challenge.</p>
 
 </div>
 <div class="button-container">
