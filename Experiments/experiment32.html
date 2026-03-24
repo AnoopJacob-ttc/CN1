@@ -11,7 +11,7 @@
     <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
         <h1>Experiment – 32</h1>
-<h1>HSRP Configuration</h1>
+<h1>HSRP CONFIGURATION</h1>
     </div>
 </header>
 
@@ -22,13 +22,257 @@
 </div>
 
 <div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Configure Basic Settings<br>
+   &emsp;&emsp;- Configure an HSRP active router<br>
+   &emsp;&emsp;- Configure an HSRP standby router<br>
+   &emsp;&emsp;- Verify HSRP operation
+</p>
 
-<div style="text-align:center; margin-top:50px; font-family:Arial, sans-serif; color:#555;">
-  <span style="font-size:50px;">⏳</span>
-  <h1>Content Coming Soon</h1>
-  <p>We’re updating this section. Please check back shortly!</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp32_Topology.png" alt="Experiment 32 Topology">
 </div>
 
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+  <tr>
+    <th style="text-align: center;">Device</th>
+    <th style="text-align: center;">Interface</th>
+    <th style="text-align: center;">IP Address</th>
+    <th style="text-align: center;">Subnet Mask</th>
+    <th style="text-align: center;">Default Gateway</th>
+  </tr>
+
+  <!-- R1 -->
+  <tr>
+    <td rowspan="2" style="text-align: center;">R1</td>
+    <td style="text-align: center;">G0/0/0</td>
+    <td style="text-align: center;">192.168.1.2</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">NOT APPLICABLE</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">G0/0/1</td>
+    <td style="text-align: center;">10.1.1.2</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">NOT APPLICABLE</td>
+  </tr>
+
+  <!-- R2 -->
+  <tr>
+    <td rowspan="2" style="text-align: center;">R2</td>
+    <td style="text-align: center;">G0/0/0</td>
+    <td style="text-align: center;">192.168.1.3</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">NOT APPLICABLE</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">G0/0/1</td>
+    <td style="text-align: center;">10.1.1.3</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">NOT APPLICABLE</td>
+  </tr>
+
+  <!-- S1 -->
+  <tr>
+    <td style="text-align: center;">S1</td>
+    <td style="text-align: center;">VLAN 1</td>
+    <td style="text-align: center;">192.168.1.4</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">192.168.1.1</td>
+  </tr>
+
+  <!-- S2 -->
+  <tr>
+    <td style="text-align: center;">S2</td>
+    <td style="text-align: center;">VLAN 1</td>
+    <td style="text-align: center;">192.168.1.5</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">192.168.1.1</td>
+  </tr>
+
+  <!-- S3 -->
+  <tr>
+    <td style="text-align: center;">S3</td>
+    <td style="text-align: center;">VLAN 1</td>
+    <td style="text-align: center;">10.1.1.4</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">10.1.1.1</td>
+  </tr>
+
+  <!-- PC1 -->
+  <tr>
+    <td style="text-align: center;">PC1</td>
+    <td style="text-align: center;">NIC</td>
+    <td style="text-align: center;">192.168.1.10</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">192.168.1.1</td>
+  </tr>
+
+  <!-- PC2 -->
+  <tr>
+    <td style="text-align: center;">PC2</td>
+    <td style="text-align: center;">NIC</td>
+    <td style="text-align: center;">192.168.1.11</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">192.168.1.1</td>
+  </tr>
+
+  <!-- PC3 -->
+  <tr>
+    <td style="text-align: center;">PC3</td>
+    <td style="text-align: center;">NIC</td>
+    <td style="text-align: center;">10.1.1.10</td>
+    <td style="text-align: center;">255.255.255.0</td>
+    <td style="text-align: center;">10.1.1.1</td>
+  </tr>
+
+</table>
+
+<h3>R1 CONFIGURATION</h3>
+<pre>
+Router>enable
+Router#configure terminal
+Router(config)#hostname R1
+
+R1(config)#interface GigabitEthernet0/0/0
+R1(config-if)#ip address 192.168.1.2 255.255.255.0
+R1(config-if)#no shutdown
+
+R1(config)#interface GigabitEthernet0/0/1
+R1(config-if)#ip address 10.1.1.2 255.255.255.0
+R1(config-if)#no shutdown
+
+R1(config)#interface GigabitEthernet0/0/0
+R1(config-if)#standby version 2
+R1(config-if)#standby 1 ip 192.168.1.1
+R1(config-if)#standby 1 priority 255
+R1(config-if)#standby 1 preempt
+
+R1(config)#interface GigabitEthernet0/0/1
+R1(config-if)#standby version 2
+R1(config-if)#standby 2 ip 10.1.1.1
+R1(config-if)#standby 2 priority 255
+R1(config-if)#standby 2 preempt
+R1(config-if)#end
+R1#copy run start
+
+</pre>
+
+<h3>R2 CONFIGURATION</h3>
+<pre>
+Router>enable
+Router#configure terminal
+Router(config-if)#hostname R2
+
+R2(config)#interface GigabitEthernet0/0/0
+R2(config-if)#ip address 192.168.1.3 255.255.255.0
+R2(config-if)#no shutdown
+
+R2(config)#interface GigabitEthernet0/0/1
+R2(config-if)#ip address 10.1.1.3 255.255.255.0
+R2(config-if)#no shutdown
+
+R2(config)#interface GigabitEthernet0/0/0
+R2(config-if)#standby version 2
+R2(config-if)#standby 1 ip 192.168.1.1
+
+R2(config)#interface GigabitEthernet0/0/1
+R2(config-if)#standby version 2
+R2(config-if)#standby 2 ip 10.1.1.1
+R2(config-if)#end
+
+R2#copy run start
+</pre>
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S1
+
+S1(config)#interface vlan 1
+S1(config-if)#ip address 192.168.1.4 255.255.255.0
+S1(config-if)#exit 
+
+S1(config)#ip default-gateway 192.168.1.1
+S1(config)#exit
+
+S1#copy run start
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S2
+
+S2(config)#interface vlan 1
+S2(config-if)#ip address 192.168.1.5 255.255.255.0
+S2(config-if)#no shutdown
+
+S2(config-if)#exit
+S2(config)#ip default-gateway 192.168.1.1
+S2(config)#exit
+
+S2#copy run start
+</pre>
+
+<h3>S3 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#conf t
+Switch(config)#hostname S3
+
+S3(config)#interface vlan 1
+S3(config-if)#ip address 10.1.1.4 255.255.255.0
+S3(config-if)#no shutdown
+S3(config-if)#exit
+
+S3(config)#ip default-gateway 10.1.1.1
+S3(config)#exit
+
+S3#copy run start
+</pre>
+
+<h3>PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> 192.168.1.10
+<b>Subnet Mask:</b> 255.255.255.0
+<b>Default-Gateway:</b> 192.168.1.1
+</pre>
+
+<h3>PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> 192.168.1.11
+<b>Subnet Mask:</b> 255.255.255.0
+<b>Default-Gateway:</b> 192.168.1.1
+</pre>
+
+<h3>PC3 IP CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> 10.1.1.10
+<b>Subnet Mask:</b> 255.255.255.0
+<b>Default-Gateway:</b> 10.1.1.1
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
+<pre>
+R1#show standby
+R1#show standby brief
+R2#show standby
+R2#show standby brief
+</pre>
+
+<b>Note:</b> To verify HSRP functionality, shut down Router R1 (Active) and confirm that Router R2 transitions to the Active state, ensuring uninterrupted communication between network devices.
+
+<h3>RESULT</h3>
+<p>Configured and verified HSRP</p>
 
 </div>
 <div class="button-container">
