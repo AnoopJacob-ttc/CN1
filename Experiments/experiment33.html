@@ -11,7 +11,7 @@
     <img src="../Images/logo.png" alt="NTTF Logo" class="logo">
     <div class="header-text">
         <h1>Experiment – 33</h1>
-<h1>Mini Lab Project: Design and configure your own Network Topology</h1>
+<h1>MINI LAB PROJECT</h1>
     </div>
 </header>
 
@@ -22,13 +22,996 @@
 </div>
 
 <div class="container">
+<h3>AIM</h3>
+<p>
+   &emsp;&emsp;- Basic settings on all devices<br>
+   &emsp;&emsp;- SSH configuration for secure access<br>
+   &emsp;&emsp;- Create Data VLANs, Native VLAN, Management VLAN, and assign unused ports to another VLAN<br>
+   &emsp;&emsp;- Connect a Wireless LAN<br>
+   &emsp;&emsp;- Configure EtherChannel between switches<br>
+   &emsp;&emsp;- Provide IP addresses to all end devices using DHCP<br>
+   &emsp;&emsp;- Implement HSRP Operation<br>
+   &emsp;&emsp;- Implement Inter-VLAN routing using either Router-on-a-Stick or Layer 3 Switching
+</p>
 
-<div style="text-align:center; margin-top:50px; font-family:Arial, sans-serif; color:#555;">
-  <span style="font-size:50px;">⏳</span>
-  <h1>Content Coming Soon</h1>
-  <p>We’re updating this section. Please check back shortly!</p>
+
+<h3>TOPOLOGY</h3>
+<!-- IMAGE CENTERED -->
+<div class="topology-img">
+    <img src="../Images/exp33_Topology.png" alt="Experiment 33 Topology">
 </div>
 
+<h3>VLAN TABLE</h3>
+<table class="addressing-table">
+  <tr>
+    <th style="text-align: center;">VLAN #</th>
+    <th style="text-align: center;">VLAN NAME</th>
+  </tr>
+
+  <tr>
+    <td style="text-align: center;">VLAN 10</td>
+    <td style="text-align: center;">Students</td>
+  </tr>
+
+  <tr>
+    <td style="text-align: center;">VLAN 20</td>
+    <td style="text-align: center;">Faculty</td>
+  </tr>
+
+  <tr>
+    <td style="text-align: center;">VLAN 30</td>
+    <td style="text-align: center;">Printers</td>
+  </tr>
+
+  <tr>
+    <td style="text-align: center;">VLAN 40</td>
+    <td style="text-align: center;">Management</td>
+  </tr>
+
+  <tr>
+    <td style="text-align: center;">VLAN 99</td>
+    <td style="text-align: center;">Native</td>
+  </tr>
+
+  <tr>
+    <td style="text-align: center;">VLAN 999</td>
+    <td style="text-align: center;">Parking_Lot</td>
+  </tr>
+</table>
+
+<h3>NETWORK TABLE</h3>
+<table class="addressing-table">
+    <!-- TTC Section -->
+    <tr>
+        <th colspan="5" style="text-align:center;">TTC</th>
+    </tr>
+    <tr>
+        <th style="text-align:center;">VLAN #</th>
+        <th style="text-align:center;">VLAN NAME</th>
+        <th style="text-align:center;">NO# OF HOSTS</th>
+        <th style="text-align:center;">NETWORK ADDRESS</th>
+        <th style="text-align:center;">SUBNET MASK</th>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 10</td>
+        <td style="text-align:center;">Students</td>
+        <td style="text-align:center;">120</td>
+        <td style="text-align:center;">192.168.1.0</td>
+        <td style="text-align:center;">255.255.255.128</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 20</td>
+        <td style="text-align:center;">Faculty</td>
+        <td style="text-align:center;">58</td>
+        <td style="text-align:center;">192.168.1.128</td>
+        <td style="text-align:center;">255.255.255.192</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 30</td>
+        <td style="text-align:center;">Printers</td>
+        <td style="text-align:center;">6</td>
+        <td style="text-align:center;">192.168.1.192</td>
+        <td style="text-align:center;">255.255.255.248</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 40</td>
+        <td style="text-align:center;">Management</td>
+        <td style="text-align:center;">6</td>
+        <td style="text-align:center;">192.168.1.200</td>
+        <td style="text-align:center;">255.255.255.248</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 99</td>
+        <td style="text-align:center;">Native</td>
+        <td colspan="3" style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 999</td>
+        <td style="text-align:center;">Parking_Lot</td>
+        <td colspan="3" style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+
+    <!-- NEC Section -->
+    <tr>
+        <th colspan="5" style="text-align:center;">NEC</th>
+    </tr>
+    <tr>
+        <th style="text-align:center;">VLAN #</th>
+        <th style="text-align:center;">VLAN NAME</th>
+        <th style="text-align:center;">NO# OF HOSTS</th>
+        <th style="text-align:center;">NETWORK ADDRESS</th>
+        <th style="text-align:center;">SUBNET MASK</th>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 10</td>
+        <td style="text-align:center;">Students</td>
+        <td style="text-align:center;">60</td>
+        <td style="text-align:center;">172.16.1.0</td>
+        <td style="text-align:center;">255.255.255.192</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 20</td>
+        <td style="text-align:center;">Faculty</td>
+        <td style="text-align:center;">60</td>
+        <td style="text-align:center;">172.16.1.64</td>
+        <td style="text-align:center;">255.255.255.192</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 30</td>
+        <td style="text-align:center;">Printers</td>
+        <td style="text-align:center;">60</td>
+        <td style="text-align:center;">172.16.1.128</td>
+        <td style="text-align:center;">255.255.255.192</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 40</td>
+        <td style="text-align:center;">Management</td>
+        <td style="text-align:center;">60</td>
+        <td style="text-align:center;">172.16.1.192</td>
+        <td style="text-align:center;">255.255.255.192</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 99</td>
+        <td style="text-align:center;">Native</td>
+        <td colspan="3" style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">VLAN 999</td>
+        <td style="text-align:center;">Parking_Lot</td>
+        <td colspan="3" style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+</table>
+
+<h3>ADDRESSING TABLE</h3>
+
+<table class="addressing-table">
+    <tr>
+        <th style="text-align:center;">Device</th>
+        <th style="text-align:center;">Interface</th>
+        <th style="text-align:center;">IP Address</th>
+        <th style="text-align:center;">Subnet Mask</th>
+        <th style="text-align:center;">Default Gateway</th>
+    </tr>
+
+    <!-- R1 -->
+    <tr>
+        <td rowspan="8" style="text-align:center;">R1</td>
+        <td style="text-align:center;">G0/0/0.10</td>
+        <td style="text-align:center;">192.168.1.2</td>
+        <td style="text-align:center;">255.255.255.128</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/0.20</td>
+        <td style="text-align:center;">192.168.1.130</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/0.30</td>
+        <td style="text-align:center;">192.168.1.194</td>
+        <td style="text-align:center;">255.255.255.248</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/0.40</td>
+        <td style="text-align:center;">192.168.1.202</td>
+        <td style="text-align:center;">255.255.255.248</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/1.10</td>
+        <td style="text-align:center;">172.16.1.2</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/1.20</td>
+        <td style="text-align:center;">172.16.1.66</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/1.30</td>
+        <td style="text-align:center;">172.16.1.130</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/1.40</td>
+        <td style="text-align:center;">172.16.1.194</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+
+    <!-- R2 -->
+    <tr>
+        <td rowspan="8" style="text-align:center;">R2</td>
+        <td style="text-align:center;">G0/0/0.10</td>
+        <td style="text-align:center;">192.168.1.3</td>
+        <td style="text-align:center;">255.255.255.128</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/0.20</td>
+        <td style="text-align:center;">192.168.1.131</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/0.30</td>
+        <td style="text-align:center;">192.168.1.195</td>
+        <td style="text-align:center;">255.255.255.248</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/0.40</td>
+        <td style="text-align:center;">192.168.1.203</td>
+        <td style="text-align:center;">255.255.255.248</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/1.10</td>
+        <td style="text-align:center;">172.16.1.3</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/1.20</td>
+        <td style="text-align:center;">172.16.1.67</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/1.30</td>
+        <td style="text-align:center;">172.16.1.131</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">G0/0/1.40</td>
+        <td style="text-align:center;">172.16.1.195</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">NOT APPLICABLE</td>
+    </tr>
+
+    <!-- Switches -->
+    <tr>
+        <td style="text-align:center;">S1</td>
+        <td style="text-align:center;">VLAN 30</td>
+        <td style="text-align:center;">192.168.1.204</td>
+        <td style="text-align:center;">255.255.255.248</td>
+        <td style="text-align:center;">192.168.1.201</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">S2</td>
+        <td style="text-align:center;">VLAN 30</td>
+        <td style="text-align:center;">192.168.1.205</td>
+        <td style="text-align:center;">255.255.255.248</td>
+        <td style="text-align:center;">192.168.1.201</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">S3</td>
+        <td style="text-align:center;">VLAN 30</td>
+        <td style="text-align:center;">172.16.1.196</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">172.16.1.193</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">S4</td>
+        <td style="text-align:center;">VLAN 30</td>
+        <td style="text-align:center;">172.16.1.197</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">172.16.1.193</td>
+    </tr>
+
+    <!-- PCs -->
+    <tr>
+        <td style="text-align:center;">Student_PC1</td>
+        <td style="text-align:center;">NIC</td>
+        <td colspan="3" style="text-align:center;">DHCP</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">Faculty_PC1</td>
+        <td style="text-align:center;">NIC</td>
+        <td colspan="3" style="text-align:center;">DHCP</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">Printer1</td>
+        <td style="text-align:center;">NIC</td>
+        <td style="text-align:center;">192.168.1.196</td>
+        <td style="text-align:center;">255.255.255.248</td>
+        <td style="text-align:center;">192.168.1.193</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">Student_Laptop</td>
+        <td style="text-align:center;">NIC</td>
+        <td colspan="3" style="text-align:center;">DHCP</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">Faculty_PC2</td>
+        <td style="text-align:center;">NIC</td>
+        <td colspan="3" style="text-align:center;">DHCP</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">Printer2</td>
+        <td style="text-align:center;">NIC</td>
+        <td style="text-align:center;">172.16.1.132</td>
+        <td style="text-align:center;">255.255.255.192</td>
+        <td style="text-align:center;">172.16.1.129</td>
+    </tr>
+</table>
+
+<h3>R1 CONFIGURATION</h3>
+<pre>
+Router>enable
+Router#clock set 10:30:15 01 March 2026
+Router#conf t
+Router(config)#hostname R1
+R1(config)#no ip domain-lookup
+R1(config)#ip domain-name nttftrg.com
+R1(config)#enable password cisco
+R1(config)#enable secret itsasecret
+R1(config)#service password-encryption
+R1(config)#username admin secret admin
+
+R1(config)#line console 0
+R1(config-line)#logging synchronous
+R1(config-line)#exec-timeout 5
+R1(config-line)#password cisco
+R1(config-line)#login
+
+R1(config-line)#line vty 0 15
+R1(config-line)#transport input ssh
+R1(config-line)#logging synchronous
+R1(config-line)#exec-timeout 5
+R1(config-line)#login local
+R1(config-line)#crypto key generate rsa
+1024
+R1(config)#ip ssh version 2
+
+R1(config)#interface G0/0/0.10
+R1(config-subif)#encapsulation dot1q 10
+R1(config-subif)#description Sub-Interface for VLAN 10
+R1(config-subif)#ip address 192.168.1.2 255.255.255.128
+
+R1(config-subif)#interface G0/0/0.20
+R1(config-subif)#encapsulation dot1q 20
+R1(config-subif)#description Sub-Interface for VLAN 20
+R1(config-subif)#ip address 192.168.1.130 255.255.255.192
+
+R1(config-subif)#interface G0/0/0.30
+R1(config-subif)#encapsulation dot1q 30
+R1(config-subif)#description Sub-Interface for VLAN 30
+R1(config-subif)#ip address 192.168.1.194 255.255.255.248
+R1(config-subif)#interface G0/0/0.40
+R1(config-subif)#encapsulation dot1q 40
+R1(config-subif)#description Sub-Interface for VLAN 40
+R1(config-subif)#ip address 192.168.1.202 255.255.255.248
+
+R1(config-subif)#interface G0/0/0.99
+R1(config-subif)#description Sub-Interface for Native VLAN 99
+R1(config-subif)#encapsulation dot1q 99 native
+
+R1(config-subif)#interface G0/0/1.10
+R1(config-subif)#encapsulation dot1q 10
+R1(config-subif)#description Sub-Interface for VLAN 10
+R1(config-subif)#ip address 172.16.1.2 255.255.255.192
+
+R1(config-subif)#interface G0/0/1.20
+R1(config-subif)#encapsulation dot1q 20
+R1(config-subif)#description Sub-Interface for VLAN 20
+R1(config-subif)#ip address 172.16.1.66 255.255.255.192
+
+R1(config-subif)#interface G0/0/1.30
+R1(config-subif)#encapsulation dot1q 30
+R1(config-subif)#description Sub-Interface for VLAN 30
+R1(config-subif)#ip address 172.16.1.130 255.255.255.192
+
+R1(config-subif)#interface G0/0/1.40
+R1(config-subif)#encapsulation dot1q 40
+R1(config-subif)#description Sub-Interface for VLAN 40
+R1(config-subif)#ip address 172.16.1.194 255.255.255.192
+
+R1(config-subif)#interface G0/0/1.99
+R1(config-subif)#description Sub-Interface for Native VLAN 99
+R1(config-subif)#encapsulation dot1q 99 native
+
+R1(config-subif)#interface range g0/0/0-1
+R1(config-if-range)#no shutdown
+
+R1(config)#interface g0/0/0.10
+R1(config-subif)#standby version 2
+R1(config-subif)#standby 10 ip 192.168.1.1
+R1(config-subif)#standby 10 priority 255
+R1(config-subif)#standby 10 preempt
+
+R1(config-subif)#interface g0/0/0.20
+R1(config-subif)#standby version 2
+R1(config-subif)#standby 20 ip 192.168.1.129
+R1(config-subif)#standby 20 priority 255
+R1(config-subif)#standby 20 preempt
+
+
+R1(config-subif)#interface g0/0/0.30
+R1(config-subif)#standby version 2
+R1(config-subif)#standby 30 ip 192.168.1.193
+R1(config-subif)#standby 30 priority 255
+R1(config-subif)#standby 30 preempt
+
+R1(config-subif)#interface g0/0/0.40
+R1(config-subif)#standby version 2
+R1(config-subif)#standby 40 ip 192.168.1.201
+R1(config-subif)#standby 40 priority 255
+R1(config-subif)#standby 40 preempt
+
+R1(config-subif)#interface g0/0/1.10
+R1(config-subif)#standby version 2
+R1(config-subif)#standby 10 ip 172.16.1.1
+R1(config-subif)#standby 10 priority 255
+R1(config-subif)#standby 10 preempt
+
+R1(config-subif)#interface g0/0/1.20
+R1(config-subif)#standby version 2
+R1(config-subif)#standby 20 ip 172.16.1.65
+R1(config-subif)#standby 20 priority 255
+R1(config-subif)#standby 20 preempt
+
+R1(config-subif)#interface g0/0/1.30
+R1(config-subif)#standby version 2
+R1(config-subif)#standby 30 ip 172.16.1.129
+R1(config-subif)#standby 30 priority 255
+R1(config-subif)#standby 30 preempt
+
+R1(config-subif)#interface g0/0/1.40
+R1(config-subif)#standby version 2
+R1(config-subif)#standby 40 ip 172.16.1.193
+R1(config-subif)#standby 40 priority 255
+R1(config-subif)#standby 40 preempt
+
+R1(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.3
+R1(config)#ip dhcp excluded-address 192.168.1.129 192.168.1.131
+R1(config)#ip dhcp excluded-address 172.16.1.1 172.16.1.3
+R1(config)#ip dhcp excluded-address 172.16.1.65 172.16.1.67
+
+R1(config)#ip dhcp pool DHCPTTCVLAN10
+R1(dhcp-config)#network 192.168.1.0 255.255.255.128
+R1(dhcp-config)#default-router 192.168.1.0
+R1(dhcp-config)#dns-server 8.8.8.8
+R1(dhcp-config)#domain-name nttf.co.in
+
+R1(dhcp-config)#ip dhcp pool DHCPTTCVLAN20
+R1(dhcp-config)#network 192.168.1.128 255.255.255.192
+R1(dhcp-config)#default-router 192.168.1.129
+R1(dhcp-config)#dns-server 8.8.8.8
+R1(dhcp-config)#domain-name nttf.co.in
+
+R1(dhcp-config)#ip dhcp pool DHCPNECVLAN10
+R1(dhcp-config)#network 172.16.1.0 255.255.255.192
+R1(dhcp-config)#default-router 172.16.1.1
+R1(dhcp-config)#dns-server 8.8.8.8
+R1(dhcp-config)#domain-name nttf.co.in
+
+R1(dhcp-config)#ip dhcp pool DHCPNECVLAN20
+R1(dhcp-config)#network 172.16.1.64 255.255.255.192
+R1(dhcp-config)#default-router 172.16.1.65
+R1(dhcp-config)#dns-server 8.8.8.8
+R1(dhcp-config)#domain-name nttf.co.in
+R1(dhcp-config)#end
+R1#copy run start
+</pre>
+
+<h3>R2 CONFIGURATION</h3>
+<pre>
+Router>enable
+Router#clock set 10:30:15 01 March 2026
+Router#conf t
+Router(config)#hostname R2
+R2(config)#no ip domain-lookup
+R2(config)#ip domain-name nttftrg.com
+R2(config)#enable password cisco
+R2(config)#enable secret itsasecret
+R2(config)#service password-encryption
+R2(config)#username admin secret admin
+
+R2(config)#line console 0
+R2(config-line)#logging synchronous
+R2(config-line)#exec-timeout 5
+R2(config-line)#password cisco
+R2(config-line)#login
+
+R2(config-line)#line vty 0 15
+R2(config-line)#transport input ssh
+R2(config-line)#logging synchronous
+R2(config-line)#exec-timeout 5
+R2(config-line)#login local
+
+R2(config-line)#crypto key generate rsa
+1024
+R2(config)#ip ssh version 2
+
+R2(config)#interface G0/0/0.10
+R2(config-subif)#encapsulation dot1q 10
+R2(config-subif)#description Sub-Interface for VLAN 10
+R2(config-subif)#ip address 192.168.1.3 255.255.255.128
+
+R2(config-subif)#interface G0/0/0.20
+R2(config-subif)#encapsulation dot1q 20
+R2(config-subif)#description Sub-Interface for VLAN 20
+R2(config-subif)#ip address 192.168.1.131 255.255.255.192
+
+R2(config-subif)#interface G0/0/0.30
+R2(config-subif)#encapsulation dot1q 30
+R2(config-subif)#description Sub-Interface for VLAN 30
+R2(config-subif)#ip address 192.168.1.195 255.255.255.248
+
+R2(config-subif)#interface G0/0/0.40
+R2(config-subif)#encapsulation dot1q 40
+R2(config-subif)#description Sub-Interface for VLAN 40
+R2(config-subif)#ip address 192.168.1.203 255.255.255.248
+
+R2(config-subif)#interface G0/0/0.99
+R2(config-subif)#description Sub-Interface for Native VLAN 99
+R2(config-subif)#encapsulation dot1q 99 native
+
+R2(config-subif)#interface G0/0/1.10
+R2(config-subif)#encapsulation dot1q 10
+R2(config-subif)#description Sub-Interface for VLAN 10
+R2(config-subif)#ip address 172.16.1.3 255.255.255.192
+
+R2(config-subif)#interface G0/0/1.20
+R2(config-subif)#encapsulation dot1q 20
+R2(config-subif)#description Sub-Interface for VLAN 20
+R2(config-subif)#ip address 172.16.1.67 255.255.255.192
+
+R2(config-subif)#interface G0/0/1.30
+R2(config-subif)#encapsulation dot1q 30
+R2(config-subif)#description Sub-Interface for VLAN 30
+R2(config-subif)#ip address 172.16.1.131 255.255.255.192
+
+R2(config-subif)#interface G0/0/1.40
+R2(config-subif)#encapsulation dot1q 40
+R2(config-subif)#description Sub-Interface for VLAN 40
+R2(config-subif)#ip address 172.16.1.195 255.255.255.192
+
+R2(config-subif)#interface G0/0/1.99
+R2(config-subif)#description Sub-Interface for Native VLAN 99
+R2(config-subif)#encapsulation dot1q 99 native
+
+R2(config-subif)#interface range g0/0/0-1
+R2(config-if-range)#no shutdown
+
+
+R2(config)#interface g0/0/0.10
+R2(config-subif)#standby version 2
+R2(config-subif)#standby 10 ip 192.168.1.1
+
+R2(config-subif)#interface g0/0/0.20
+R2(config-subif)#standby version 2
+R2(config-subif)#standby 20 ip 192.168.1.129
+
+R2(config-subif)#interface g0/0/0.30
+R2(config-subif)#standby version 2
+R2(config-subif)#standby 30 ip 192.168.1.193
+
+R2(config-subif)#interface g0/0/0.40
+R2(config-subif)#standby version 2
+R2(config-subif)#standby 40 ip 192.168.1.201
+
+R2(config-subif)#interface g0/0/1.10
+R2(config-subif)#standby version 2
+R2(config-subif)#standby 10 ip 172.16.1.1
+
+R2(config-subif)#interface g0/0/1.20
+R2(config-subif)#standby version 2
+R2(config-subif)#standby 20 ip 172.16.1.65
+
+R2(config-subif)#interface g0/0/1.30
+R2(config-subif)#standby version 2
+R2(config-subif)#standby 30 ip 172.16.1.129
+
+R2(config-subif)#interface g0/0/1.40
+R2(config-subif)#standby version 2
+R2(config-subif)#standby 40 ip 172.16.1.193
+
+R2(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.3
+R2(config)#ip dhcp excluded-address 192.168.1.129 192.168.1.131
+R2(config)#ip dhcp excluded-address 172.16.1.1 172.16.1.3
+R2(config)#ip dhcp excluded-address 172.16.1.65 172.16.1.67
+
+R2(config)#ip dhcp pool DHCPTTCVLAN10
+R2(dhcp-config)#network 192.168.1.0 255.255.255.128
+R2(dhcp-config)#default-router 192.168.1.0
+R2(dhcp-config)#dns-server 8.8.8.8
+R2(dhcp-config)#domain-name nttf.co.in
+
+R2(dhcp-config)#ip dhcp pool DHCPTTCVLAN20
+R2(dhcp-config)#network 192.168.1.128 255.255.255.192
+R2(dhcp-config)#default-router 192.168.1.129
+R2(dhcp-config)#dns-server 8.8.8.8
+R2(dhcp-config)#domain-name nttf.co.in
+
+R2(dhcp-config)#ip dhcp pool DHCPNECVLAN10
+R2(dhcp-config)#network 172.16.1.0 255.255.255.192
+R2(dhcp-config)#default-router 172.16.1.1
+R2(dhcp-config)#dns-server 8.8.8.8
+R2(dhcp-config)#domain-name nttf.co.in
+
+R2(dhcp-config)#ip dhcp pool DHCPNECVLAN20
+R2(dhcp-config)#network 172.16.1.64 255.255.255.192
+R2(dhcp-config)#default-router 172.16.1.65
+R2(dhcp-config)#dns-server 8.8.8.8
+R2(dhcp-config)#domain-name nttf.co.in
+R2(dhcp-config)#end
+R2#copy run start
+</pre>
+
+<h3>S1 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#clock set 10:30:15 01 March 2026
+Switch#conf t
+Switch(config)#hostname S1
+S1(config)#no ip domain-lookup
+S1(config)#ip domain-name nttftrg.com
+S1(config)#enable password cisco
+S1(config)#enable secret itsasecret
+S1(config)#service password-encryption
+S1(config)#username admin secret admin
+
+S1(config)#line console 0
+S1(config-line)#logging synchronous
+S1(config-line)#exec-timeout 5
+S1(config-line)#password cisco
+S1(config-line)#login
+
+S1(config-line)#line vty 0 15
+S1(config-line)#transport input ssh
+S1(config-line)#logging synchronous
+S1(config-line)#exec-timeout 5
+S1(config-line)#login local
+
+S1(config-line)#crypto key generate rsa
+1024
+S1(config)#ip ssh version 2
+
+S1(config)#VLAN 10
+S1(config-vlan)#name Students
+S1(config-vlan)#VLAN 20
+S1(config-vlan)#name Faculty
+S1(config-vlan)#VLAN 30
+S1(config-vlan)#name Printers
+S1(config-vlan)#VLAN 40
+S1(config-vlan)#name Management
+S1(config-vlan)#VLAN 99
+S1(config-vlan)#name Native
+S1(config-vlan)#VLAN 999
+S1(config-vlan)#name Parking_Lot
+
+S1(config-vlan)#interface vlan 40
+S1(config-if)#ip address 192.168.1.204 255.255.255.248
+S1(config-if)#exit
+S1(config)#ip default-gateway 192.168.1.201
+
+S1(config)#interface range fa0/23-24,g0/1
+S1(config-if-range)#switchport mode trunk
+
+S1(config-if-range)#switchport nonegotiate
+S1(config-if-range)#switchport trunk native vlan 99
+S1(config-if-range)#switchport trunk allowed vlan 10,20,30,40,99
+
+S1(config-if-range)#interface range fa0/23-24
+S1(config-if-range)#description Etherchannel
+S1(config-if-range)#channel-group 1 mode active
+
+S1(config-if-range)#interface range fa0/3-22,g0/2
+S1(config-if-range)#description Unused Port
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 999
+S1(config-if-range)#shutdown
+
+S1(config-if-range)#interface fa0/1
+S1(config-if)#description Student
+S1(config-if)#switchport mode access
+S1(config-if)#switchport access vlan 10
+
+S1(config-if)#interface fa0/2
+S1(config-if)#description Faculty
+S1(config-if)#switchport mode access
+S1(config-if)#switchport access vlan 20
+S1(config-if)#end
+S1#copy runs start
+</pre>
+
+<h3>S2 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#clock set 10:30:15 01 March 2026
+Switch#conf t
+Switch(config)#hostname S2
+S2(config)#no ip domain-lookup
+S2(config)#ip domain-name nttftrg.com
+S2(config)#enable password cisco
+S2(config)#enable secret itsasecret
+S2(config)#service password-encryption
+S2(config)#username admin secret admin
+
+S2(config)#line console 0
+S2(config-line)#logging synchronous
+S2(config-line)#exec-timeout 5
+S2(config-line)#password cisco
+S2(config-line)#login
+
+S2(config-line)#line vty 0 15
+S2(config-line)#transport input ssh
+S2(config-line)#logging synchronous
+S2(config-line)#exec-timeout 5
+S2(config-line)#login local
+
+S2(config-line)#crypto key generate rsa
+1024
+S2(config)#ip ssh version 2
+
+S2(config)#VLAN 10
+S2(config-vlan)#name Students
+S2(config-vlan)#VLAN 20
+S2(config-vlan)#name Faculty
+S2(config-vlan)#VLAN 30
+S2(config-vlan)#name Printers
+S2(config-vlan)#VLAN 40
+S2(config-vlan)#name Management
+S2(config-vlan)#VLAN 99
+S2(config-vlan)#name Native
+S2(config-vlan)#VLAN 999
+S2(config-vlan)#name Parking_Lot
+
+S2(config-vlan)#interface vlan 40
+S2(config-if)#ip address 192.168.1.205 255.255.255.248
+S2(config-if)#exit
+S2(config)#ip default-gateway 192.168.1.201
+
+S2(config)#interface range fa0/23-24,g0/1
+S2(config-if-range)#switchport mode trunk
+
+S2(config-if-range)#switchport nonegotiate
+S2(config-if-range)#switchport trunk native vlan 99
+S2(config-if-range)#switchport trunk allowed vlan 10,20,30,40,99
+
+S2(config-if-range)#interface range fa0/23-24
+S2(config-if-range)#description Etherchannel
+S2(config-if-range)#channel-group 1 mode active
+
+S2(config-if-range)#interface range fa0/2-22,g0/2
+S2(config-if-range)#description Unused Port
+S2(config-if-range)#switchport mode access
+S2(config-if-range)#switchport access vlan 999
+S2(config-if-range)#shutdown
+
+S2(config-if-range)#interface fa0/1
+S2(config-if)#description Printer
+S2(config-if)#switchport mode access
+S2(config-if)#switchport access vlan 30
+S2(config-if)#end
+S2#copy run start
+</pre>
+
+<h3>S3 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#clock set 10:30:15 01 March 2026
+Switch#conf t
+Switch(config)#hostname S3
+S3(config)#no ip domain-lookup
+S3(config)#ip domain-name nttftrg.com
+S3(config)#enable password cisco
+S3(config)#enable secret itsasecret
+S3(config)#service password-encryption
+S3(config)#username admin secret admin
+
+S3(config)#line console 0
+S3(config-line)#logging synchronous
+S3(config-line)#exec-timeout 5
+S3(config-line)#password cisco
+S3(config-line)#login
+
+S3(config-line)#line vty 0 15
+S3(config-line)#transport input ssh
+S3(config-line)#logging synchronous
+S3(config-line)#exec-timeout 5
+S3(config-line)#login local
+
+S3(config-line)#crypto key generate rsa
+1024
+S3(config)#ip ssh version 2
+
+S3(config)#VLAN 10
+S3(config-vlan)#name Students
+S3(config-vlan)#VLAN 20
+S3(config-vlan)#name Faculty
+S3(config-vlan)#VLAN 30
+S3(config-vlan)#name Printers
+S3(config-vlan)#VLAN 40
+S3(config-vlan)#name Management
+S3(config-vlan)#VLAN 99
+S3(config-vlan)#name Native
+S3(config-vlan)#VLAN 999
+S3(config-vlan)#name Parking_Lot
+
+S3(config-vlan)#interface vlan 40
+S3(config-if)#ip address 172.16.1.196 255.255.255.192
+S3(config-if)#exit
+S3(config)#ip default-gateway 172.16.1.193
+
+S3(config)#interface range fa0/23-24,g0/1
+S3(config-if-range)#switchport mode trunk
+S3(config-if-range)#switchport nonegotiate
+S3(config-if-range)#switchport trunk native vlan 99
+S3(config-if-range)#switchport trunk allowed vlan 10,20,30,40,99
+
+S3(config)#interface GigabitEthernet0/2
+S3(config-if)#switchport mode access
+S3(config-if)#description Student VLAN10
+S3(config-if)#switchport access vlan 10
+
+S3(config-if)#interface range fa0/23-24
+S3(config-if-range)#description Etherchannel
+S3(config-if-range)#channel-group 1 mode desirable
+
+S3(config-if-range)#interface range fa0/1-22
+S3(config-if-range)#description Unused Port
+S3(config-if-range)#switchport mode access
+S3(config-if-range)#switchport access vlan 999
+S3(config-if-range)#shutdown
+S3(config-if-range)#end
+S3#copy run start
+</pre>
+
+<h3>S4 CONFIGURATION</h3>
+<pre>
+Switch>enable
+Switch#clock set 10:30:15 01 March 2026
+Switch#conf t
+Switch(config)#hostname S4
+S4(config)#no ip domain-lookup
+S4(config)#ip domain-name nttftrg.com
+S4(config)#enable password cisco
+S4(config)#enable secret itsasecret
+S4(config)#service password-encryption
+S4(config)#username admin secret admin
+
+S4(config)#line console 0
+S4(config-line)#logging synchronous
+S4(config-line)#exec-timeout 5
+S4(config-line)#password cisco
+S4(config-line)#login
+
+S4(config-line)#line vty 0 15
+S4(config-line)#transport input ssh
+S4(config-line)#logging synchronous
+S4(config-line)#exec-timeout 5
+S4(config-line)#login local
+
+S4(config-line)#crypto key generate rsa
+1024
+S4(config)#ip ssh version 2
+
+S4(config)#VLAN 10
+S4(config-vlan)#name Students
+S4(config-vlan)#VLAN 20
+S4(config-vlan)#name Faculty
+S4(config-vlan)#VLAN 30
+S4(config-vlan)#name Printers
+S4(config-vlan)#VLAN 40
+S4(config-vlan)#name Management
+S4(config-vlan)#VLAN 99
+S4(config-vlan)#name Native
+S4(config-vlan)#VLAN 999
+S4(config-vlan)#name Parking_Lot
+
+S4(config-vlan)#interface vlan 40
+S4(config-if)#ip address 172.16.1.197 255.255.255.192
+S4(config-if)#exit
+S4(config-vlan)#ip default-gateway 172.16.1.193
+
+S4(config-vlan)#interface range fa0/23-24,g0/1
+S4(config-if-range)#switchport mode trunk
+S4(config-if-range)#switchport nonegotiate
+S4(config-if-range)#switchport trunk native vlan 99
+S4(config-if-range)#switchport trunk allowed vlan 10,20,30,40,99
+
+S4(config-if-range)#interface fa0/1
+S4(config-if)#description Faculty VLAN20
+S4(config-if)#switchport mode access
+S4(config-if)#switchport access vlan 20
+
+S4(config-if)#interface fa0/2
+S4(config-if)#description Printer 30
+S4(config-if)#switchport mode access
+S4(config-if)#switchport access vlan 30
+
+S4(config-if)#interface range fa0/23-24
+S4(config-if-range)#description Etherchannel
+S4(config-if-range)#channel-group 1 mode desirable
+
+S4(config-if-range)#interface range fa0/3-22,g0/2
+S4(config-if-range)#description Unused Port
+S4(config-if-range)#switchport mode access
+S4(config-if-range)#switchport access vlan 999
+S4(config-if-range)#shutdown
+S4(config-if-range)#end
+S4#copy run start
+</pre>
+
+<h3>Student_PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> DHCP
+</pre>
+
+<h3>Faculty_PC1 IP CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> DHCP
+</pre>
+
+<h3>Printer1 CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> 192.168.1.196
+<b>Subnet Mask:</b> 255.255.255.248
+<b>Default-Gateway:</b> 192.168.1.193
+</pre>
+
+<h3>Student_Laptop IP CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> DHCP
+</pre>
+
+<h3>Faculty_PC2 IP CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> DHCP
+</pre>
+
+<h3>Printer2 IP CONFIGURATION</h3>
+<pre>
+<b>IP Address:</b> 172.16.1.132
+<b>Subnet Mask:</b> 255.255.255.192
+<b>Default-Gateway:</b> 172.16.1.129
+</pre>
+
+<h3>SHOW COMMANDS USED FOR VERIFICATION</h3>
+<pre>
+R1#show standby
+R1#show standby brief
+R1#show ip interface brief
+R1#show ip route
+R1#show ip dhcp binding
+S1#show vlan brief
+S1#show interfaces trunk
+S1#show etherchannel summary
+</pre>
+
+<b>Note:</b> To verify HSRP functionality, shut down Router R1 (Active) and confirm that Router R2 transitions to the Active state, ensuring uninterrupted communication between network devices.
+
+<h3>RESULT</h3>
+<p>Successfully designed and configured a complete network topology with IPv4/IPv6 addressing, secure SSH access, VLAN segmentation, wireless connectivity, EtherChannel, DHCP, HSRP, and Inter-VLAN routing.</p>
 
 </div>
 <div class="button-container">
